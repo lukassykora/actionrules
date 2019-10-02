@@ -1,0 +1,1311 @@
+ID	Age	Embarked	Fare	Pclass	Sex	Survived	
+1	<16.13336;32.10002)	S	very high	1	female	1	
+2	<0.1667;16.13336)	S	very high	1	male	1	
+3	<0.1667;16.13336)	S	very high	1	female	0	
+4	<16.13336;32.10002)	S	very high	1	male	0	
+5	<16.13336;32.10002)	S	very high	1	female	0	
+6	<32.10002;48.06668)	S	higher	1	male	1	
+7	<48.06668;64.03334)	S	very high	1	female	1	
+8	<32.10002;48.06668)	S	very low	1	male	0	
+9	<48.06668;64.03334)	S	very high	1	female	1	
+10	<64.03334;80>	C	very high	1	male	0	
+11	<32.10002;48.06668)	C	very high	1	male	0	
+12	<16.13336;32.10002)	C	very high	1	female	1	
+13	<16.13336;32.10002)	C	very high	1	female	1	
+14	<16.13336;32.10002)	S	very high	1	female	1	
+15	<64.03334;80>	S	higher	1	male	1	
+16		S	higher	1	male	0	
+17	<16.13336;32.10002)	C	very high	1	male	0	
+18	<48.06668;64.03334)	C	very high	1	female	1	
+19	<16.13336;32.10002)	C	very high	1	female	1	
+20	<32.10002;48.06668)	C	very high	1	male	0	
+21	<32.10002;48.06668)	S	very high	1	male	1	
+22	<32.10002;48.06668)	S	very high	1	female	1	
+23	<16.13336;32.10002)	C	higher	1	male	1	
+24	<32.10002;48.06668)	C	very high	1	female	1	
+25	<16.13336;32.10002)	S	very high	1	female	1	
+26	<16.13336;32.10002)	C	higher	1	male	0	
+27	<16.13336;32.10002)	C	very high	1	male	1	
+28	<16.13336;32.10002)	C	very high	1	female	1	
+29	<32.10002;48.06668)	S	very high	1	female	1	
+30	<16.13336;32.10002)	S	higher	1	male	1	
+31	<32.10002;48.06668)	S	higher	1	male	0	
+32	<32.10002;48.06668)	C	higher	1	male	1	
+33	<16.13336;32.10002)	S	very high	1	female	1	
+34	<48.06668;64.03334)	S	higher	1	female	1	
+35	<32.10002;48.06668)	S	higher	1	male	0	
+36	<32.10002;48.06668)	C	very high	1	female	1	
+37	<16.13336;32.10002)	S	very high	1	female	1	
+38		S	higher	1	male	1	
+39	<32.10002;48.06668)	S	higher	1	male	0	
+40	<32.10002;48.06668)	C	very high	1	male	0	
+41		C	higher	1	male	0	
+42	<32.10002;48.06668)	C	higher	1	female	1	
+43	<48.06668;64.03334)	S	very high	1	female	1	
+44	<48.06668;64.03334)	C	very high	1	female	1	
+45	<32.10002;48.06668)	C	very high	1	female	1	
+46	<32.10002;48.06668)	S	higher	1	male	0	
+47		S	higher	1	male	0	
+48	<32.10002;48.06668)	S	higher	1	male	1	
+49	<48.06668;64.03334)	C	higher	1	female	1	
+50	<32.10002;48.06668)	C	very high	1	male	1	
+51	<48.06668;64.03334)	C	very high	1	female	1	
+52	<32.10002;48.06668)	S	very low	1	male	0	
+53	<16.13336;32.10002)	S	very high	1	male	0	
+54	<16.13336;32.10002)	S	very high	1	male	0	
+55	<0.1667;16.13336)	S	very high	1	male	1	
+56	<0.1667;16.13336)	S	very high	1	female	1	
+57	<32.10002;48.06668)	S	very high	1	male	1	
+58	<32.10002;48.06668)	S	very high	1	female	1	
+59	<48.06668;64.03334)	S	higher	1	male	0	
+60		C	higher	1	female	1	
+61	<32.10002;48.06668)	S	very high	1	male	0	
+62	<64.03334;80>	S	very high	1	female	1	
+63	<32.10002;48.06668)	S	very high	1	male	0	
+64	<32.10002;48.06668)	S	very high	1	female	1	
+65	<16.13336;32.10002)	S	very high	1	male	1	
+66	<32.10002;48.06668)	S	very high	1	female	1	
+67	<32.10002;48.06668)	C	very high	1	female	1	
+68	<16.13336;32.10002)	S	very high	1	female	1	
+69	<32.10002;48.06668)	C	higher	1	male	1	
+70		S	very high	1	female	1	
+71		S	very low	1	male	0	
+72	<16.13336;32.10002)	C	very high	1	male	0	
+73	<16.13336;32.10002)	C	very high	1	female	1	
+74	<16.13336;32.10002)	S	very high	1	female	1	
+75		S	very high	1	male	0	
+76	<32.10002;48.06668)	S	higher	1	male	0	
+77	<32.10002;48.06668)	C	very high	1	female	1	
+78	<32.10002;48.06668)	C	very high	1	male	0	
+79	<48.06668;64.03334)	C	very high	1	female	1	
+80	<48.06668;64.03334)	S	higher	1	female	1	
+81		S	higher	1	male	0	
+82	<64.03334;80>	S	very high	1	male	0	
+83	<32.10002;48.06668)	S	very high	1	female	1	
+84	<48.06668;64.03334)	S	higher	1	female	1	
+85	<32.10002;48.06668)	C	very high	1	male	0	
+86	<32.10002;48.06668)	C	very high	1	female	1	
+87	<48.06668;64.03334)	S	higher	1	male	1	
+88	<16.13336;32.10002)	S	higher	1	male	1	
+89	<32.10002;48.06668)	S	very high	1	female	1	
+90	<16.13336;32.10002)	S	very high	1	male	0	
+91	<16.13336;32.10002)	S	very high	1	female	1	
+92	<16.13336;32.10002)	S	very high	1	male	1	
+93	<16.13336;32.10002)	S	very high	1	female	1	
+94	<48.06668;64.03334)	S	very high	1	male	1	
+95	<0.1667;16.13336)	S	very high	1	male	1	
+96	<48.06668;64.03334)	S	very high	1	female	1	
+97	<48.06668;64.03334)	C	very high	1	male	0	
+98	<16.13336;32.10002)	C	very high	1	female	1	
+99	<32.10002;48.06668)	C	very high	1	female	1	
+100	<32.10002;48.06668)	C	higher	1	female	1	
+101	<48.06668;64.03334)	C	very high	1	male	1	
+102	<32.10002;48.06668)	C	higher	1	male	0	
+103	<16.13336;32.10002)	C	very high	1	female	1	
+104	<32.10002;48.06668)	C	very high	1	female	1	
+105	<48.06668;64.03334)	C	very high	1	female	1	
+106	<32.10002;48.06668)	C	higher	1	female	0	
+107		S	very high	1	male	0	
+108		S	higher	1	female	1	
+109		C	very high	1	female	1	
+110	<32.10002;48.06668)	S	higher	1	male	1	
+111	<16.13336;32.10002)	C	higher	1	male	0	
+112	<16.13336;32.10002)	S	very high	1	female	1	
+113	<16.13336;32.10002)	S	very high	1	female	1	
+114	<16.13336;32.10002)	S	very high	1	female	1	
+115	<16.13336;32.10002)	S	very high	1	male	0	
+116	<48.06668;64.03334)	S	very high	1	male	0	
+117	<48.06668;64.03334)	S	very high	1	female	1	
+118	<16.13336;32.10002)	C	very high	1	female	1	
+119		S	higher	1	male	0	
+120	<48.06668;64.03334)	S	very high	1	male	1	
+121	<32.10002;48.06668)	C	higher	1	male	1	
+122		S	very high	1	female	1	
+123	<16.13336;32.10002)	C	very high	1	female	1	
+124	<48.06668;64.03334)	C	very high	1	male	1	
+125	<32.10002;48.06668)	C	very high	1	female	1	
+126		S	very low	1	male	0	
+127	<32.10002;48.06668)	S	very high	1	male	0	
+128	<32.10002;48.06668)	S	very high	1	female	1	
+129	<32.10002;48.06668)	S	higher	1	male	0	
+130	<32.10002;48.06668)	C	very high	1	female	1	
+131	<16.13336;32.10002)	C	very high	1	female	1	
+132	<32.10002;48.06668)	C	very high	1	female	1	
+133	<16.13336;32.10002)	C	very high	1	male	0	
+134	<48.06668;64.03334)	C	very high	1	male	1	
+135		C	very high	1	female	1	
+136	<64.03334;80>	C	higher	1	male	0	
+137	<48.06668;64.03334)	C	higher	1	male	1	
+138	<16.13336;32.10002)	S	higher	1	female	1	
+139	<32.10002;48.06668)	S	very high	1	male	0	
+140	<48.06668;64.03334)	S	very high	1	female	1	
+141	<16.13336;32.10002)	C	very high	1	male	1	
+142	<32.10002;48.06668)	C	very high	1	female	1	
+143	<32.10002;48.06668)	C	very high	1	male	0	
+144	<16.13336;32.10002)	C	very high	1	male	1	
+145	<16.13336;32.10002)	C	very high	1	female	1	
+146	<32.10002;48.06668)	C	very high	1	male	1	
+147	<48.06668;64.03334)	C	very high	1	female	1	
+148		S	very high	1	male	0	
+149	<32.10002;48.06668)	S	very high	1	male	0	
+150	<32.10002;48.06668)	S	very high	1	female	1	
+151	<32.10002;48.06668)	S	very low	1	male	0	
+152	<16.13336;32.10002)	C	very high	1	male	1	
+153		S	higher	1	male	1	
+154	<16.13336;32.10002)	C	very high	1	female	1	
+155	<48.06668;64.03334)	S	very high	1	male	0	
+156	<48.06668;64.03334)	S	very high	1	female	1	
+157	<32.10002;48.06668)	S	very high	1	male	0	
+158		S	very high	1	male	0	
+159	<48.06668;64.03334)	S	very high	1	male	0	
+160	<0.1667;16.13336)	C	very high	1	female	1	
+161	<32.10002;48.06668)	C	very high	1	female	1	
+162	<48.06668;64.03334)	S	very high	1	female	1	
+163	<32.10002;48.06668)	S	very high	1	male	0	
+164	<32.10002;48.06668)	S	very high	1	female	1	
+165	<32.10002;48.06668)	C	higher	1	male	1	
+166	<32.10002;48.06668)	S	very high	1	male	1	
+167		C	higher	1	male	0	
+168	<32.10002;48.06668)	S	very high	1	female	1	
+169	<32.10002;48.06668)		very high	1	female	1	
+170	<48.06668;64.03334)	C	higher	1	female	0	
+171	<48.06668;64.03334)	S	very low	1	male	1	
+172	<32.10002;48.06668)	S	higher	1	male	0	
+173	<48.06668;64.03334)	S	higher	1	male	0	
+174	<32.10002;48.06668)	C	very high	1	male	0	
+175	<48.06668;64.03334)	C	higher	1	male	0	
+176	<32.10002;48.06668)	S	very high	1	male	0	
+177		S	very high	1	female	1	
+178	<32.10002;48.06668)	S	very high	1	male	1	
+179	<32.10002;48.06668)	S	very high	1	female	1	
+180		S	higher	1	male	0	
+181	<32.10002;48.06668)	S	very high	1	female	1	
+182	<48.06668;64.03334)	S	higher	1	female	1	
+183	<16.13336;32.10002)	C	very high	1	female	1	
+184	<32.10002;48.06668)	C	very high	1	male	1	
+185		C	higher	1	male	0	
+186	<32.10002;48.06668)	S	higher	1	male	0	
+187	<48.06668;64.03334)	C	higher	1	female	1	
+188	<0.1667;16.13336)	S	higher	1	female	1	
+189	<48.06668;64.03334)	S	higher	1	female	1	
+190	<16.13336;32.10002)	S	higher	1	male	0	
+191	<16.13336;32.10002)	S	very high	1	female	1	
+192	<16.13336;32.10002)	S	very high	1	male	0	
+193	<48.06668;64.03334)	C	very high	1	female	1	
+194	<0.1667;16.13336)	S	very high	1	female	1	
+195	<16.13336;32.10002)	S	higher	1	male	0	
+196	<0.1667;16.13336)	S	very high	1	female	1	
+197		C	higher	1	male	1	
+198	<16.13336;32.10002)	S	very high	1	male	0	
+199	<16.13336;32.10002)	S	very high	1	female	1	
+200	<16.13336;32.10002)	C	very high	1	female	1	
+201	<32.10002;48.06668)	C	very high	1	male	0	
+202	<48.06668;64.03334)	S	very high	1	male	0	
+203	<32.10002;48.06668)	S	higher	1	male	1	
+204	<16.13336;32.10002)	C	very high	1	male	0	
+205		C	very high	1	female	1	
+206	<64.03334;80>	S	higher	1	male	0	
+207	<32.10002;48.06668)	Q	very high	1	male	0	
+208	<32.10002;48.06668)	Q	very high	1	female	1	
+209	<32.10002;48.06668)	Q	very high	1	female	1	
+210	<16.13336;32.10002)	C	very high	1	male	1	
+211	<48.06668;64.03334)	S	higher	1	male	0	
+212	<32.10002;48.06668)	S	very high	1	male	0	
+213	<32.10002;48.06668)	C	higher	1	male	0	
+214	<16.13336;32.10002)	C	very high	1	female	1	
+215	<16.13336;32.10002)	C	very high	1	female	1	
+216	<48.06668;64.03334)	C	very high	1	male	0	
+217	<16.13336;32.10002)	S	higher	1	female	1	
+218	<48.06668;64.03334)	S	higher	1	male	0	
+219	<32.10002;48.06668)	C	very high	1	female	1	
+220		C	higher	1	male	1	
+221	<16.13336;32.10002)	C	very high	1	female	1	
+222	<64.03334;80>	C	very high	1	male	0	
+223	<16.13336;32.10002)	C	higher	1	male	0	
+224		S	very low	1	male	0	
+225	<32.10002;48.06668)	S	higher	1	male	0	
+226	<16.13336;32.10002)	S	very high	1	male	0	
+227	<16.13336;32.10002)	S	very high	1	male	0	
+228	<16.13336;32.10002)	S	very high	1	female	1	
+229	<16.13336;32.10002)	C	very high	1	male	0	
+230	<16.13336;32.10002)	C	very high	1	female	1	
+231	<16.13336;32.10002)	S	very high	1	female	1	
+232	<48.06668;64.03334)	S	higher	1	male	1	
+233	<32.10002;48.06668)	S	very high	1	male	0	
+234	<48.06668;64.03334)	C	very high	1	female	1	
+235	<32.10002;48.06668)	S	very low	1	male	0	
+236		S	higher	1	male	1	
+237	<16.13336;32.10002)	C	very high	1	male	0	
+238		C	very high	1	male	0	
+239	<32.10002;48.06668)	S	very high	1	female	1	
+240	<16.13336;32.10002)	S	very high	1	male	0	
+241	<32.10002;48.06668)	S	higher	1	male	1	
+242		S	very high	1	male	0	
+243	<32.10002;48.06668)	C	higher	1	female	1	
+244	<32.10002;48.06668)	C	very high	1	male	0	
+245	<32.10002;48.06668)	C	higher	1	male	0	
+246	<32.10002;48.06668)	S	very high	1	female	1	
+247	<48.06668;64.03334)	C	very high	1	male	0	
+248	<48.06668;64.03334)	C	very high	1	female	1	
+249	<32.10002;48.06668)	S	higher	1	male	0	
+250	<0.1667;16.13336)	C	very high	1	male	1	
+251	<16.13336;32.10002)	C	very high	1	female	1	
+252	<16.13336;32.10002)	C	very high	1	female	1	
+253	<48.06668;64.03334)	C	very high	1	male	0	
+254	<32.10002;48.06668)	C	very high	1	female	1	
+255		S	higher	1	male	1	
+256	<16.13336;32.10002)	C	very high	1	female	1	
+257		S	higher	1	male	1	
+258	<32.10002;48.06668)	C	very high	1	female	1	
+259	<16.13336;32.10002)	C	higher	1	female	1	
+260	<32.10002;48.06668)	S	higher	1	male	1	
+261	<32.10002;48.06668)	S	very high	1	female	1	
+262	<32.10002;48.06668)	S	higher	1	male	1	
+263	<48.06668;64.03334)	S	very high	1	male	0	
+264	<32.10002;48.06668)	S	very high	1	female	1	
+265	<48.06668;64.03334)	C	higher	1	male	1	
+266	<16.13336;32.10002)	S	higher	1	male	1	
+267	<48.06668;64.03334)	S	higher	1	male	0	
+268	<48.06668;64.03334)	C	higher	1	male	0	
+269	<16.13336;32.10002)	S	very high	1	male	0	
+270		S	higher	1	male	0	
+271	<16.13336;32.10002)	S	very high	1	female	1	
+272	<16.13336;32.10002)	S	very high	1	male	1	
+273	<16.13336;32.10002)	S	very high	1	female	1	
+274	<0.1667;16.13336)	C	very high	1	male	1	
+275	<32.10002;48.06668)	C	very high	1	male	1	
+276	<32.10002;48.06668)	C	very high	1	female	1	
+277	<48.06668;64.03334)	C	very high	1	male	0	
+278		C	very high	1	female	1	
+279	<16.13336;32.10002)	C	higher	1	male	1	
+280	<48.06668;64.03334)	S	higher	1	male	0	
+281	<48.06668;64.03334)	C	very high	1	male	1	
+282	<32.10002;48.06668)	C	very high	1	female	1	
+283	<48.06668;64.03334)	C	very high	1	female	1	
+284		C	higher	1	male	0	
+285	<48.06668;64.03334)		very high	1	female	1	
+286	<64.03334;80>	S	very high	1	male	0	
+287	<48.06668;64.03334)	S	very high	1	female	0	
+288	<48.06668;64.03334)	S	higher	1	male	0	
+289	<32.10002;48.06668)	S	higher	1	female	1	
+290	<16.13336;32.10002)	S	very high	1	female	1	
+291	<48.06668;64.03334)	S	very high	1	male	0	
+292	<32.10002;48.06668)	S	very high	1	female	1	
+293	<32.10002;48.06668)	S	very high	1	male	1	
+294		S	very high	1	female	1	
+295	<48.06668;64.03334)	C	very high	1	male	0	
+296	<16.13336;32.10002)	C	very high	1	male	1	
+297	<32.10002;48.06668)	C	very high	1	female	1	
+298		C	very high	1	female	1	
+299	<16.13336;32.10002)	C	higher	1	male	1	
+300	<32.10002;48.06668)	C	higher	1	male	0	
+301	<48.06668;64.03334)	S	higher	1	male	0	
+302	<32.10002;48.06668)	S	higher	1	male	0	
+303	<32.10002;48.06668)	C	very high	1	female	1	
+304	<48.06668;64.03334)	C	very high	1	male	0	
+305	<48.06668;64.03334)	C	very high	1	female	1	
+306	<48.06668;64.03334)	S	higher	1	male	0	
+307	<48.06668;64.03334)	S	very high	1	male	0	
+308	<16.13336;32.10002)	S	very high	1	male	0	
+309	<48.06668;64.03334)	C	very high	1	female	1	
+310	<16.13336;32.10002)	S	very high	1	female	1	
+311	<48.06668;64.03334)	S	very high	1	male	0	
+312	<32.10002;48.06668)	S	very high	1	female	1	
+313	<48.06668;64.03334)	C	very high	1	male	0	
+314	<16.13336;32.10002)	C	very high	1	male	0	
+315	<48.06668;64.03334)	C	very high	1	female	1	
+316	<16.13336;32.10002)	S	higher	1	female	1	
+317	<48.06668;64.03334)	C	very high	1	male	0	
+318	<16.13336;32.10002)	C	very high	1	male	1	
+319		S	higher	1	male	0	
+320	<16.13336;32.10002)	C	very high	1	female	1	
+321		S	higher	1	male	1	
+322	<48.06668;64.03334)	S	higher	1	male	0	
+323	<32.10002;48.06668)	C	very high	1	female	1	
+324	<16.13336;32.10002)	C	higher	2	male	0	
+325	<16.13336;32.10002)	C	higher	2	female	1	
+326	<16.13336;32.10002)	S	avg	2	male	0	
+327	<16.13336;32.10002)	S	avg	2	male	0	
+328	<16.13336;32.10002)	S	avg	2	male	0	
+329	<32.10002;48.06668)	S	higher	2	male	0	
+330	<32.10002;48.06668)	S	higher	2	female	1	
+331	<48.06668;64.03334)	S	avg	2	male	0	
+332	<16.13336;32.10002)	S	avg	2	male	0	
+333	<16.13336;32.10002)	S	avg	2	male	0	
+334	<32.10002;48.06668)	S	avg	2	female	1	
+335	<16.13336;32.10002)	S	avg	2	male	0	
+336	<48.06668;64.03334)	S	avg	2	male	0	
+337	<16.13336;32.10002)	S	higher	2	male	1	
+338	<16.13336;32.10002)	S	higher	2	female	1	
+339	<16.13336;32.10002)	S	higher	2	male	0	
+340	<0.1667;16.13336)	S	higher	2	male	1	
+341	<0.1667;16.13336)	S	higher	2	female	1	
+342	<0.1667;16.13336)	S	higher	2	female	1	
+343	<32.10002;48.06668)	S	higher	2	female	1	
+344	<32.10002;48.06668)	S	avg	2	male	1	
+345	<16.13336;32.10002)	S	avg	2	female	1	
+346	<16.13336;32.10002)	S	avg	2	male	0	
+347	<16.13336;32.10002)	S	avg	2	male	0	
+348	<32.10002;48.06668)	S	avg	2	male	0	
+349	<16.13336;32.10002)	S	avg	2	male	0	
+350	<16.13336;32.10002)	S	avg	2	female	1	
+351	<0.1667;16.13336)	S	higher	2	female	1	
+352	<48.06668;64.03334)	S	higher	2	male	0	
+353	<32.10002;48.06668)	S	higher	2	female	1	
+354	<16.13336;32.10002)	S	higher	2	female	1	
+355	<16.13336;32.10002)	S	higher	2	male	0	
+356	<32.10002;48.06668)	S	avg	2	female	1	
+357	<16.13336;32.10002)	S	avg	2	male	0	
+358	<32.10002;48.06668)	S	avg	2	male	0	
+359	<32.10002;48.06668)	S	avg	2	female	1	
+360	<0.1667;16.13336)	S	higher	2	male	1	
+361	<16.13336;32.10002)	S	higher	2	male	1	
+362	<16.13336;32.10002)	S	higher	2	female	1	
+363	<32.10002;48.06668)	S	avg	2	female	1	
+364		S	very low	2	male	0	
+365	<16.13336;32.10002)	S	avg	2	male	0	
+366	<32.10002;48.06668)	S	higher	2	female	0	
+367	<48.06668;64.03334)	S	higher	2	male	0	
+368	<48.06668;64.03334)	S	avg	2	male	0	
+369	<32.10002;48.06668)	S	higher	2	male	0	
+370	<16.13336;32.10002)	S	higher	2	female	0	
+371	<16.13336;32.10002)	S	higher	2	female	1	
+372	<32.10002;48.06668)	S	higher	2	female	1	
+373	<16.13336;32.10002)	S	higher	2	male	0	
+374	<16.13336;32.10002)	S	higher	2	female	1	
+375	<16.13336;32.10002)	S	avg	2	male	0	
+376	<16.13336;32.10002)	S	avg	2	male	0	
+377	<16.13336;32.10002)	S	avg	2	male	1	
+378	<0.1667;16.13336)	S	higher	2	female	1	
+379	<16.13336;32.10002)	S	higher	2	male	0	
+380	<16.13336;32.10002)	S	higher	2	female	1	
+381	<16.13336;32.10002)	S	avg	2	female	1	
+382	<16.13336;32.10002)	S	avg	2	female	0	
+383		S	avg	2	female	0	
+384	<16.13336;32.10002)	S	avg	2	male	0	
+385		S	very low	2	male	0	
+386	<0.1667;16.13336)	S	higher	2	male	1	
+387	<16.13336;32.10002)	S	very high	2	male	0	
+388	<32.10002;48.06668)	S	higher	2	female	1	
+389	<16.13336;32.10002)	S	avg	2	female	1	
+390	<16.13336;32.10002)	S	avg	2	male	0	
+391	<16.13336;32.10002)	S	very high	2	male	0	
+392	<16.13336;32.10002)	C	higher	2	male	0	
+393	<16.13336;32.10002)	C	higher	2	female	1	
+394	<16.13336;32.10002)	S	higher	2	male	0	
+395	<16.13336;32.10002)	S	very high	2	male	0	
+396	<16.13336;32.10002)	S	higher	2	female	1	
+397	<32.10002;48.06668)	S	higher	2	female	1	
+398	<48.06668;64.03334)	S	higher	2	male	0	
+399	<0.1667;16.13336)	S	higher	2	male	1	
+400	<32.10002;48.06668)	S	higher	2	male	0	
+401	<32.10002;48.06668)	S	higher	2	female	1	
+402	<16.13336;32.10002)	C	avg	2	female	1	
+403	<16.13336;32.10002)	C	avg	2	female	1	
+404	<16.13336;32.10002)	S	avg	2	male	0	
+405	<16.13336;32.10002)	S	avg	2	male	0	
+406	<16.13336;32.10002)	S	avg	2	male	0	
+407	<32.10002;48.06668)	S	higher	2	male	0	
+408	<16.13336;32.10002)	S	higher	2	female	1	
+409	<16.13336;32.10002)	S	avg	2	male	0	
+410	<32.10002;48.06668)	S	avg	2	male	0	
+411		S	very low	2	male	0	
+412	<32.10002;48.06668)	S	avg	2	female	0	
+413	<32.10002;48.06668)	S	higher	2	male	0	
+414	<32.10002;48.06668)	S	avg	2	male	0	
+415	<32.10002;48.06668)	S	avg	2	male	0	
+416	<32.10002;48.06668)	S	avg	2	female	1	
+417	<0.1667;16.13336)	S	higher	2	male	0	
+418	<16.13336;32.10002)	S	avg	2	male	0	
+419	<32.10002;48.06668)	S	avg	2	male	0	
+420	<16.13336;32.10002)	S	avg	2	male	0	
+421	<16.13336;32.10002)	S	avg	2	male	0	
+422	<16.13336;32.10002)	S	avg	2	male	0	
+423	<16.13336;32.10002)	S	avg	2	male	0	
+424	<32.10002;48.06668)	S	avg	2	male	0	
+425	<16.13336;32.10002)	S	avg	2	male	0	
+426	<48.06668;64.03334)	S	avg	2	male	0	
+427	<16.13336;32.10002)	S	avg	2	male	0	
+428	<0.1667;16.13336)	S	avg	2	male	1	
+429	<16.13336;32.10002)	S	avg	2	female	1	
+430	<32.10002;48.06668)	S	avg	2	male	0	
+431	<0.1667;16.13336)	S	higher	2	female	1	
+432	<16.13336;32.10002)	S	higher	2	male	0	
+433	<48.06668;64.03334)	S	avg	2	male	1	
+434	<16.13336;32.10002)	S	avg	2	male	0	
+435	<0.1667;16.13336)	S	higher	2	female	1	
+436	<32.10002;48.06668)	S	higher	2	male	0	
+437	<32.10002;48.06668)	S	higher	2	female	1	
+438	<16.13336;32.10002)	S	very high	2	female	1	
+439	<16.13336;32.10002)	S	very high	2	female	1	
+440	<48.06668;64.03334)	S	very high	2	male	0	
+441	<32.10002;48.06668)	S	very high	2	female	1	
+442	<48.06668;64.03334)	S	avg	2	female	1	
+443	<16.13336;32.10002)	S	very high	2	male	0	
+444	<16.13336;32.10002)	S	very high	2	male	0	
+445	<16.13336;32.10002)	S	very high	2	male	0	
+446	<16.13336;32.10002)	S	avg	2	female	0	
+447	<16.13336;32.10002)	S	higher	2	female	1	
+448	<16.13336;32.10002)	S	avg	2	male	0	
+449	<32.10002;48.06668)	S	avg	2	male	0	
+450	<48.06668;64.03334)	S	higher	2	female	1	
+451	<48.06668;64.03334)	S	avg	2	male	0	
+452	<32.10002;48.06668)	S	higher	2	male	0	
+453	<16.13336;32.10002)	S	higher	2	female	1	
+454	<16.13336;32.10002)	S	very high	2	male	0	
+455	<32.10002;48.06668)	S	avg	2	male	1	
+456	<48.06668;64.03334)	S	higher	2	male	0	
+457	<48.06668;64.03334)	S	higher	2	female	0	
+458	<32.10002;48.06668)	S	avg	2	male	0	
+459	<16.13336;32.10002)	S	avg	2	female	1	
+460	<32.10002;48.06668)	S	higher	2	male	0	
+461	<16.13336;32.10002)	S	higher	2	female	1	
+462	<32.10002;48.06668)	S	avg	2	male	0	
+463	<16.13336;32.10002)	S	higher	2	male	0	
+464	<16.13336;32.10002)	S	higher	2	male	0	
+465	<16.13336;32.10002)	S	avg	2	male	0	
+466	<16.13336;32.10002)	C	avg	2	female	1	
+467	<32.10002;48.06668)	S	higher	2	male	0	
+468	<16.13336;32.10002)	S	higher	2	female	1	
+469	<16.13336;32.10002)	S	avg	2	female	0	
+470		Q	avg	2	female	1	
+471	<32.10002;48.06668)	Q	avg	2	male	0	
+472	<32.10002;48.06668)	S	avg	2	female	1	
+473	<48.06668;64.03334)	Q	avg	2	male	0	
+474		S	very low	2	male	0	
+475	<16.13336;32.10002)	S	avg	2	male	0	
+476	<16.13336;32.10002)	S	higher	2	female	0	
+477	<16.13336;32.10002)	S	higher	2	male	0	
+478		Q	avg	2	male	0	
+479	<0.1667;16.13336)	C	very high	2	female	1	
+480	<0.1667;16.13336)	C	very high	2	female	1	
+481	<16.13336;32.10002)	C	very high	2	male	0	
+482	<16.13336;32.10002)	C	very high	2	female	1	
+483	<16.13336;32.10002)	C	avg	2	female	1	
+484		S	higher	2	female	1	
+485	<32.10002;48.06668)	S	avg	2	female	1	
+486	<32.10002;48.06668)	C	avg	2	male	0	
+487	<16.13336;32.10002)	S	avg	2	male	0	
+488	<48.06668;64.03334)	Q	avg	2	male	0	
+489	<48.06668;64.03334)	S	higher	2	male	0	
+490	<32.10002;48.06668)	S	higher	2	female	1	
+491	<48.06668;64.03334)	S	avg	2	female	0	
+492		C	avg	2	male	0	
+493	<0.1667;16.13336)	C	higher	2	male	1	
+494	<16.13336;32.10002)	C	higher	2	male	0	
+495	<16.13336;32.10002)	C	higher	2	female	1	
+496		C	avg	2	male	0	
+497	<16.13336;32.10002)	S	avg	2	male	0	
+498	<32.10002;48.06668)	S	avg	2	male	0	
+499	<16.13336;32.10002)	S	avg	2	male	0	
+500	<16.13336;32.10002)	S	avg	2	male	0	
+501	<32.10002;48.06668)	S	higher	2	male	0	
+502	<0.1667;16.13336)	S	avg	2	female	1	
+503	<32.10002;48.06668)	S	avg	2	female	1	
+504	<16.13336;32.10002)	S	avg	2	male	1	
+505	<32.10002;48.06668)	S	avg	2	male	0	
+506	<32.10002;48.06668)	S	avg	2	male	0	
+507	<64.03334;80>	S	avg	2	male	0	
+508	<16.13336;32.10002)	S	avg	2	male	0	
+509	<48.06668;64.03334)	S	avg	2	male	0	
+510	<32.10002;48.06668)	S	higher	2	male	0	
+511	<0.1667;16.13336)	S	avg	2	male	0	
+512	<48.06668;64.03334)	Q	lower	2	male	0	
+513	<32.10002;48.06668)	C	higher	2	male	0	
+514	<0.1667;16.13336)	C	higher	2	female	1	
+515	<0.1667;16.13336)	S	higher	2	male	1	
+516	<0.1667;16.13336)	S	higher	2	male	1	
+517	<32.10002;48.06668)	S	higher	2	male	0	
+518	<16.13336;32.10002)	S	avg	2	male	0	
+519	<16.13336;32.10002)	S	higher	2	male	0	
+520	<16.13336;32.10002)	S	avg	2	male	0	
+521	<16.13336;32.10002)	C	avg	2	male	1	
+522	<16.13336;32.10002)	S	avg	2	female	1	
+523	<32.10002;48.06668)	S	avg	2	male	0	
+524	<16.13336;32.10002)	S	avg	2	male	1	
+525		C	avg	2	male	1	
+526	<16.13336;32.10002)	S	avg	2	male	0	
+527	<16.13336;32.10002)	C	avg	2	male	1	
+528	<16.13336;32.10002)	S	avg	2	male	0	
+529		S	very low	2	male	0	
+530	<48.06668;64.03334)	S	higher	2	female	1	
+531	<16.13336;32.10002)	S	avg	2	male	0	
+532		C	avg	2	male	0	
+533	<32.10002;48.06668)	S	avg	2	male	0	
+534	<16.13336;32.10002)	S	avg	2	female	1	
+535	<16.13336;32.10002)	S	higher	2	female	1	
+536	<32.10002;48.06668)	S	avg	2	male	0	
+537	<16.13336;32.10002)	S	avg	2	female	1	
+538	<32.10002;48.06668)	S	avg	2	male	0	
+539	<16.13336;32.10002)	C	avg	2	male	1	
+540	<16.13336;32.10002)	C	avg	2	male	0	
+541	<0.1667;16.13336)	S	higher	2	female	1	
+542	<0.1667;16.13336)	S	higher	2	female	1	
+543	<32.10002;48.06668)	S	higher	2	female	1	
+544	<32.10002;48.06668)	S	avg	2	male	0	
+545	<32.10002;48.06668)	S	avg	2	male	0	
+546	<16.13336;32.10002)	S	avg	2	female	1	
+547	<16.13336;32.10002)	S	avg	2	female	1	
+548	<16.13336;32.10002)	C	avg	2	male	0	
+549	<0.1667;16.13336)	S	avg	2	male	1	
+550	<0.1667;16.13336)	S	avg	2	male	1	
+551	<16.13336;32.10002)	S	avg	2	female	1	
+552	<48.06668;64.03334)	S	avg	2	female	1	
+553	<16.13336;32.10002)	S	avg	2	male	0	
+554	<16.13336;32.10002)	S	avg	2	female	1	
+555	<16.13336;32.10002)	S	avg	2	male	0	
+556	<16.13336;32.10002)	S	avg	2	male	0	
+557	<16.13336;32.10002)	S	higher	2	male	0	
+558	<16.13336;32.10002)	S	higher	2	female	1	
+559	<16.13336;32.10002)	S	avg	2	female	1	
+560	<16.13336;32.10002)	S	higher	2	female	1	
+561	<16.13336;32.10002)	S	avg	2	female	1	
+562	<48.06668;64.03334)	S	avg	2	male	0	
+563	<16.13336;32.10002)	Q	avg	2	female	1	
+564	<32.10002;48.06668)	S	avg	2	male	0	
+565	<32.10002;48.06668)	S	avg	2	female	1	
+566	<16.13336;32.10002)	S	avg	2	male	0	
+567	<32.10002;48.06668)	C	avg	2	male	0	
+568	<16.13336;32.10002)	S	avg	2	male	0	
+569	<16.13336;32.10002)	S	avg	2	male	0	
+570	<0.1667;16.13336)	S	very high	2	male	0	
+571	<48.06668;64.03334)	S	avg	2	female	1	
+572	<16.13336;32.10002)	S	avg	2	male	0	
+573	<16.13336;32.10002)	S	avg	2	female	1	
+574	<16.13336;32.10002)	S	avg	2	female	1	
+575	<16.13336;32.10002)	S	avg	2	male	0	
+576	<16.13336;32.10002)	S	avg	2	female	0	
+577	<32.10002;48.06668)	S	avg	2	male	0	
+578	<16.13336;32.10002)	S	avg	2	female	1	
+579	<16.13336;32.10002)	S	avg	2	male	0	
+580	<16.13336;32.10002)	S	avg	2	male	0	
+581	<16.13336;32.10002)	S	avg	2	female	1	
+582		S	very low	2	male	0	
+583	<0.1667;16.13336)	S	avg	2	female	1	
+584	<32.10002;48.06668)	S	avg	2	female	1	
+585	<32.10002;48.06668)	S	avg	2	female	1	
+586	<16.13336;32.10002)	S	higher	2	male	0	
+587	<16.13336;32.10002)	S	higher	2	female	1	
+588	<0.1667;16.13336)	S	higher	2	male	1	
+589	<0.1667;16.13336)	S	higher	2	female	1	
+590	<16.13336;32.10002)	S	higher	2	female	1	
+591	<0.1667;16.13336)	S	higher	2	female	1	
+592	<0.1667;16.13336)	S	higher	2	female	1	
+593	<32.10002;48.06668)	S	higher	2	male	0	
+594	<32.10002;48.06668)	S	higher	2	female	1	
+595	<64.03334;80>	S	avg	2	male	0	
+596		S	avg	2	male	0	
+597	<16.13336;32.10002)	S	avg	2	male	1	
+598		S	avg	2	male	1	
+599	<16.13336;32.10002)	S	avg	2	female	1	
+600	<16.13336;32.10002)	S	avg	2	female	0	
+601	<32.10002;48.06668)	S	very low	3	male	0	
+602	<0.1667;16.13336)	S	avg	3	male	0	
+603	<0.1667;16.13336)	S	avg	3	male	0	
+604	<32.10002;48.06668)	S	avg	3	female	1	
+605	<0.1667;16.13336)	S	very low	3	female	1	
+606	<16.13336;32.10002)	S	very low	3	male	1	
+607	<16.13336;32.10002)	S	lower	3	male	1	
+608	<16.13336;32.10002)	C	very low	3	female	1	
+609	<16.13336;32.10002)	S	very low	3	male	0	
+610	<16.13336;32.10002)	S	lower	3	male	0	
+611	<32.10002;48.06668)	S	lower	3	female	0	
+612	<0.1667;16.13336)	S	lower	3	male	1	
+613	<16.13336;32.10002)	S	lower	3	female	1	
+614	<16.13336;32.10002)	C	avg	3	male	1	
+615	<16.13336;32.10002)	S	lower	3	male	0	
+616	<16.13336;32.10002)	S	lower	3	male	0	
+617	<16.13336;32.10002)	S	very low	3	male	0	
+618	<16.13336;32.10002)	S	very low	3	male	0	
+619	<32.10002;48.06668)	S	lower	3	male	0	
+620	<16.13336;32.10002)	S	lower	3	male	0	
+621	<16.13336;32.10002)	S	higher	3	male	0	
+622	<16.13336;32.10002)	S	lower	3	female	1	
+623	<0.1667;16.13336)	S	higher	3	male	0	
+624	<0.1667;16.13336)	S	higher	3	female	0	
+625	<0.1667;16.13336)	S	higher	3	female	0	
+626	<16.13336;32.10002)	S	lower	3	female	1	
+627	<32.10002;48.06668)	S	very low	3	female	0	
+628	<0.1667;16.13336)	S	higher	3	female	0	
+629	<0.1667;16.13336)	S	higher	3	female	0	
+630	<32.10002;48.06668)	S	higher	3	male	0	
+631	<16.13336;32.10002)	S	very low	3	male	1	
+632	<16.13336;32.10002)	S	very low	3	male	0	
+633	<32.10002;48.06668)	S	higher	3	female	0	
+634	<16.13336;32.10002)	S	lower	3	male	0	
+635	<16.13336;32.10002)	S	lower	3	male	0	
+636	<16.13336;32.10002)	S	avg	3	male	0	
+637	<16.13336;32.10002)	S	avg	3	female	0	
+638	<16.13336;32.10002)	S	very low	3	male	0	
+639	<32.10002;48.06668)	S	very low	3	male	0	
+640	<0.1667;16.13336)	S	higher	3	male	0	
+641	<0.1667;16.13336)	S	higher	3	male	0	
+642	<0.1667;16.13336)	S	higher	3	male	1	
+643	<0.1667;16.13336)	S	higher	3	male	0	
+644	<0.1667;16.13336)	S	higher	3	female	1	
+645	<32.10002;48.06668)	S	higher	3	male	0	
+646	<16.13336;32.10002)	S	very low	3	male	1	
+647	<32.10002;48.06668)	S	higher	3	female	1	
+648	<32.10002;48.06668)	C	very low	3	female	1	
+649	<16.13336;32.10002)	C	very low	3	male	0	
+650	<16.13336;32.10002)	S	very low	3	male	0	
+651	<16.13336;32.10002)	C	avg	3	female	0	
+652	<16.13336;32.10002)	C	very low	3	male	0	
+653	<16.13336;32.10002)	S	lower	3	male	0	
+654	<0.1667;16.13336)	C	very low	3	female	1	
+655	<16.13336;32.10002)	C	very low	3	male	0	
+656	<16.13336;32.10002)	S	avg	3	male	0	
+657	<32.10002;48.06668)	S	avg	3	female	1	
+658	<0.1667;16.13336)	C	avg	3	female	1	
+659	<0.1667;16.13336)	C	avg	3	female	1	
+660	<0.1667;16.13336)	C	avg	3	female	1	
+661	<16.13336;32.10002)	C	avg	3	female	1	
+662	<16.13336;32.10002)	S	lower	3	female	1	
+663	<32.10002;48.06668)	C	very low	3	male	0	
+664	<16.13336;32.10002)	S	lower	3	male	0	
+665	<16.13336;32.10002)	C	very low	3	male	1	
+666	<16.13336;32.10002)	C	avg	3	female	0	
+667	<32.10002;48.06668)	C	avg	3	female	0	
+668	<16.13336;32.10002)	Q	lower	3	female	0	
+669	<16.13336;32.10002)	S	lower	3	male	0	
+670	<16.13336;32.10002)	S	lower	3	male	0	
+671	<16.13336;32.10002)	S	very low	3	male	0	
+672	<16.13336;32.10002)	S	lower	3	male	0	
+673		C	very low	3	male	0	
+674	<16.13336;32.10002)	C	very low	3	male	0	
+675	<16.13336;32.10002)	S	very high	3	male	1	
+676	<16.13336;32.10002)	S	very low	3	male	0	
+677	<16.13336;32.10002)	S	very low	3	male	0	
+678	<16.13336;32.10002)	S	lower	3	male	0	
+679	<0.1667;16.13336)	C	avg	3	male	0	
+680	<0.1667;16.13336)	C	avg	3	female	0	
+681		C	very low	3	male	0	
+682		C	avg	3	female	0	
+683		Q	very low	3	female	0	
+684	<32.10002;48.06668)	Q	avg	3	male	0	
+685	<16.13336;32.10002)	Q	avg	3	female	0	
+686	<16.13336;32.10002)	S	avg	3	male	0	
+687	<16.13336;32.10002)	Q	very low	3	female	1	
+688	<16.13336;32.10002)	S	lower	3	female	0	
+689	<16.13336;32.10002)	S	very low	3	male	0	
+690	<16.13336;32.10002)	S	very low	3	male	0	
+691	<16.13336;32.10002)	S	very low	3	male	0	
+692	<32.10002;48.06668)	S	lower	3	male	0	
+693	<16.13336;32.10002)	Q	very low	3	female	0	
+694	<16.13336;32.10002)	Q	very low	3	male	1	
+695	<16.13336;32.10002)	Q	very low	3	male	0	
+696	<16.13336;32.10002)	Q	lower	3	female	0	
+697	<16.13336;32.10002)	S	lower	3	female	0	
+698	<16.13336;32.10002)	S	lower	3	female	0	
+699	<16.13336;32.10002)	S	lower	3	male	0	
+700	<32.10002;48.06668)	S	lower	3	male	0	
+701	<16.13336;32.10002)	S	lower	3	male	0	
+702	<16.13336;32.10002)	S	lower	3	male	0	
+703	<16.13336;32.10002)	Q	very low	3	female	0	
+704	<16.13336;32.10002)	Q	very low	3	male	0	
+705	<16.13336;32.10002)	S	lower	3	male	0	
+706		C	avg	3	male	0	
+707		C	avg	3	female	0	
+708	<16.13336;32.10002)	S	very low	3	male	0	
+709	<16.13336;32.10002)	S	lower	3	male	0	
+710	<0.1667;16.13336)	Q	very low	3	female	1	
+711	<32.10002;48.06668)	Q	very low	3	female	0	
+712	<16.13336;32.10002)	S	very low	3	male	0	
+713	<16.13336;32.10002)	S	lower	3	male	0	
+714	<16.13336;32.10002)	Q	very low	3	male	0	
+715	<16.13336;32.10002)	S	very high	3	male	1	
+716	<16.13336;32.10002)	S	lower	3	male	0	
+717	<16.13336;32.10002)	C	avg	3	male	0	
+718	<16.13336;32.10002)	C	avg	3	male	0	
+719	<16.13336;32.10002)	S	very low	3	male	0	
+720	<16.13336;32.10002)	S	lower	3	male	1	
+721	<16.13336;32.10002)	Q	very low	3	male	0	
+722	<32.10002;48.06668)	S	very low	3	male	0	
+723	<16.13336;32.10002)	S	very low	3	male	0	
+724	<16.13336;32.10002)	Q	very low	3	male	0	
+725	<16.13336;32.10002)	Q	very low	3	male	0	
+726	<16.13336;32.10002)	Q	very low	3	female	1	
+727	<16.13336;32.10002)	Q	very low	3	female	0	
+728	<64.03334;80>	Q	very low	3	male	0	
+729	<32.10002;48.06668)	S	lower	3	male	0	
+730	<32.10002;48.06668)	S	lower	3	male	0	
+731	<16.13336;32.10002)	S	lower	3	male	0	
+732	<16.13336;32.10002)	S	lower	3	male	0	
+733	<16.13336;32.10002)	S	lower	3	male	0	
+734	<0.1667;16.13336)	S	avg	3	male	1	
+735	<0.1667;16.13336)	S	avg	3	male	1	
+736	<32.10002;48.06668)	S	avg	3	female	1	
+737	<48.06668;64.03334)	S	very low	3	male	0	
+738	<16.13336;32.10002)	S	lower	3	male	0	
+739	<16.13336;32.10002)	S	avg	3	female	1	
+740	<32.10002;48.06668)	S	avg	3	male	0	
+741	<16.13336;32.10002)	S	lower	3	male	0	
+742	<16.13336;32.10002)	C	very low	3	male	0	
+743	<32.10002;48.06668)	S	lower	3	male	1	
+744	<16.13336;32.10002)	S	avg	3	female	0	
+745	<16.13336;32.10002)	S	lower	3	male	0	
+746	<16.13336;32.10002)	Q	very low	3	female	1	
+747	<16.13336;32.10002)	Q	very low	3	male	1	
+748	<0.1667;16.13336)	S	avg	3	male	0	
+749	<32.10002;48.06668)	S	avg	3	male	0	
+750	<16.13336;32.10002)	S	avg	3	female	0	
+751	<16.13336;32.10002)	S	lower	3	male	0	
+752	<16.13336;32.10002)	S	lower	3	male	0	
+753	<16.13336;32.10002)	S	higher	3	male	0	
+754	<16.13336;32.10002)	S	lower	3	male	0	
+755	<16.13336;32.10002)	S	higher	3	male	0	
+756	<16.13336;32.10002)	S	lower	3	male	0	
+757		S	avg	3	male	0	
+758		S	avg	3	female	1	
+759	<32.10002;48.06668)	S	avg	3	male	1	
+760	<32.10002;48.06668)	S	avg	3	female	1	
+761	<16.13336;32.10002)	S	lower	3	male	1	
+762	<0.1667;16.13336)	S	lower	3	male	0	
+763	<0.1667;16.13336)	S	avg	3	male	1	
+764	<0.1667;16.13336)	S	avg	3	female	1	
+765	<16.13336;32.10002)	S	avg	3	male	0	
+766	<32.10002;48.06668)	S	avg	3	female	1	
+767	<16.13336;32.10002)	S	lower	3	male	0	
+768		S	lower	3	male	0	
+769		S	lower	3	male	0	
+770	<16.13336;32.10002)	S	very low	3	male	0	
+771	<32.10002;48.06668)	S	very low	3	male	0	
+772	<16.13336;32.10002)	Q	lower	3	female	1	
+773	<16.13336;32.10002)	S	lower	3	male	0	
+774	<32.10002;48.06668)	S	lower	3	male	0	
+775	<32.10002;48.06668)	S	lower	3	male	0	
+776		C	very low	3	male	0	
+777	<16.13336;32.10002)	Q	very low	3	male	0	
+778	<16.13336;32.10002)	S	lower	3	male	1	
+779	<16.13336;32.10002)	S	avg	3	female	1	
+780	<16.13336;32.10002)	Q	very low	3	female	0	
+781	<16.13336;32.10002)	S	lower	3	female	1	
+782	<32.10002;48.06668)	C	lower	3	male	0	
+783	<64.03334;80>	Q	very low	3	male	0	
+784	<16.13336;32.10002)	S	very low	3	male	1	
+785	<16.13336;32.10002)	S	avg	3	male	0	
+786	<16.13336;32.10002)	S	avg	3	female	1	
+787	<16.13336;32.10002)	S	very low	3	male	0	
+788	<0.1667;16.13336)	S	very low	3	male	0	
+789	<32.10002;48.06668)	S	very low	3	male	0	
+790		C	very low	3	male	0	
+791	<32.10002;48.06668)	C	very low	3	male	0	
+792	<16.13336;32.10002)	C	very low	3	male	0	
+793	<0.1667;16.13336)	C	very low	3	male	0	
+794	<32.10002;48.06668)	S	very low	3	male	0	
+795	<0.1667;16.13336)	S	avg	3	female	1	
+796		C	very low	3	male	0	
+797	<32.10002;48.06668)	S	avg	3	male	0	
+798	<32.10002;48.06668)	Q	very low	3	male	0	
+799		S	very low	3	male	1	
+800	<16.13336;32.10002)	S	very low	3	male	0	
+801		Q	very low	3	female	0	
+802		Q	very low	3	male	0	
+803		Q	very low	3	male	0	
+804	<16.13336;32.10002)	Q	lower	3	male	0	
+805		Q	very low	3	male	0	
+806		S	very high	3	male	1	
+807	<16.13336;32.10002)	S	higher	3	female	0	
+808	<0.1667;16.13336)	S	higher	3	female	0	
+809		S	lower	3	male	0	
+810	<16.13336;32.10002)	S	higher	3	male	0	
+811	<0.1667;16.13336)	S	higher	3	male	0	
+812	<32.10002;48.06668)	S	higher	3	female	0	
+813		Q	very low	3	male	0	
+814		S	very low	3	male	0	
+815	<16.13336;32.10002)	Q	very low	3	male	0	
+816		S	avg	3	male	0	
+817		C	lower	3	male	0	
+818	<16.13336;32.10002)	S	lower	3	male	0	
+819	<0.1667;16.13336)	Q	very low	3	female	1	
+820		Q	very low	3	female	1	
+821	<0.1667;16.13336)	S	avg	3	male	1	
+822	<32.10002;48.06668)	S	avg	3	male	0	
+823	<32.10002;48.06668)	S	very low	3	male	0	
+824	<16.13336;32.10002)	S	avg	3	female	1	
+825	<32.10002;48.06668)	S	very low	3	male	0	
+826	<0.1667;16.13336)	S	very high	3	male	0	
+827	<0.1667;16.13336)	S	very high	3	male	0	
+828	<0.1667;16.13336)	S	very high	3	male	0	
+829	<0.1667;16.13336)	S	very high	3	female	0	
+830	<0.1667;16.13336)	S	very high	3	female	0	
+831	<0.1667;16.13336)	S	very high	3	male	0	
+832	<32.10002;48.06668)	S	very high	3	male	0	
+833	<32.10002;48.06668)	S	very high	3	female	0	
+834	<48.06668;64.03334)	S	lower	3	male	0	
+835	<16.13336;32.10002)	S	lower	3	male	0	
+836		S	lower	3	male	0	
+837	<16.13336;32.10002)	S	lower	3	male	0	
+838	<32.10002;48.06668)	S	lower	3	male	0	
+839	<16.13336;32.10002)	S	lower	3	male	0	
+840	<16.13336;32.10002)	S	very low	3	male	0	
+841	<16.13336;32.10002)	S	lower	3	female	0	
+842	<16.13336;32.10002)	Q	very low	3	female	0	
+843		S	avg	3	male	0	
+844		S	avg	3	male	0	
+845	<16.13336;32.10002)	S	avg	3	male	0	
+846	<16.13336;32.10002)	S	avg	3	female	1	
+847	<16.13336;32.10002)	S	lower	3	male	0	
+848	<16.13336;32.10002)	C	very low	3	male	0	
+849	<32.10002;48.06668)	S	avg	3	male	0	
+850	<16.13336;32.10002)	S	lower	3	male	0	
+851	<16.13336;32.10002)	S	lower	3	male	0	
+852	<32.10002;48.06668)	S	avg	3	female	1	
+853		S	very low	3	female	0	
+854	<16.13336;32.10002)	S	very low	3	male	0	
+855		Q	very low	3	male	0	
+856	<0.1667;16.13336)	C	avg	3	male	0	
+857		Q	very low	3	female	1	
+858	<16.13336;32.10002)	S	very low	3	male	1	
+859		S	very high	3	male	1	
+860	<16.13336;32.10002)	Q	very low	3	female	0	
+861	<16.13336;32.10002)	S	lower	3	female	1	
+862	<16.13336;32.10002)	S	lower	3	female	0	
+863	<16.13336;32.10002)	S	lower	3	female	1	
+864	<16.13336;32.10002)	S	lower	3	male	0	
+865	<16.13336;32.10002)	S	very low	3	female	0	
+866		Q	very low	3	female	0	
+867	<0.1667;16.13336)	S	avg	3	female	1	
+868	<16.13336;32.10002)	S	avg	3	female	1	
+869	<32.10002;48.06668)	S	very low	3	male	0	
+870	<16.13336;32.10002)	S	higher	3	male	0	
+871	<16.13336;32.10002)	S	lower	3	female	1	
+872		Q	very low	3	male	0	
+873		S	lower	3	female	1	
+874	<32.10002;48.06668)	S	very low	3	male	0	
+875		S	lower	3	male	1	
+876	<16.13336;32.10002)	C	very low	3	male	0	
+877		S	lower	3	male	0	
+878	<16.13336;32.10002)	S	lower	3	female	0	
+879	<16.13336;32.10002)	S	lower	3	female	0	
+880		S	lower	3	male	0	
+881	<16.13336;32.10002)	C	lower	3	male	1	
+882	<16.13336;32.10002)	S	very low	3	male	1	
+883		S	very low	3	male	0	
+884	<16.13336;32.10002)	S	lower	3	male	0	
+885	<32.10002;48.06668)	S	lower	3	male	0	
+886	<16.13336;32.10002)	S	very low	3	male	0	
+887		Q	very low	3	female	1	
+888		S	lower	3	male	1	
+889	<32.10002;48.06668)	S	very low	3	male	0	
+890	<16.13336;32.10002)	S	very low	3	male	1	
+891	<16.13336;32.10002)	S	very low	3	male	0	
+892	<32.10002;48.06668)	S	lower	3	male	0	
+893	<16.13336;32.10002)	S	very low	3	male	0	
+894	<16.13336;32.10002)	S	lower	3	male	0	
+895	<0.1667;16.13336)	S	avg	3	male	1	
+896	<0.1667;16.13336)	S	avg	3	female	1	
+897	<48.06668;64.03334)	S	very low	3	male	0	
+898	<32.10002;48.06668)	S	very low	3	male	0	
+899	<16.13336;32.10002)	S	very low	3	male	0	
+900	<16.13336;32.10002)	S	avg	3	female	1	
+901		S	higher	3	male	0	
+902		S	higher	3	female	0	
+903		S	higher	3	male	0	
+904		S	higher	3	female	0	
+905	<16.13336;32.10002)	S	lower	3	male	0	
+906	<16.13336;32.10002)	S	lower	3	male	1	
+907	<16.13336;32.10002)	S	lower	3	male	0	
+908	<16.13336;32.10002)	S	lower	3	female	0	
+909	<16.13336;32.10002)	S	lower	3	female	0	
+910	<16.13336;32.10002)	S	lower	3	male	1	
+911	<16.13336;32.10002)	S	very low	3	male	0	
+912	<16.13336;32.10002)	S	lower	3	male	0	
+913	<16.13336;32.10002)	S	lower	3	male	0	
+914	<16.13336;32.10002)	S	very low	3	male	1	
+915	<32.10002;48.06668)	S	lower	3	male	0	
+916	<16.13336;32.10002)	S	very low	3	male	0	
+917	<0.1667;16.13336)	C	avg	3	female	1	
+918	<32.10002;48.06668)	C	avg	3	male	1	
+919		C	very low	3	male	0	
+920	<16.13336;32.10002)	C	very low	3	male	0	
+921		Q	very low	3	male	0	
+922		S	very low	3	male	0	
+923		Q	very low	3	female	1	
+924		Q	very low	3	female	1	
+925	<32.10002;48.06668)	Q	very low	3	male	0	
+926	<32.10002;48.06668)	S	lower	3	male	0	
+927		Q	very low	3	male	1	
+928		C	avg	3	male	0	
+929		C	avg	3	female	0	
+930		Q	very low	3	male	0	
+931		Q	very low	3	male	0	
+932		Q	very low	3	male	0	
+933	<16.13336;32.10002)	S	lower	3	female	0	
+934	<16.13336;32.10002)	S	lower	3	male	0	
+935	<0.1667;16.13336)	S	higher	3	female	1	
+936	<16.13336;32.10002)	S	higher	3	male	1	
+937	<16.13336;32.10002)	S	higher	3	female	1	
+938	<0.1667;16.13336)	S	avg	3	female	0	
+939	<16.13336;32.10002)	S	lower	3	male	0	
+940	<32.10002;48.06668)	S	avg	3	female	0	
+941		C	lower	3	male	0	
+942	<16.13336;32.10002)	C	very low	3	male	1	
+943		C	very low	3	male	0	
+944	<32.10002;48.06668)	S	lower	3	female	0	
+945		S	lower	3	male	0	
+946		S	very high	3	male	1	
+947		S	very high	3	male	0	
+948	<16.13336;32.10002)	S	very low	3	female	1	
+949		Q	very low	3	male	0	
+950	<16.13336;32.10002)	S	very high	3	male	1	
+951	<16.13336;32.10002)	S	lower	3	male	0	
+952	<16.13336;32.10002)	S	very low	3	male	0	
+953	<16.13336;32.10002)	S	very low	3	male	0	
+954	<16.13336;32.10002)	C	very low	3	male	1	
+955		S	higher	3	male	0	
+956		S	higher	3	female	0	
+957		S	higher	3	female	0	
+958		S	higher	3	female	0	
+959		S	higher	3	female	0	
+960	<16.13336;32.10002)	S	lower	3	male	0	
+961	<32.10002;48.06668)	C	very low	3	male	0	
+962		Q	avg	3	female	0	
+963		Q	avg	3	male	0	
+964	<32.10002;48.06668)	S	very low	3	male	0	
+965	<32.10002;48.06668)	S	higher	3	male	0	
+966	<16.13336;32.10002)	S	lower	3	male	0	
+967	<16.13336;32.10002)	S	very low	3	female	0	
+968	<32.10002;48.06668)	S	very low	3	female	0	
+969	<32.10002;48.06668)	S	avg	3	male	0	
+970	<16.13336;32.10002)	S	avg	3	female	0	
+971	<16.13336;32.10002)	S	lower	3	male	1	
+972		Q	lower	3	male	0	
+973	<16.13336;32.10002)	S	very high	3	male	0	
+974		S	very low	3	male	0	
+975	<16.13336;32.10002)	S	avg	3	male	0	
+976	<16.13336;32.10002)	S	avg	3	female	0	
+977		S	lower	3	male	0	
+978	<16.13336;32.10002)	S	very low	3	male	0	
+979	<16.13336;32.10002)	S	lower	3	male	1	
+980	<48.06668;64.03334)	S	very low	3	male	0	
+981	<16.13336;32.10002)	S	lower	3	female	1	
+982	<16.13336;32.10002)	S	very low	3	male	1	
+983		S	lower	3	male	0	
+984		S	very low	3	male	0	
+985		Q	very low	3	female	1	
+986	<16.13336;32.10002)	S	very low	3	male	1	
+987	<16.13336;32.10002)	S	very low	3	male	0	
+988		Q	lower	3	female	0	
+989		Q	very low	3	male	0	
+990		S	lower	3	male	0	
+991	<16.13336;32.10002)	S	lower	3	male	0	
+992		C	very low	3	male	1	
+993	<16.13336;32.10002)	Q	very low	3	female	0	
+994		Q	very low	3	female	1	
+995		C	very low	3	male	0	
+996	<32.10002;48.06668)	C	lower	3	male	0	
+997	<32.10002;48.06668)	S	lower	3	male	0	
+998		C	very low	3	female	1	
+999		C	lower	3	male	0	
+1000		Q	very low	3	female	1	
+1001		Q	very low	3	male	1	
+1002		Q	higher	3	female	1	
+1003		Q	higher	3	female	1	
+1004		Q	higher	3	male	1	
+1005		Q	very low	3	female	1	
+1006		Q	avg	3	male	0	
+1007		Q	lower	3	female	1	
+1008	<0.1667;16.13336)	Q	lower	3	female	1	
+1009	<32.10002;48.06668)	Q	very low	3	female	0	
+1010		Q	very low	3	male	0	
+1011	<16.13336;32.10002)	S	avg	3	male	0	
+1012	<16.13336;32.10002)	S	avg	3	female	0	
+1013		Q	very low	3	female	0	
+1014		S	lower	3	female	0	
+1015		S	lower	3	female	0	
+1016	<48.06668;64.03334)	S	lower	3	male	0	
+1017		Q	very low	3	male	0	
+1018	<16.13336;32.10002)	S	very low	3	male	1	
+1019		S	lower	3	male	0	
+1020	<16.13336;32.10002)	S	lower	3	male	0	
+1021	<16.13336;32.10002)	S	lower	3	male	0	
+1022	<16.13336;32.10002)	S	lower	3	male	0	
+1023		S	lower	3	male	0	
+1024		Q	lower	3	female	1	
+1025	<16.13336;32.10002)	S	very low	3	male	0	
+1026	<0.1667;16.13336)	S	avg	3	male	1	
+1027	<16.13336;32.10002)	S	avg	3	female	1	
+1028		S	lower	3	male	0	
+1029		Q	higher	3	female	1	
+1030		Q	higher	3	male	0	
+1031		Q	lower	3	male	0	
+1032	<32.10002;48.06668)	S	lower	3	male	0	
+1033		Q	very low	3	male	0	
+1034		S	very low	3	male	1	
+1035		C	avg	3	male	1	
+1036		C	avg	3	male	1	
+1037		C	avg	3	female	1	
+1038		C	very low	3	female	1	
+1039		S	lower	3	male	0	
+1040		Q	very low	3	female	1	
+1041	<16.13336;32.10002)	Q	very low	3	female	1	
+1042		S	lower	3	male	0	
+1043		Q	avg	3	female	1	
+1044		Q	avg	3	female	1	
+1045		Q	avg	3	female	1	
+1046	<16.13336;32.10002)	S	very low	3	male	0	
+1047	<16.13336;32.10002)	S	lower	3	male	0	
+1048	<0.1667;16.13336)	C	very low	3	female	1	
+1049	<0.1667;16.13336)	C	avg	3	female	1	
+1050	<16.13336;32.10002)	C	avg	3	male	1	
+1051	<16.13336;32.10002)	C	avg	3	female	1	
+1052	<32.10002;48.06668)	S	lower	3	male	0	
+1053		S	lower	3	male	0	
+1054		C	very low	3	male	0	
+1055		Q	very low	3	female	0	
+1056		S	lower	3	male	0	
+1057	<0.1667;16.13336)	C	avg	3	male	1	
+1058	<0.1667;16.13336)	C	avg	3	female	1	
+1059	<16.13336;32.10002)	S	lower	3	female	0	
+1060	<16.13336;32.10002)	S	lower	3	male	0	
+1061	<16.13336;32.10002)	S	very low	3	female	1	
+1062	<16.13336;32.10002)	S	lower	3	female	1	
+1063	<16.13336;32.10002)	S	lower	3	male	0	
+1064	<32.10002;48.06668)	S	very low	3	male	0	
+1065	<32.10002;48.06668)	S	lower	3	male	1	
+1066	<16.13336;32.10002)	S	very low	3	male	0	
+1067	<16.13336;32.10002)	C	very low	3	male	0	
+1068	<16.13336;32.10002)	S	very low	3	female	1	
+1069	<48.06668;64.03334)	S	very low	3	male	0	
+1070		Q	avg	3	male	0	
+1071		Q	very low	3	male	0	
+1072		Q	avg	3	female	1	
+1073		Q	very low	3	male	0	
+1074		Q	very low	3	male	0	
+1075		Q	very low	3	male	0	
+1076	<16.13336;32.10002)	S	lower	3	male	0	
+1077		Q	very low	3	female	0	
+1078		Q	very low	3	female	1	
+1079		Q	lower	3	female	1	
+1080	<16.13336;32.10002)	S	very low	3	female	1	
+1081		Q	very low	3	male	1	
+1082		Q	very low	3	female	1	
+1083	<0.1667;16.13336)	S	very low	3	male	1	
+1084	<16.13336;32.10002)	S	higher	3	male	0	
+1085	<32.10002;48.06668)	S	lower	3	male	0	
+1086		S	very low	3	male	0	
+1087	<16.13336;32.10002)	S	lower	3	female	0	
+1088	<16.13336;32.10002)	S	lower	3	male	0	
+1089	<16.13336;32.10002)	S	very low	3	male	1	
+1090	<16.13336;32.10002)	S	lower	3	male	0	
+1091	<16.13336;32.10002)	S	lower	3	female	0	
+1092	<16.13336;32.10002)	S	lower	3	female	0	
+1093	<16.13336;32.10002)	S	lower	3	male	0	
+1094	<0.1667;16.13336)	S	lower	3	male	0	
+1095	<16.13336;32.10002)	S	lower	3	female	1	
+1096		Q	very low	3	female	0	
+1097	<0.1667;16.13336)	S	avg	3	male	0	
+1098	<0.1667;16.13336)	S	avg	3	male	0	
+1099	<0.1667;16.13336)	S	avg	3	female	0	
+1100	<0.1667;16.13336)	S	avg	3	female	0	
+1101	<16.13336;32.10002)	S	avg	3	female	0	
+1102	<0.1667;16.13336)	S	higher	3	male	0	
+1103	<0.1667;16.13336)	S	higher	3	male	0	
+1104	<0.1667;16.13336)	S	higher	3	male	0	
+1105	<0.1667;16.13336)	S	higher	3	male	0	
+1106	<0.1667;16.13336)	S	higher	3	male	0	
+1107	<32.10002;48.06668)	S	higher	3	female	0	
+1108	<16.13336;32.10002)	S	lower	3	male	0	
+1109	<16.13336;32.10002)	S	avg	3	male	0	
+1110		C	lower	3	male	0	
+1111	<16.13336;32.10002)	S	lower	3	male	0	
+1112	<0.1667;16.13336)	S	avg	3	male	0	
+1113	<0.1667;16.13336)	S	avg	3	female	0	
+1114	<16.13336;32.10002)	S	avg	3	female	0	
+1115		S	very low	3	male	0	
+1116		S	very low	3	male	0	
+1117		S	lower	3	male	0	
+1118	<16.13336;32.10002)	S	lower	3	male	0	
+1119	<16.13336;32.10002)	S	lower	3	male	0	
+1120	<16.13336;32.10002)	S	very low	3	male	0	
+1121	<16.13336;32.10002)	S	very low	3	male	1	
+1122		C	higher	3	male	1	
+1123		C	higher	3	female	1	
+1124		C	higher	3	female	1	
+1125		Q	lower	3	female	0	
+1126	<16.13336;32.10002)	S	lower	3	male	0	
+1127	<16.13336;32.10002)	S	lower	3	female	0	
+1128	<16.13336;32.10002)	S	lower	3	male	0	
+1129		S	lower	3	male	0	
+1130	<16.13336;32.10002)	S	very low	3	male	0	
+1131	<16.13336;32.10002)	S	very low	3	female	0	
+1132	<16.13336;32.10002)	S	lower	3	male	1	
+1133		S	lower	3	male	0	
+1134	<16.13336;32.10002)	S	lower	3	male	0	
+1135	<16.13336;32.10002)	S	lower	3	male	0	
+1136		S	lower	3	male	0	
+1137		S	lower	3	female	0	
+1138		C	very low	3	male	0	
+1139		S	very low	3	male	0	
+1140	<32.10002;48.06668)	S	lower	3	male	0	
+1141	<16.13336;32.10002)	S	lower	3	male	0	
+1142	<0.1667;16.13336)	Q	higher	3	male	0	
+1143	<0.1667;16.13336)	Q	higher	3	male	0	
+1144	<0.1667;16.13336)	Q	higher	3	male	0	
+1145	<0.1667;16.13336)	Q	higher	3	male	0	
+1146	<0.1667;16.13336)	Q	higher	3	male	0	
+1147	<32.10002;48.06668)	Q	higher	3	female	0	
+1148	<16.13336;32.10002)	S	higher	3	female	0	
+1149	<32.10002;48.06668)	S	very low	3	male	0	
+1150		Q	very low	3	female	1	
+1151		S	avg	3	male	0	
+1152		S	avg	3	female	0	
+1153	<48.06668;64.03334)	S	avg	3	male	0	
+1154	<32.10002;48.06668)	S	avg	3	female	0	
+1155		S	lower	3	male	0	
+1156		S	very low	3	male	0	
+1157	<0.1667;16.13336)	S	avg	3	female	0	
+1158	<16.13336;32.10002)	S	avg	3	male	0	
+1159	<32.10002;48.06668)	S	avg	3	female	0	
+1160		S	lower	3	female	1	
+1161	<48.06668;64.03334)	S	lower	3	male	0	
+1162	<0.1667;16.13336)	S	lower	3	male	0	
+1163		Q	very low	3	male	1	
+1164		Q	higher	3	male	0	
+1165		C	very low	3	male	0	
+1166	<16.13336;32.10002)	C	very low	3	male	0	
+1167		C	very low	3	male	0	
+1168		Q	very low	3	male	0	
+1169		S	very low	3	male	0	
+1170	<32.10002;48.06668)	S	very low	3	male	0	
+1171		S	very high	3	male	0	
+1172	<0.1667;16.13336)	S	very high	3	male	0	
+1173		S	very high	3	female	0	
+1174		S	very high	3	female	0	
+1175		S	very high	3	female	0	
+1176		S	very high	3	female	0	
+1177		S	very high	3	male	0	
+1178		S	very high	3	male	0	
+1179		S	very high	3	male	0	
+1180		S	very high	3	male	0	
+1181		S	very high	3	female	0	
+1182	<16.13336;32.10002)	S	lower	3	male	0	
+1183	<16.13336;32.10002)	S	very low	3	female	1	
+1184	<32.10002;48.06668)	S	lower	3	male	0	
+1185		C	higher	3	male	0	
+1186		C	higher	3	male	0	
+1187		C	higher	3	male	0	
+1188	<0.1667;16.13336)	S	avg	3	female	1	
+1189	<16.13336;32.10002)	S	avg	3	female	1	
+1190	<0.1667;16.13336)	S	avg	3	female	1	
+1191	<16.13336;32.10002)	S	lower	3	male	1	
+1192	<16.13336;32.10002)	S	lower	3	male	0	
+1193	<16.13336;32.10002)	S	lower	3	male	0	
+1194		Q	very low	3	male	0	
+1195		S	lower	3	male	0	
+1196		Q	very low	3	male	0	
+1197	<16.13336;32.10002)	S	lower	3	male	1	
+1198		S	avg	3	male	0	
+1199		Q	very low	3	female	1	
+1200		S	lower	3	male	0	
+1201		S	lower	3	male	0	
+1202	<16.13336;32.10002)	C	very low	3	male	0	
+1203		S	lower	3	male	0	
+1204	<32.10002;48.06668)	S	lower	3	male	0	
+1205	<16.13336;32.10002)	S	lower	3	male	0	
+1206	<16.13336;32.10002)	S	very low	3	female	1	
+1207	<0.1667;16.13336)	S	higher	3	male	0	
+1208	<0.1667;16.13336)	S	higher	3	male	0	
+1209	<0.1667;16.13336)	S	higher	3	female	0	
+1210	<0.1667;16.13336)	S	higher	3	female	0	
+1211	<32.10002;48.06668)	S	higher	3	male	0	
+1212	<32.10002;48.06668)	S	higher	3	female	0	
+1213		S	lower	3	male	0	
+1214		S	lower	3	male	0	
+1215		S	lower	3	male	0	
+1216		Q	very low	3	male	0	
+1217		Q	very low	3	female	1	
+1218	<16.13336;32.10002)	S	very low	3	male	0	
+1219	<16.13336;32.10002)	S	lower	3	male	0	
+1220		S	lower	3	male	0	
+1221	<16.13336;32.10002)	S	lower	3	male	0	
+1222		S	lower	3	male	0	
+1223	<32.10002;48.06668)	C	lower	3	male	0	
+1224	<16.13336;32.10002)	S	very low	3	female	1	
+1225	<16.13336;32.10002)	S	lower	3	male	0	
+1226	<48.06668;64.03334)	S		3	male	0	
+1227	<16.13336;32.10002)	S	lower	3	male	0	
+1228	<16.13336;32.10002)	S	lower	3	female	0	
+1229	<16.13336;32.10002)	S	lower	3	male	1	
+1230	<16.13336;32.10002)	S	lower	3	male	0	
+1231	<0.1667;16.13336)	S	lower	3	female	0	
+1232	<16.13336;32.10002)	S	lower	3	female	0	
+1233	<0.1667;16.13336)	S	lower	3	male	1	
+1234	<32.10002;48.06668)	S	lower	3	male	1	
+1235	<16.13336;32.10002)	S	very low	3	male	0	
+1236	<64.03334;80>	S	very low	3	male	0	
+1237	<0.1667;16.13336)	S	lower	3	male	1	
+1238	<16.13336;32.10002)	S	very low	3	male	0	
+1239	<16.13336;32.10002)	S	very low	3	male	1	
+1240	<32.10002;48.06668)	S	lower	3	male	0	
+1241	<0.1667;16.13336)	C	lower	3	male	1	
+1242		C	very low	3	male	0	
+1243		C	very low	3	male	0	
+1244		C	very low	3	male	0	
+1245	<0.1667;16.13336)	C	lower	3	female	1	
+1246		S	lower	3	male	0	
+1247		S	avg	3	male	0	
+1248		S	avg	3	female	1	
+1249	<16.13336;32.10002)	S	lower	3	male	0	
+1250		Q	very low	3	male	0	
+1251		S	lower	3	male	0	
+1252	<16.13336;32.10002)	S	lower	3	male	0	
+1253	<32.10002;48.06668)	S	lower	3	male	0	
+1254		C	very low	3	male	0	
+1255	<16.13336;32.10002)	S	very low	3	male	1	
+1256		C	very low	3	male	0	
+1257	<0.1667;16.13336)	C	avg	3	male	1	
+1258	<0.1667;16.13336)	C	avg	3	female	1	
+1259	<16.13336;32.10002)	C	avg	3	female	1	
+1260	<32.10002;48.06668)	S	lower	3	male	0	
+1261	<16.13336;32.10002)	S	lower	3	female	1	
+1262	<48.06668;64.03334)	S	lower	3	female	1	
+1263		S	avg	3	male	0	
+1264	<0.1667;16.13336)	S	avg	3	male	0	
+1265	<32.10002;48.06668)	S	avg	3	male	0	
+1266	<0.1667;16.13336)	S	higher	3	female	0	
+1267	<32.10002;48.06668)	S	higher	3	male	0	
+1268	<16.13336;32.10002)	S	higher	3	female	0	
+1269		S	lower	3	male	0	
+1270	<32.10002;48.06668)	S	lower	3	male	0	
+1271	<16.13336;32.10002)	S	lower	3	male	0	
+1272	<16.13336;32.10002)	S	lower	3	male	0	
+1273	<32.10002;48.06668)	S	lower	3	male	0	
+1274	<16.13336;32.10002)	S	avg	3	female	0	
+1275	<16.13336;32.10002)	S	avg	3	male	0	
+1276	<0.1667;16.13336)	S	avg	3	male	0	
+1277	<16.13336;32.10002)	S	avg	3	female	0	
+1278	<16.13336;32.10002)	C	very low	3	male	1	
+1279	<16.13336;32.10002)	S	lower	3	male	0	
+1280	<0.1667;16.13336)	S	lower	3	female	0	
+1281	<16.13336;32.10002)	S	lower	3	male	0	
+1282	<16.13336;32.10002)	S	lower	3	male	0	
+1283		S	lower	3	male	0	
+1284		S	very low	3	male	0	
+1285		S	lower	3	male	0	
+1286	<32.10002;48.06668)	S	lower	3	male	0	
+1287	<32.10002;48.06668)	C	very low	3	female	1	
+1288	<48.06668;64.03334)	S	very low	3	male	0	
+1289	<16.13336;32.10002)	S	very low	3	male	0	
+1290	<16.13336;32.10002)	S	very low	3	male	0	
+1291	<32.10002;48.06668)	S	very low	3	female	1	
+1292		S	lower	3	male	0	
+1293		S	very low	3	male	0	
+1294		S	lower	3	male	0	
+1295	<16.13336;32.10002)	S	avg	3	male	0	
+1296	<16.13336;32.10002)	S	very low	3	male	0	
+1297	<16.13336;32.10002)	S	lower	3	male	0	
+1298		S	very low	3	male	0	
+1299	<32.10002;48.06668)	S	lower	3	male	0	
+1300	<16.13336;32.10002)	C	avg	3	male	0	
+1301	<0.1667;16.13336)	C	avg	3	female	1	
+1302	<32.10002;48.06668)	C	very low	3	male	0	
+1303		C	very low	3	male	0	
+1304		C	avg	3	male	0	
+1305	<0.1667;16.13336)	C	avg	3	female	0	
+1306		C	avg	3	female	0	
+1307	<16.13336;32.10002)	C	very low	3	male	0	
+1308	<16.13336;32.10002)	C	very low	3	male	0	
+1309	<16.13336;32.10002)	S	lower	3	male	0	
+1310							
