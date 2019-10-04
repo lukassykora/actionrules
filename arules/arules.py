@@ -1,6 +1,7 @@
 import pandas as pd
 from typing import List
 import itertools
+import numpy as np
 from desiredstate import DesiredState
 
 
@@ -72,8 +73,11 @@ class ActionRules:
         key = (action_rule_stable, action_rule_flexible, action_rule_decision)
         if key in self.action_rules:
             action_rule_supp_used, action_rule_conf_used = self.action_rules[key]
-            if (action_rule_supp[2] >= action_rule_supp_used[2] and
+            if (action_rule_supp[2] is not None and
+                    action_rule_supp[2] >= action_rule_supp_used[2] and
+                    action_rule_supp[1] is not None and
                     action_rule_supp[1] >= action_rule_supp_used[1] and
+                    action_rule_supp[0] is not None and
                     action_rule_supp[0] >= action_rule_supp_used[0]):
                 self.action_rules[key] = (action_rule_supp, action_rule_conf)
         else:
