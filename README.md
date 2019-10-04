@@ -1,4 +1,10 @@
 # Action Rules
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Action Rules (actionrules) is an implementation of Action Rules from Classification Rules algorithm described in
+
+```Dardzinska, A. (2013). Action rules mining. Berlin: Springer.```
+
 
 ## Example
 
