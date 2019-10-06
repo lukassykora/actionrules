@@ -1,5 +1,6 @@
 import pandas as pd
 from typing import List
+from typing import Union
 import itertools
 from desiredstate import DesiredState
 
@@ -9,9 +10,14 @@ class ActionRules:
     Check all classification couples if they can make action rule
     """
 
-    def __init__(self, stable_tables: List[pd.DataFrame], flexible_tables: List[pd.DataFrame],
-                 decision_tables: List[pd.DataFrame], desired_state: DesiredState, supp: List[pd.Series],
-                 conf: List[pd.Series], is_nan: bool = False):
+    def __init__(self,
+                 stable_tables: List[pd.DataFrame],
+                 flexible_tables: List[pd.DataFrame],
+                 decision_tables: List[pd.DataFrame],
+                 desired_state: DesiredState,
+                 supp: List[pd.Series],
+                 conf: List[pd.Series],
+                 is_nan: bool = False):
         """
         Initialise by reduced tables.
         """
@@ -24,7 +30,11 @@ class ActionRules:
         self.conf = conf
         self.is_nan = is_nan
 
-    def _is_action_couple(self, before, after, attribute_type):
+    def _is_action_couple(self,
+                          before:Union[str, int, float],
+                          after: Union[str, int, float],
+                          attribute_type: str
+                          ) -> tuple:
         """
         Check if the state before and after make action rule.
         Return acton rule part and if the supp and conf can be used.
@@ -49,7 +59,10 @@ class ActionRules:
                     return True, (str(None), after), False
         return False, None, None
 
-    def _create_action_rules(self, couple, attribute_type):
+    def _create_action_rules(self, couple: pd.DataFrame, attribute_type: str) -> tuple:
+        """
+        Create action rules couples
+        """
         action_rule_part = tuple()
         has_supp_part = True
         is_all = True
@@ -68,11 +81,14 @@ class ActionRules:
         return action_rule_part, has_supp_part, is_all
 
     def _add_action_rule(self,
-                         action_rule_stable,
-                         action_rule_flexible,
-                         action_rule_decision,
-                         action_rule_supp,
-                         action_rule_conf):
+                         action_rule_stable: tuple,
+                         action_rule_flexible: tuple,
+                         action_rule_decision: tuple,
+                         action_rule_supp: tuple,
+                         action_rule_conf: tuple):
+        """
+        Add action rule to list
+        """
         action_rule = (action_rule_stable, action_rule_flexible, action_rule_decision)
         self.action_rules.append((action_rule, (action_rule_supp, action_rule_conf), ))
 
@@ -100,7 +116,7 @@ class ActionRules:
                         flexible_couples,
                         "flexible")
                     action_rule_decision = (
-                        decision_couples.columns[0], decision_couples.iat[0, 0], decision_couples.iat[1, 0])
+                        decision_couples.columns[0], (decision_couples.iat[0, 0], decision_couples.iat[1, 0]))
                     if len(action_rule_flexible) > 0 and is_all_stable and is_all_flexible:
                         if has_supp_stable and has_supp_flexible:
                             action_rule_supp = (supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1]))

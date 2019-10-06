@@ -1,6 +1,5 @@
 from typing import List
 import pandas as pd
-import reduction
 
 
 class DesiredState:
@@ -17,7 +16,7 @@ class DesiredState:
         self.desired_classes = desired_classes
         self.desired_changes = desired_changes
 
-    def is_candidate_couple(self, decision_column: pd.DataFrame):
+    def is_candidate_couple(self, decision_column: pd.DataFrame) -> bool:
         """
         Is it possible to get any action rules?
         """
@@ -33,7 +32,7 @@ class DesiredState:
         # otherwise
         return True
 
-    def is_desired_classes_candidate_couple(self, decision_column: pd.DataFrame):
+    def is_desired_classes_candidate_couple(self, decision_column: pd.DataFrame) -> bool:
         """
         Table has at least one desired class
         """
@@ -43,7 +42,7 @@ class DesiredState:
             is_candidate = True
         return is_candidate
 
-    def is_desired_changes_candidate_couple(self, decision_column: pd.DataFrame):
+    def is_desired_changes_candidate_couple(self, decision_column: pd.DataFrame) -> bool:
         """
         Table has at least one desired class
         """
@@ -55,7 +54,7 @@ class DesiredState:
                 is_candidate = True
         return is_candidate
 
-    def is_candidate(self, decision_column: pd.DataFrame):
+    def is_candidate(self, decision_column: pd.DataFrame) -> bool:
         """
         Is it possible to get any action rules?
         """
@@ -71,39 +70,38 @@ class DesiredState:
         # otherwise
         return True
 
-    def is_desired_classes_candidate(self, decision_column: pd.DataFrame):
+    def is_desired_classes_candidate(self, decision_column: pd.DataFrame) -> bool:
         """
         Table has at least one desired class
         """
         is_candidate = False
-        unique_decisions = reduction.Reduction.get_unique_values(decision_column, 0)
+        unique_decisions = self.get_unique_values(decision_column, 0)
         for desired_class in self.desired_classes:
             if desired_class in unique_decisions:
                 is_candidate = True
         return is_candidate
 
-    def is_desired_changes_candidate(self, decision_column: pd.DataFrame):
+    def is_desired_changes_candidate(self, decision_column: pd.DataFrame) -> bool:
         """
         Table has at least one desired class
         """
         is_candidate = False
-        unique_decisions = reduction.Reduction.get_unique_values(decision_column, 0)
+        unique_decisions = self.get_unique_values(decision_column, 0)
         for desired_change in self.desired_changes:
             if desired_change[0] in unique_decisions and desired_change[1] in unique_decisions:
                 is_candidate = True
         return is_candidate
 
-    @staticmethod
-    def has_variability(decision_column: pd.DataFrame):
+    def has_variability(self, decision_column: pd.DataFrame) -> bool:
         """
         Variability in decisions
         """
-        unique_decisions = reduction.Reduction.get_unique_values(decision_column, 0)
+        unique_decisions = self.get_unique_values(decision_column, 0)
         if len(unique_decisions) == 1:
             return False
         return True
 
-    def get_destination_classes(self):
+    def get_destination_classes(self) -> List[str]:
         destination_classes = []
         if self.desired_classes:
             destination_classes = destination_classes + self.desired_classes
@@ -111,3 +109,10 @@ class DesiredState:
             for desired_change in self.desired_changes:
                 destination_classes.append(desired_change[1])
         return destination_classes
+
+    @staticmethod
+    def get_unique_values(table: pd.DataFrame, column_number: int) -> list:
+        """
+        Get unique values from column
+        """
+        return table.iloc[:, column_number].unique()
