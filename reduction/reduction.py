@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from desiredstate import DesiredState
 
 
 class Reduction:
@@ -8,7 +9,7 @@ class Reduction:
     """
 
     def __init__(self, stable_columns: pd.DataFrame, flexible_columns: pd.DataFrame, decision_column: pd.DataFrame,
-                 desired_state, supp, conf):
+                 desired_state: DesiredState, supp: float, conf: float):
         """
         Initialise the decision table
         """

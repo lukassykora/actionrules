@@ -1,6 +1,7 @@
 import fim
 import pandas as pd
 import numpy as np
+from typing import List
 
 
 class Decisions:
@@ -22,23 +23,25 @@ class Decisions:
         self.label_encoders = {}
         self.support = []
         self.confidence = []
+        self.max_length = 10
 
-    def read_csv(self, file, **kwargs):
+    def read_csv(self, file: str, **kwargs):
         """
         Load data from csv.
         """
         self.data = pd.read_csv(file, **kwargs)
 
-    def load_pandas(self, dataframe):
+    def load_pandas(self, data_frame: pd.DataFrame):
         """
         Load data from pandas dataframe.
         """
-        self.data = dataframe
+        self.data = data_frame
 
-    def prepare_data_fim(self, antecedents, consequent):
+    def prepare_data_fim(self, antecedents: List[str], consequent: str):
         """
         Data preparation.
         """
+        self.max_length = len(antecedents) + 1
         for index, row in self.data.iterrows():
             transaction_row = []
             for i, v in row.iteritems():
@@ -48,35 +51,41 @@ class Decisions:
                 elif i in antecedents:
                     side_type = "a"
                 if side_type:
-                    self.appearance.add((str(i) + ": " + str(v), side_type))
-                    transaction_row.append(str(i) + ": " + str(v))
+                    self.appearance.add((str(i) + "<:> " + str(v), side_type))
+                    transaction_row.append(str(i) + "<:> " + str(v))
             self.transactions.append(transaction_row)
 
-    def fit_fim_apriori(self, conf=70, support=10, minlen=2, maxlen=10):
+    def fit_fim_apriori(self, conf: float=70, support: float=10):
+        """
+        Get classification rules by pyFim.
+        """
         self.rules = fim.arules(self.transactions,
                                 supp=support,
                                 conf=conf,
                                 report="sc",
                                 mode="o",
                                 appear=dict(self.appearance),
-                                zmin=minlen,
-                                zmax=maxlen)
+                                zmin=2,  # At least one antecedent and consequent
+                                zmax=self.max_length)
 
     def generate_decision_table(self):
+        """
+        Generate table of classification rules
+        """
         for rule in self.rules:
             values = []
             cols = []
             # Antecdents
             for cedent in rule[1]:
-                cols.append(cedent.split(": ")[0])
-                value = cedent.split(": ")[1]
+                cols.append(cedent.split("<:> ")[0])
+                value = cedent.split("<:> ")[1]
                 if value == "nan":
                     values.append(np.NaN)
                 else:
                     values.append(value)
             # Subsequent
-            cols.append(rule[0].split(": ")[0])
-            value = rule[0].split(": ")[1]
+            cols.append(rule[0].split("<:> ")[0])
+            value = rule[0].split("<:> ")[1]
             if value == "nan":
                 values.append(np.NaN)
             else:
