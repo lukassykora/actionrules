@@ -17,7 +17,9 @@ class ActionRules:
                  desired_state: DesiredState,
                  supp: List[pd.Series],
                  conf: List[pd.Series],
-                 is_nan: bool = False):
+                 is_nan: bool = False,
+                 min_stable_antecedents: int = 1,
+                 min_flexible_antecedents: int = 1):
         """
         Initialise by reduced tables.
         """
@@ -25,13 +27,15 @@ class ActionRules:
         self.flexible_tables = flexible_tables
         self.decision_tables = decision_tables
         self.desired_state = desired_state
-        self.action_rules = []
+        self.action_rules = {}
         self.supp = supp
         self.conf = conf
         self.is_nan = is_nan
+        self.min_stable_antecedents = min_stable_antecedents
+        self.min_flexible_antecedents = min_flexible_antecedents
 
     def _is_action_couple(self,
-                          before:Union[str, int, float],
+                          before: Union[str, int, float],
                           after: Union[str, int, float],
                           attribute_type: str
                           ) -> tuple:
@@ -87,10 +91,10 @@ class ActionRules:
                          action_rule_supp: tuple,
                          action_rule_conf: tuple):
         """
-        Add action rule to list
+        Add action rule to dictionary
         """
         action_rule = (action_rule_stable, action_rule_flexible, action_rule_decision)
-        self.action_rules.append((action_rule, (action_rule_supp, action_rule_conf), ))
+        self.action_rules[action_rule] = (action_rule_supp, action_rule_conf)
 
     def fit(self):
         """
@@ -117,7 +121,10 @@ class ActionRules:
                         "flexible")
                     action_rule_decision = (
                         decision_couples.columns[0], (decision_couples.iat[0, 0], decision_couples.iat[1, 0]))
-                    if len(action_rule_flexible) > 0 and is_all_stable and is_all_flexible:
+                    if len(action_rule_flexible) >= self.min_flexible_antecedents and \
+                            len(action_rule_stable) >= self.min_stable_antecedents and \
+                            is_all_stable and \
+                            is_all_flexible:
                         if has_supp_stable and has_supp_flexible:
                             action_rule_supp = (supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1]))
                             action_rule_conf = (conf_couples[0], conf_couples[1], conf_couples[0] * conf_couples[1])

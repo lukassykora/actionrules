@@ -17,4 +17,4 @@ control.fit(stable_antecedents = ["Age"], flexible_antecedents = ["Embarked", "F
 control.get_action_rules()
 ```
 
-The output is a list of action rules and their support (support before, support after, action rule support) and confidence (confidence before, confidence after, action rule confidence).
+The output is a dictionary where the key is an action rule and the value is a tuple of (support before, support after, action rule support) and (confidence before, confidence after, action rule confidence).

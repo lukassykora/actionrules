@@ -9,7 +9,7 @@ class Reduction:
     """
 
     def __init__(self, stable_columns: pd.DataFrame, flexible_columns: pd.DataFrame, decision_column: pd.DataFrame,
-                 desired_state: DesiredState, supp: float, conf: float):
+                 desired_state: DesiredState, supp: float, conf: float, is_nan: bool):
         """
         Initialise the decision table
         """
@@ -20,6 +20,7 @@ class Reduction:
         self.desired_state = desired_state
         self.supp = [pd.Series(supp)]
         self.conf = [pd.Series(conf)]
+        self.is_nan = is_nan
 
     @staticmethod
     def get_columns_count(columns: pd.DataFrame) -> int:
@@ -42,8 +43,14 @@ class Reduction:
         """
         unique_values = self.get_unique_values(stable_columns, split_position)
         for unique_value in unique_values:
-            mask = np.logical_or(stable_columns.iloc[:, split_position] == unique_value,
-                                 stable_columns.iloc[:, split_position] == np.nan)
+            if self.is_nan:
+                mask = np.logical_or(stable_columns.iloc[:, split_position] == unique_value,
+                                     stable_columns.iloc[:, split_position].isnull())
+            else:
+                if str(unique_value) == "nan":
+                    mask = stable_columns.iloc[:, split_position].isnull()
+                else:
+                    mask = stable_columns.iloc[:, split_position] == unique_value
             new_stable_table = stable_columns[mask]
             new_flexible_table = flexible_columns[mask]
             new_decision_table = decision_column[mask]

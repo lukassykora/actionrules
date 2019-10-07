@@ -40,7 +40,10 @@ class Control:
             supp: float,
             desired_classes: List[str] = None,
             desired_changes: List[list] = None,
-            is_nan: bool=False):
+            is_nan: bool=False,
+            is_reduction: bool=True,
+            min_stable_antecedents: int=1,
+            min_flexible_antecedents: int=1):
         """
         Get action rules.
         Define antecedent and consequent.
@@ -51,10 +54,15 @@ class Control:
         - conf - value in % for confidence of classification rules.
         - supp - value in % for support of classification rules.
         Desired classes or desired changes must be entered.
-        - desired_classes - List of decision states. For example ["1"].
-        - desired_changes - List of desired changes. For example [["0", "1"]].
+        - desired_classes - List of decision states. For example ["1"]. DEFAULT: None
+        - desired_changes - List of desired changes. For example [["0", "1"]]. DEFAULT: None
         Should nan values be used.
-        - is_nan - True means nan values are used, False means nan values are not used.
+        - is_nan - True means nan values are used, False means nan values are not used. DEFAULT: FALSE
+        Should the reduction table be used.
+        - is_reduction - is reduction table used DEFAULT: TRUE
+        Minimal number of stable and flexible couples
+        - min_stable_antecedents - min. stable couples. DEFAULT: 1
+        - min_flexible_antecedents - min. flexible couples. DEFAULT: 1
         """
         if bool(desired_classes) != bool(desired_changes):
             desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
@@ -69,8 +77,9 @@ class Control:
         target = self.decisions.decision_table[[consequent]]
         supp = self.decisions.support
         conf = self.decisions.confidence
-        reduced_tables = Reduction(stable, flex, target, desired_state, supp, conf)
-        reduced_tables.reduce()
+        reduced_tables = Reduction(stable, flex, target, desired_state, supp, conf, is_nan)
+        if is_reduction:
+            reduced_tables.reduce()
         action_rules = ActionRules(
             reduced_tables.stable_tables,
             reduced_tables.flexible_tables,
@@ -78,7 +87,9 @@ class Control:
             desired_state,
             reduced_tables.supp,
             reduced_tables.conf,
-            is_nan
+            is_nan,
+            min_stable_antecedents,
+            min_flexible_antecedents
         )
         action_rules.fit()
         self.action_rules = action_rules.action_rules
