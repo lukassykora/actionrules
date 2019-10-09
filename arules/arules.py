@@ -33,6 +33,7 @@ class ActionRules:
         self.is_nan = is_nan
         self.min_stable_antecedents = min_stable_antecedents
         self.min_flexible_antecedents = min_flexible_antecedents
+        self.used_indexes = []
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -69,7 +70,6 @@ class ActionRules:
         """
         action_rule_part = tuple()
         has_supp_part = True
-        is_all = True
         for column in couple:
             is_action_couple, action_couple, has_supp = self._is_action_couple(
                 before=couple.at[0, column],
@@ -81,8 +81,8 @@ class ActionRules:
                     has_supp_part = False
             else:
                 if str(couple.at[0, column]) != "nan" or str(couple.at[1, column]) != "nan":
-                    is_all = False
-        return action_rule_part, has_supp_part, is_all
+                    return None, None, False
+        return action_rule_part, has_supp_part, True
 
     def _add_action_rule(self,
                          action_rule_stable: tuple,
@@ -108,6 +108,9 @@ class ActionRules:
             conf = self.conf.pop(0)
             indexes = list(stable_columns.index.values)
             for comb in itertools.permutations(indexes, 2):
+                if comb in self.used_indexes:
+                    continue
+                self.used_indexes.append(comb)
                 stable_couples = stable_columns.loc[list(comb)].reset_index(drop=True)
                 flexible_couples = flexible_columns.loc[list(comb)].reset_index(drop=True)
                 decision_couples = decision_column.loc[list(comb)].reset_index(drop=True)
@@ -121,10 +124,10 @@ class ActionRules:
                         "flexible")
                     action_rule_decision = (
                         decision_couples.columns[0], (decision_couples.iat[0, 0], decision_couples.iat[1, 0]))
-                    if len(action_rule_flexible) >= self.min_flexible_antecedents and \
-                            len(action_rule_stable) >= self.min_stable_antecedents and \
-                            is_all_stable and \
-                            is_all_flexible:
+                    if is_all_stable and \
+                            is_all_flexible and \
+                            len(action_rule_flexible) >= self.min_flexible_antecedents and \
+                            len(action_rule_stable) >= self.min_stable_antecedents:
                         if has_supp_stable and has_supp_flexible:
                             action_rule_supp = (supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1]))
                             action_rule_conf = (conf_couples[0], conf_couples[1], conf_couples[0] * conf_couples[1])
