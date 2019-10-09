@@ -27,7 +27,7 @@ class ActionRules:
         self.flexible_tables = flexible_tables
         self.decision_tables = decision_tables
         self.desired_state = desired_state
-        self.action_rules = {}
+        self.action_rules = []
         self.supp = supp
         self.conf = conf
         self.is_nan = is_nan
@@ -53,7 +53,7 @@ class ActionRules:
                 return True, (before,), True
             if self.is_nan:
                 if before == "nan" and after != "nan":
-                    return True, (after,), False
+                    return True, (after + "*",), False
         if attribute_type == "flexible":
             if before == "nan" and after == "nan":
                 return False, None, None
@@ -94,7 +94,7 @@ class ActionRules:
         Add action rule to dictionary
         """
         action_rule = (action_rule_stable, action_rule_flexible, action_rule_decision)
-        self.action_rules[action_rule] = (action_rule_supp, action_rule_conf)
+        self.action_rules.append((action_rule, action_rule_supp, action_rule_conf))
 
     def fit(self):
         """
