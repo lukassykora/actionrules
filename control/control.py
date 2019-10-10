@@ -1,9 +1,9 @@
 from typing import List
 from typing import Tuple
-from desiredstate import DesiredState
-from decisions import Decisions
-from reduction import Reduction
-from arules import ActionRules
+from ..desiredstate import DesiredState
+from ..decisions import Decisions
+from ..reduction import Reduction
+from ..arules import ActionRules
 import pandas as pd
 
 
@@ -18,6 +18,14 @@ class Control:
         """
         self.decisions = Decisions()
         self.action_rules = ()
+
+    def check_columns(self, antecedents: list, consequent: str):
+        if len(self.decisions.data) == 0:
+            raise Exception("No data entered.")
+        columns = self.decisions.data.columns
+        for col_name in antecedents + [consequent]:
+            if col_name not in columns:
+                raise Exception("Column " + str(col_name) + " does not exist in data")
 
     def read_csv(self, file: str, **kwargs):
         """
@@ -69,6 +77,7 @@ class Control:
         else:
             raise Exception("Desired classes or desired changes must be entered")
         antecedents = stable_antecedents + flexible_antecedents
+        self.check_columns(antecedents, consequent)
         self.decisions.prepare_data_fim(antecedents, consequent)
         self.decisions.fit_fim_apriori(conf=conf, support=supp)
         self.decisions.generate_decision_table()

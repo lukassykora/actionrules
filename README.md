@@ -5,11 +5,14 @@ Action Rules (actionrules) is an implementation of Action Rules from Classificat
 
 ```Dardzinska, A. (2013). Action rules mining. Berlin: Springer.```
 
+## GIT repository
+
+https://github.com/lukassykora/actionrules
 
 ## Example
 
 ```python
-from control import Control
+from actionrules.control import Control
 
 control = Control()
 control.read_csv("data/titanic.csv", sep="\t" ,lineterminator='\r')

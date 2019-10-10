@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from desiredstate import DesiredState
+from ..desiredstate import DesiredState
 
 
 class Reduction:

@@ -2,7 +2,7 @@ import pandas as pd
 from typing import List
 from typing import Union
 import itertools
-from desiredstate import DesiredState
+from ..desiredstate import DesiredState
 
 
 class ActionRules:
