@@ -15,7 +15,7 @@ https://github.com/lukassykora/actionrules
 from actionrules.control import Control
 
 control = Control()
-control.read_csv("data/titanic.csv", sep="\t" ,lineterminator='\r')
+control.read_csv("data/titanic.csv", sep="\t")
 control.fit(stable_antecedents = ["Age"], flexible_antecedents = ["Embarked", "Fare", "Pclass"], consequent = "Survived", conf=55, supp=3, desired_classes = ["1.0"], is_nan=False)
 control.get_action_rules()
 ```
