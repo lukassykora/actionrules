@@ -28,6 +28,7 @@ class ActionRules:
         self.decision_tables = decision_tables
         self.desired_state = desired_state
         self.action_rules = []
+        self.action_rules_pretty_text = []
         self.supp = supp
         self.conf = conf
         self.is_nan = is_nan
@@ -68,7 +69,7 @@ class ActionRules:
         """
         Create action rules couples
         """
-        action_rule_part = tuple()
+        action_rule_part = []
         has_supp_part = True
         for column in couple:
             is_action_couple, action_couple, has_supp = self._is_action_couple(
@@ -76,7 +77,7 @@ class ActionRules:
                 after=couple.at[1, column],
                 attribute_type=attribute_type)
             if is_action_couple:
-                action_rule_part = action_rule_part + (column, action_couple)
+                action_rule_part.append([column, action_couple])
                 if not has_supp:
                     has_supp_part = False
             else:
@@ -85,16 +86,16 @@ class ActionRules:
         return action_rule_part, has_supp_part, True
 
     def _add_action_rule(self,
-                         action_rule_stable: tuple,
-                         action_rule_flexible: tuple,
-                         action_rule_decision: tuple,
-                         action_rule_supp: tuple,
-                         action_rule_conf: tuple):
+                         action_rule_stable: list,
+                         action_rule_flexible: list,
+                         action_rule_decision: list,
+                         action_rule_supp: list,
+                         action_rule_conf: list):
         """
-        Add action rule to dictionary
+        Add action rule to list
         """
-        action_rule = (action_rule_stable, action_rule_flexible, action_rule_decision)
-        self.action_rules.append((action_rule, action_rule_supp, action_rule_conf))
+        action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf])
 
     def fit(self):
         """
@@ -122,15 +123,15 @@ class ActionRules:
                     action_rule_flexible, has_supp_flexible, is_all_flexible = self._create_action_rules(
                         flexible_couples,
                         "flexible")
-                    action_rule_decision = (
-                        decision_couples.columns[0], (decision_couples.iat[0, 0], decision_couples.iat[1, 0]))
+                    action_rule_decision = [
+                        decision_couples.columns[0], [decision_couples.iat[0, 0], decision_couples.iat[1, 0]]]
                     if is_all_stable and \
                             is_all_flexible and \
                             len(action_rule_flexible) >= self.min_flexible_antecedents and \
                             len(action_rule_stable) >= self.min_stable_antecedents:
                         if has_supp_stable and has_supp_flexible:
-                            action_rule_supp = (supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1]))
-                            action_rule_conf = (conf_couples[0], conf_couples[1], conf_couples[0] * conf_couples[1])
+                            action_rule_supp = [supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1])]
+                            action_rule_conf = [conf_couples[0], conf_couples[1], conf_couples[0] * conf_couples[1]]
                         else:
                             action_rule_supp = (None, supp_couples[1], None)
                             action_rule_conf = (None, conf_couples[1], None)
@@ -139,3 +140,24 @@ class ActionRules:
                                               action_rule_decision,
                                               action_rule_supp,
                                               action_rule_conf)
+
+    def pretty_text(self):
+        for row in self.action_rules:
+            action_rule = row[0]
+            supp = row[1]
+            conf = row[2]
+            text = "If "
+            # Stable part
+            stable_part = action_rule[0]
+            for stable_couple in stable_part:
+                text += "attribute '" + str(stable_couple[0]) + "' is '" + str(stable_couple[1][0]) + "', "
+            # Flexible part
+            flexible_part = action_rule[1]
+            for flexible_couple in flexible_part:
+                text += "attribute '" + str(flexible_couple[0]) + "' value '" + str(flexible_couple[1][0]) + \
+                        "' is changed to '" + str(flexible_couple[1][1]) + "', "
+            # Decision
+            decision = action_rule[2]
+            text += "then '" + str(decision[0]) + "' value '" + str(decision[1][0]) + "' is changed to '" + \
+                    str(decision[1][1]) + "' with support: " + str(supp[2]) + " and confidence: " + str(conf[2]) + "."
+            self.action_rules_pretty_text.append(text)
