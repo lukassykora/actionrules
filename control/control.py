@@ -1,5 +1,4 @@
 from typing import List
-from typing import Tuple
 from ..desiredstate import DesiredState
 from ..decisions import Decisions
 from ..reduction import Reduction
@@ -17,7 +16,7 @@ class Control:
         Initialise
         """
         self.decisions = Decisions()
-        self.action_rules = ()
+        self.arules = None
 
     def check_columns(self, antecedents: list, consequent: str):
         if len(self.decisions.data) == 0:
@@ -89,7 +88,7 @@ class Control:
         reduced_tables = Reduction(stable, flex, target, desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
-        action_rules = ActionRules(
+        self.arules = ActionRules(
             reduced_tables.stable_tables,
             reduced_tables.flexible_tables,
             reduced_tables.decision_tables,
@@ -100,11 +99,18 @@ class Control:
             min_stable_antecedents,
             min_flexible_antecedents
         )
-        action_rules.fit()
-        self.action_rules = action_rules.action_rules
+        self.arules.fit()
 
-    def get_action_rules(self) -> Tuple:
+    def get_action_rules(self) -> list:
         """
         Get action rules.
         """
-        return self.action_rules
+        return self.arules.action_rules
+
+    def get_pretty_action_rules(self) -> list:
+        """
+        Get pretty text of action rules.
+        """
+        if len(self.arules.action_rules_pretty_text) == 0:
+            self.arules.pretty_text()
+        return self.arules.action_rules_pretty_text
