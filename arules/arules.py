@@ -72,16 +72,21 @@ class ActionRules:
                     return True, (str(None), after), False
         return False, None, True
 
-    def _create_action_rules(self, couple: pd.DataFrame, attribute_type: str) -> tuple:
+    def _create_action_rules(self,
+                             df: pd.DataFrame,
+                             rule_before_index: int,
+                             rule_after_index: int,
+                             attribute_type: str) -> tuple:
         """
         Create action rules couples
         """
         action_rule_part = []
         count_antecedents = 0
-        for column in couple:
+        columns = list(df)
+        for column in columns:
             is_action_couple, action_couple, break_rule = self._is_action_couple(
-                before=couple.at[0, column],
-                after=couple.at[1, column],
+                before=df[column][rule_before_index],
+                after=df[column][rule_after_index],
                 attribute_type=attribute_type)
             if break_rule:
                 return False, None, None
@@ -105,6 +110,19 @@ class ActionRules:
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
         self.action_rules.append([action_rule, action_rule_supp, action_rule_conf])
 
+    def is_candidate_decision(self, decision_before: str, decision_after: str):
+        """
+        Check if it is a candidate
+        """
+        if decision_before == decision_after:
+            return False
+        if self.desired_state.desired_classes and decision_after not in self.desired_state.desired_classes:
+            return False
+        if self.desired_state.desired_changes and \
+                [decision_before, decision_after] not in self.desired_state.desired_changes:
+            return False
+        return True
+
     def fit(self):
         """
         Find all couples of classification rules and try to create action rules
@@ -120,28 +138,37 @@ class ActionRules:
                 if comb in self.used_indexes:
                     continue
                 self.used_indexes.append(comb)
-                stable_couples = stable_columns.loc[list(comb)].reset_index(drop=True)
-                flexible_couples = flexible_columns.loc[list(comb)].reset_index(drop=True)
-                decision_couples = decision_column.loc[list(comb)].reset_index(drop=True)
-                supp_couples = supp.loc[list(comb)].reset_index(drop=True)
-                conf_couples = conf.loc[list(comb)].reset_index(drop=True)
-                if self.desired_state.is_candidate_couple(decision_couples):
+                rule_before_index = comb[0]
+                rule_after_index = comb[1]
+                decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
+                decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
+                if self.is_candidate_decision(decision_before, decision_after):
                     is_all_stable, action_rule_stable, counted_stable = self._create_action_rules(
-                        stable_couples,
+                        stable_columns,
+                        rule_before_index,
+                        rule_after_index,
                         "stable")
                     is_all_flexible, action_rule_flexible, counted_flexible = self._create_action_rules(
-                        flexible_couples,
+                        flexible_columns,
+                        rule_before_index,
+                        rule_after_index,
                         "flexible")
                     action_rule_decision = [
-                        decision_couples.columns[0], [decision_couples.iat[0, 0], decision_couples.iat[1, 0]]]
+                        decision_column.columns[0], [decision_before, decision_after]]
                     if is_all_stable and \
                             is_all_flexible and \
                             counted_flexible >= self.min_flexible_antecedents and \
                             counted_stable >= self.min_stable_antecedents and \
                             counted_flexible <= self.max_flexible_antecedents and \
                             counted_stable <= self.max_stable_antecedents:
-                        action_rule_supp = [supp_couples[0], supp_couples[1], min(supp_couples[0], supp_couples[1])]
-                        action_rule_conf = [conf_couples[0], conf_couples[1], conf_couples[0] * conf_couples[1]]
+                        action_rule_supp = [supp[rule_before_index],
+                                            supp[rule_after_index],
+                                            min(supp[rule_before_index], supp[rule_after_index])
+                                            ]
+                        action_rule_conf = [conf[rule_before_index],
+                                            conf[rule_after_index],
+                                            conf[rule_before_index] * conf[rule_after_index]
+                                            ]
                         self._add_action_rule(action_rule_stable,
                                               action_rule_flexible,
                                               action_rule_decision,
@@ -149,6 +176,9 @@ class ActionRules:
                                               action_rule_conf)
 
     def pretty_text(self):
+        """
+        Generate human language representation of action rules
+        """
         for row in self.action_rules:
             action_rule = row[0]
             supp = row[1]
@@ -170,6 +200,9 @@ class ActionRules:
             self.action_rules_pretty_text.append(text)
 
     def representation(self):
+        """
+        Generate mathematical representation of action rules
+        """
         for row in self.action_rules:
             action_rule = row[0]
             supp = row[1]

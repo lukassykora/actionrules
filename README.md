@@ -22,21 +22,21 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionrules.control import Control
+from actionrules.actionRulesDiscovery import ActionRulesDiscovery
 
-control = Control()
-control.read_csv("data/titanic.csv", sep="\t")
-control.fit(stable_antecedents = ["Age"],
-            flexible_antecedents = ["Embarked", "Fare", "Pclass"],
-            consequent = "Survived",
-            conf=55,
-            supp=3,
-            desired_classes = ["1.0"],
-            is_nan=False,
-            is_reduction=True,
-            min_stable_antecedents=1,
-            min_flexible_antecedents=1)
-control.get_action_rules()
+actionRulesDiscovery = ActionRulesDiscovery()
+actionRulesDiscovery.read_csv("data/titanic.csv", sep="\t")
+actionRulesDiscovery.fit(stable_antecedents = ["Age"],
+                         flexible_antecedents = ["Embarked", "Fare", "Pclass"],
+                         consequent = "Survived",
+                         conf=55,
+                         supp=3,
+                         desired_classes = ["1.0"],
+                         is_nan=False,
+                         is_reduction=True,
+                         min_stable_antecedents=1,
+                         min_flexible_antecedents=1)
+actionRulesDiscovery.get_action_rules()
 ```
 
 The output is a list where the first part is an action rule and the second part is a tuple of (support before, support after, action rule support) and (confidence before, confidence after, action rule confidence).
@@ -54,13 +54,13 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionrules.control import Control
+from actionrules.actionRulesDiscovery import ActionRulesDiscovery
 import pandas as pd
 
 dataFrame = pd.read_csv("data/titanic.csv", sep="\t")
-control = Control()
-control.load_pandas(dataFrame)
-control.fit(stable_antecedents = ["Age", "Sex"],
+actionRulesDiscovery = ActionRulesDiscovery()
+actionRulesDiscovery.load_pandas(dataFrame)
+actionRulesDiscovery.fit(stable_antecedents = ["Age", "Sex"],
             flexible_antecedents = ["Embarked", "Fare", "Pclass"],
             consequent = "Survived",
             conf=50,
@@ -70,7 +70,7 @@ control.fit(stable_antecedents = ["Age", "Sex"],
             is_reduction=True,
             min_stable_antecedents=1,
             min_flexible_antecedents=1)
-control.get_pretty_action_rules()
+actionRulesDiscovery.get_pretty_action_rules()
 ```
 
 The output is a list of action rules in pretty text form.
