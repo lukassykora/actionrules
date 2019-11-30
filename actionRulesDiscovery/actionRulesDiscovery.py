@@ -18,6 +18,9 @@ class ActionRulesDiscovery:
         """
         self.decisions = Decisions()
         self.arules = None
+        self.stable_antecedents = []
+        self.flexible_antecedents = []
+        self.consequent = ""
 
     def check_columns(self, antecedents: list, consequent: str):
         if len(self.decisions.data) == 0:
@@ -79,7 +82,12 @@ class ActionRulesDiscovery:
         Minimal number of stable and flexible couples
         - min_stable_antecedents - Minimal number of stable antecedents. DEFAULT: 1
         - min_flexible_antecedents - Minimal number of flexible couples. DEFAULT: 1
+        - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
+        - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
         """
+        self.stable_antecedents = stable_antecedents
+        self.flexible_antecedents = flexible_antecedents
+        self.consequent = consequent
         if bool(desired_classes) != bool(desired_changes):
             desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
@@ -151,7 +159,12 @@ class ActionRulesDiscovery:
         Minimal number of stable and flexible couples
         - min_stable_antecedents - Minimal number of stable antecedents. DEFAULT: 1
         - min_flexible_antecedents - Minimal number of flexible antecedents.  DEFAULT: 1
+        - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
+        - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
         """
+        self.stable_antecedents = stable_antecedents
+        self.flexible_antecedents = flexible_antecedents
+        self.consequent = consequent
         if bool(desired_classes) != bool(desired_changes):
             desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
@@ -206,3 +219,59 @@ class ActionRulesDiscovery:
         if len(self.arules.action_rules_representation) == 0:
             self.arules.representation()
         return self.arules.action_rules_representation
+
+    def get_source_data_for_ar(self, action_r_number: int, is_before: bool) -> pd.DataFrame:
+        """
+        Get dataframe with values which action rule is based on
+        - action_r_number - Action rule number.
+        - is_before - Distinguish the rules before (True) or after (False)
+        """
+        if is_before:
+            classification = self.arules.classification_before[action_r_number]
+        else:
+            classification = self.arules.classification_after[action_r_number]
+        decision = self.decisions.decision_table.loc[
+            classification, self.stable_antecedents + self.flexible_antecedents]
+        source_table = self._reduce_table_source(decision, self.decisions.data)
+        return source_table.style.applymap(lambda x: 'background-color: yellow',
+                                           subset=self.stable_antecedents)\
+                                 .applymap(lambda x: 'background-color: green',
+                                           subset=self.flexible_antecedents)\
+                                 .applymap(lambda x: 'color: red',
+                                           subset=[self.consequent])
+
+    @staticmethod
+    def _reduce_table_source(decision: pd.Series, source_table: pd.DataFrame) -> pd.DataFrame:
+        """
+        Get dataframe by classification rule
+        - decision - Classification rule
+        """
+        new_data = source_table.applymap(str).copy()
+        for key, value in decision.items():
+            if str(value) != "nan":
+                mask = new_data[key] == value
+                new_data = new_data[mask]
+        return new_data
+
+    def predict(self, source_table: pd.DataFrame):
+        """
+        Predict if any values would need to change their state
+        - table for prediction
+        """
+        i = 0
+        full_predicted_table = pd.DataFrame()
+        for classification_before in self.arules.classification_before:
+            classification_after = self.arules.classification_after[i]
+            decision_before = self.decisions.decision_table.loc[
+                classification_before, self.stable_antecedents + self.flexible_antecedents]
+            decision_after = self.decisions.decision_table.loc[
+                classification_after, self.stable_antecedents + self.flexible_antecedents]
+            predicted_table = self._reduce_table_source(decision_before, source_table)
+            if len(predicted_table.index) > 0:
+                for key, value in decision_after.items():
+                    if str(value) != "nan" and key in self.flexible_antecedents:
+                        column = key + "-recommended-" + str(i)
+                        predicted_table[column] = [value] * len(predicted_table.index)
+            full_predicted_table = pd.concat([full_predicted_table, predicted_table], sort=True)
+            i += 1
+        return full_predicted_table

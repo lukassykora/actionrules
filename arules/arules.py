@@ -22,7 +22,7 @@ class ActionRules:
                  min_stable_antecedents: int = 1,
                  min_flexible_antecedents: int = 1,
                  max_stable_antecedents: int = 1,
-                 max_flexible_antecedents: int = 1
+                 max_flexible_antecedents: int = 1,
                  ):
         """
         Initialise by reduced tables.
@@ -42,6 +42,8 @@ class ActionRules:
         self.max_stable_antecedents = max_stable_antecedents
         self.max_flexible_antecedents = max_flexible_antecedents
         self.used_indexes = []
+        self.classification_before = []
+        self.classification_after = []
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -135,9 +137,11 @@ class ActionRules:
             conf = self.conf.pop(0)
             indexes = list(stable_columns.index.values)
             for comb in itertools.permutations(indexes, 2):
-                if comb in self.used_indexes:
-                    continue
-                self.used_indexes.append(comb)
+                # Check if it is not used twice - just for reduction by nan
+                if self.is_nan:
+                    if comb in self.used_indexes:
+                        continue
+                    self.used_indexes.append(comb)
                 rule_before_index = comb[0]
                 rule_after_index = comb[1]
                 decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
@@ -148,19 +152,21 @@ class ActionRules:
                         rule_before_index,
                         rule_after_index,
                         "stable")
+                    if not is_all_stable:
+                        continue
                     is_all_flexible, action_rule_flexible, counted_flexible = self._create_action_rules(
                         flexible_columns,
                         rule_before_index,
                         rule_after_index,
                         "flexible")
+                    if not is_all_flexible:
+                        continue
                     action_rule_decision = [
                         decision_column.columns[0], [decision_before, decision_after]]
-                    if is_all_stable and \
-                            is_all_flexible and \
-                            counted_flexible >= self.min_flexible_antecedents and \
-                            counted_stable >= self.min_stable_antecedents and \
-                            counted_flexible <= self.max_flexible_antecedents and \
-                            counted_stable <= self.max_stable_antecedents:
+                    if counted_flexible >= self.min_flexible_antecedents and \
+                       counted_stable >= self.min_stable_antecedents and \
+                       counted_flexible <= self.max_flexible_antecedents and \
+                       counted_stable <= self.max_stable_antecedents:
                         action_rule_supp = [supp[rule_before_index],
                                             supp[rule_after_index],
                                             min(supp[rule_before_index], supp[rule_after_index])
@@ -174,6 +180,8 @@ class ActionRules:
                                               action_rule_decision,
                                               action_rule_supp,
                                               action_rule_conf)
+                        self.classification_before.append(rule_before_index)
+                        self.classification_after.append(rule_after_index)
 
     def pretty_text(self):
         """
