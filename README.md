@@ -35,7 +35,9 @@ actionRulesDiscovery.fit(stable_antecedents = ["Age"],
                          is_nan=False,
                          is_reduction=True,
                          min_stable_antecedents=1,
-                         min_flexible_antecedents=1)
+                         min_flexible_antecedents=1,
+                         max_stable_antecedents=5,
+                         max_flexible_antecedents=5)
 actionRulesDiscovery.get_action_rules()
 ```
 
@@ -61,15 +63,17 @@ dataFrame = pd.read_csv("data/titanic.csv", sep="\t")
 actionRulesDiscovery = ActionRulesDiscovery()
 actionRulesDiscovery.load_pandas(dataFrame)
 actionRulesDiscovery.fit(stable_antecedents = ["Age", "Sex"],
-            flexible_antecedents = ["Embarked", "Fare", "Pclass"],
-            consequent = "Survived",
-            conf=50,
-            supp=3,
-            desired_changes = [["0.0", "1.0"]],
-            is_nan=False,
-            is_reduction=True,
-            min_stable_antecedents=1,
-            min_flexible_antecedents=1)
+                         flexible_antecedents = ["Embarked", "Fare", "Pclass"],
+                         consequent = "Survived",
+                         conf=50,
+                         supp=3,
+                         desired_changes = [["0.0", "1.0"]],
+                         is_nan=False,
+                         is_reduction=True,
+                         min_stable_antecedents=1,
+                         min_flexible_antecedents=1,
+                         max_stable_antecedents=5,
+                         max_flexible_antecedents=5)
 actionRulesDiscovery.get_pretty_action_rules()
 ```
 
