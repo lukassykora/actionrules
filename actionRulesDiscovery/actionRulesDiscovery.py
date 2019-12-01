@@ -270,8 +270,9 @@ class ActionRulesDiscovery:
             if len(predicted_table.index) > 0:
                 for key, value in decision_after.items():
                     if str(value) != "nan" and key in self.flexible_antecedents:
-                        column = key + "-recommended-" + str(i)
+                        column = key + "-recommended"
                         predicted_table[column] = [value] * len(predicted_table.index)
+                        predicted_table["action rule"] = [i] * len(predicted_table.index)
             full_predicted_table = pd.concat([full_predicted_table, predicted_table], sort=True)
             i += 1
         return full_predicted_table
