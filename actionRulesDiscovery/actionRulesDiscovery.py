@@ -273,6 +273,7 @@ class ActionRulesDiscovery:
                         column = key + "-recommended"
                         predicted_table[column] = [value] * len(predicted_table.index)
                         predicted_table["action rule"] = [i] * len(predicted_table.index)
+                        predicted_table = predicted_table.astype({"action rule": int})
             full_predicted_table = pd.concat([full_predicted_table, predicted_table], sort=True)
             i += 1
         return full_predicted_table

@@ -64,6 +64,8 @@ class ActionRules:
             elif self.is_nan:
                 if before == "nan" and after != "nan":
                     return True, (after + "*",), False
+                elif before != "nan" and after == "nan":
+                    return False, None, False
         elif attribute_type == "flexible":
             if before == "nan" and after == "nan":
                 return False, None, False
@@ -72,6 +74,8 @@ class ActionRules:
             elif self.is_nan:
                 if before != after and before == "nan":
                     return True, (str(None), after), False
+                if before != after and after == "nan":
+                    return False, None, False
         return False, None, True
 
     def _create_action_rules(self,
