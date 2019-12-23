@@ -11,6 +11,15 @@ class ActionRulesDiscovery:
     """
     ActionRulesDiscovery class
     """
+    ACTION_RULE = "action rule"
+    ACTION_RULE_TARGET = "action rule target"
+    SUPPORT_BEFORE = "support before"
+    SUPPORT_AFTER = "support after"
+    ACTION_RULE_SUPPORT = "action rule support"
+    CONFIDENCE_BEFORE = "confidence before"
+    CONFIDENCE_AFTER = "confidence after"
+    ACTION_RULE_CONFIDENCE = "action rule confidence"
+    RECOMMENDED = "-recommended"
 
     def __init__(self):
         """
@@ -18,6 +27,7 @@ class ActionRulesDiscovery:
         """
         self.decisions = Decisions()
         self.arules = None
+        self.desired_state = None
         self.stable_antecedents = []
         self.flexible_antecedents = []
         self.consequent = ""
@@ -85,11 +95,13 @@ class ActionRulesDiscovery:
         - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
         - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
         """
+        if (self.arules):
+            raise Exception("Fit was already called")
         self.stable_antecedents = stable_antecedents
         self.flexible_antecedents = flexible_antecedents
         self.consequent = consequent
         if bool(desired_classes) != bool(desired_changes):
-            desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
+            self.desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
             raise Exception("Desired classes or desired changes must be entered")
         antecedents = stable_antecedents + flexible_antecedents
@@ -102,14 +114,14 @@ class ActionRulesDiscovery:
         target = self.decisions.decision_table[[consequent]]
         supp = self.decisions.support
         conf = self.decisions.confidence
-        reduced_tables = Reduction(stable, flex, target, desired_state, supp, conf, is_nan)
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
         self.arules = ActionRules(
             reduced_tables.stable_tables,
             reduced_tables.flexible_tables,
             reduced_tables.decision_tables,
-            desired_state,
+            self.desired_state,
             reduced_tables.supp,
             reduced_tables.conf,
             is_nan,
@@ -162,11 +174,13 @@ class ActionRulesDiscovery:
         - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
         - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
         """
+        if (self.arules):
+            raise Exception("Fit was already called")
         self.stable_antecedents = stable_antecedents
         self.flexible_antecedents = flexible_antecedents
         self.consequent = consequent
         if bool(desired_classes) != bool(desired_changes):
-            desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
+            self.desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
             raise Exception("Desired classes or desired changes must be entered")
         antecedents = stable_antecedents + flexible_antecedents
@@ -180,14 +194,14 @@ class ActionRulesDiscovery:
         conf_df = self.decisions.data[[conf_col]]
         conf_series = conf_df.iloc[:, 0]
         conf = conf_series.tolist()
-        reduced_tables = Reduction(stable, flex, target, desired_state, supp, conf, is_nan)
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
         self.arules = ActionRules(
             reduced_tables.stable_tables,
             reduced_tables.flexible_tables,
             reduced_tables.decision_tables,
-            desired_state,
+            self.desired_state,
             reduced_tables.supp,
             reduced_tables.conf,
             is_nan,
@@ -234,11 +248,11 @@ class ActionRulesDiscovery:
             classification, self.stable_antecedents + self.flexible_antecedents]
         source_table = self._reduce_table_source(decision, self.decisions.data)
         return source_table.style.applymap(lambda x: 'background-color: yellow',
-                                           subset=self.stable_antecedents)\
-                                 .applymap(lambda x: 'background-color: green',
-                                           subset=self.flexible_antecedents)\
-                                 .applymap(lambda x: 'color: red',
-                                           subset=[self.consequent])
+                                           subset=self.stable_antecedents) \
+            .applymap(lambda x: 'background-color: orange',
+                      subset=self.flexible_antecedents) \
+            .applymap(lambda x: 'color: green' if x in self.desired_state.get_destination_classes() else 'color: red',
+                      subset=[self.consequent])
 
     @staticmethod
     def _reduce_table_source(decision: pd.Series, source_table: pd.DataFrame) -> pd.DataFrame:
@@ -270,10 +284,36 @@ class ActionRulesDiscovery:
             if len(predicted_table.index) > 0:
                 for key, value in decision_after.items():
                     if str(value) != "nan" and key in self.flexible_antecedents:
-                        column = key + "-recommended"
+                        column = key + self.RECOMMENDED
                         predicted_table[column] = [value] * len(predicted_table.index)
-                        predicted_table["action rule"] = [i] * len(predicted_table.index)
-                        predicted_table = predicted_table.astype({"action rule": int})
+                        predicted_table[self.ACTION_RULE] = [i] * len(predicted_table.index)
+                        predicted_table = predicted_table.astype({self.ACTION_RULE: int})
+                predicted_table[self.ACTION_RULE_TARGET] = \
+                    [self.arules.action_rules[i][0][2][1][1]] * len(predicted_table.index)
+                predicted_table[self.SUPPORT_BEFORE] = \
+                    [self.arules.action_rules[i][1][0]] * len(predicted_table.index)
+                predicted_table[self.SUPPORT_AFTER] = \
+                    [self.arules.action_rules[i][1][1]] * len(predicted_table.index)
+                predicted_table[self.ACTION_RULE_SUPPORT] = \
+                    [self.arules.action_rules[i][1][2]] * len(predicted_table.index)
+                predicted_table[self.CONFIDENCE_BEFORE] = \
+                    [self.arules.action_rules[i][2][0]] * len(predicted_table.index)
+                predicted_table[self.CONFIDENCE_AFTER] = \
+                    [self.arules.action_rules[i][2][1]] * len(predicted_table.index)
+                predicted_table[self.ACTION_RULE_CONFIDENCE] = \
+                    [self.arules.action_rules[i][2][2]] * len(predicted_table.index)
             full_predicted_table = pd.concat([full_predicted_table, predicted_table], sort=True)
             i += 1
+        # New columns always in the end
+        cols = full_predicted_table.columns.tolist()
+        if len(cols)>0:
+            cols.append(cols.pop(cols.index(self.ACTION_RULE)))
+            cols.append(cols.pop(cols.index(self.ACTION_RULE_TARGET)))
+            cols.append(cols.pop(cols.index(self.SUPPORT_BEFORE)))
+            cols.append(cols.pop(cols.index(self.SUPPORT_AFTER)))
+            cols.append(cols.pop(cols.index(self.ACTION_RULE_SUPPORT)))
+            cols.append(cols.pop(cols.index(self.CONFIDENCE_BEFORE)))
+            cols.append(cols.pop(cols.index(self.CONFIDENCE_AFTER)))
+            cols.append(cols.pop(cols.index(self.ACTION_RULE_CONFIDENCE)))
+            full_predicted_table = full_predicted_table[cols]
         return full_predicted_table

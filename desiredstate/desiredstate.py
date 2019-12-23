@@ -102,6 +102,9 @@ class DesiredState:
         return True
 
     def get_destination_classes(self) -> List[str]:
+        """
+        All possible desired classes
+        """
         destination_classes = []
         if self.desired_classes:
             destination_classes = destination_classes + self.desired_classes
