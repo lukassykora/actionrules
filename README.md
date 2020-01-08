@@ -9,6 +9,13 @@ Action Rules (actionrules) is an implementation of Action Rules from Classificat
 
 https://github.com/lukassykora/actionrules
 
+## Jupyter Notebooks
+
+- [Titanic](https://github.com/lukassykora/actionrules/blob/master/notebooks/Titanic%20-%20Action%20Rules.ipynb) It is the best explanation of all possibilities.
+- [Telco](https://github.com/lukassykora/actionrules/blob/master/notebooks/Telco%20-%20Action%20Rules.ipynb) A brief demonstration.
+- [Ras](https://github.com/lukassykora/actionrules/blob/master/notebooks/Ras%20-%20Acton%20Rules.ipynb) Based on the example in (Ras, Zbigniew W and Wyrzykowska, ARAS: Action rules discovery based on agglomerative strategy, 2007). 
+
+
 ## Example 1
 Get data from csv.
 Get action rules from classification rules. Classification rules have confidence 55% and support 3%.
