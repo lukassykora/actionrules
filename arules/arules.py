@@ -15,7 +15,7 @@ class ActionRules:
                  stable_tables: List[pd.DataFrame],
                  flexible_tables: List[pd.DataFrame],
                  decision_tables: List[pd.DataFrame],
-                 desired_state: DesiredState,
+                 desired_state: DesiredState(),
                  supp: List[pd.Series],
                  conf: List[pd.Series],
                  is_nan: bool = False,
@@ -114,7 +114,8 @@ class ActionRules:
         Add action rule to list
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
-        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf])
+        uplift = self.get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
 
     def is_candidate_decision(self, decision_before: str, decision_after: str):
         """
@@ -195,6 +196,7 @@ class ActionRules:
             action_rule = row[0]
             supp = row[1]
             conf = row[2]
+            uplift = row[3]
             text = "If "
             # Stable part
             stable_part = action_rule[0]
@@ -208,7 +210,8 @@ class ActionRules:
             # Decision
             decision = action_rule[2]
             text += "then '" + str(decision[0]) + "' value '" + str(decision[1][0]) + "' is changed to '" + \
-                    str(decision[1][1]) + "' with support: " + str(supp[2]) + " and confidence: " + str(conf[2]) + "."
+                    str(decision[1][1]) + "' with support: " + str(supp[2]) + ", confidence: " + str(conf[2]) + \
+            " and uplift: " + str(uplift) + "."
             self.action_rules_pretty_text.append(text)
 
     def representation(self):
@@ -219,6 +222,7 @@ class ActionRules:
             action_rule = row[0]
             supp = row[1]
             conf = row[2]
+            uplift = row[3]
             text = "r = [   "
             # Stable part
             stable_part = action_rule[0]
@@ -234,6 +238,14 @@ class ActionRules:
             # Decision
             decision = action_rule[2]
             text += "] ⇒ [" + str(decision[0]) + ": " + str(decision[1][0]) + " → " + \
-                    str(decision[1][1]) + "] with support: " + str(supp[2]) + " and confidence: " + str(
-                conf[2])
+                    str(decision[1][1]) + "] with support: " + str(supp[2]) + ", confidence: " + str(
+                conf[2]) + " and uplift: " + str(uplift) + "."
             self.action_rules_representation.append(text)
+
+    @staticmethod
+    def get_uplift(supp_before: float, conf_before: float, conf_after: float) -> float:
+        """
+        Get uplift for action rule.
+        Uplift = P(target|treatment) -  P(target|no treatment)
+        """
+        return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)

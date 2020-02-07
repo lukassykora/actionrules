@@ -19,6 +19,7 @@ class ActionRulesDiscovery:
     CONFIDENCE_BEFORE = "confidence before"
     CONFIDENCE_AFTER = "confidence after"
     ACTION_RULE_CONFIDENCE = "action rule confidence"
+    ACTION_RULE_UPLIFT = "uplift"
     RECOMMENDED = "-recommended"
 
     def __init__(self):
@@ -33,6 +34,9 @@ class ActionRulesDiscovery:
         self.consequent = ""
 
     def check_columns(self, antecedents: list, consequent: str):
+        """
+        Check if valid
+        """
         if len(self.decisions.data) == 0:
             raise Exception("No data entered.")
         columns = self.decisions.data.columns
@@ -44,7 +48,6 @@ class ActionRulesDiscovery:
         """
         Create data frame from csv
         """
-        # Find all couples of classification rules and try to create action rules
         self.decisions.read_csv(file, **kwargs)
 
     def load_pandas(self, data_frame: pd.DataFrame):
@@ -302,6 +305,8 @@ class ActionRulesDiscovery:
                     [self.arules.action_rules[i][2][1]] * len(predicted_table.index)
                 predicted_table[self.ACTION_RULE_CONFIDENCE] = \
                     [self.arules.action_rules[i][2][2]] * len(predicted_table.index)
+                predicted_table[self.ACTION_RULE_UPLIFT] = \
+                    [self.arules.action_rules[i][3]] * len(predicted_table.index)
             full_predicted_table = pd.concat([full_predicted_table, predicted_table], sort=True)
             i += 1
         # New columns always in the end
@@ -315,5 +320,6 @@ class ActionRulesDiscovery:
             cols.append(cols.pop(cols.index(self.CONFIDENCE_BEFORE)))
             cols.append(cols.pop(cols.index(self.CONFIDENCE_AFTER)))
             cols.append(cols.pop(cols.index(self.ACTION_RULE_CONFIDENCE)))
+            cols.append(cols.pop(cols.index(self.ACTION_RULE_UPLIFT)))
             full_predicted_table = full_predicted_table[cols]
         return full_predicted_table
