@@ -35,7 +35,7 @@ class ActionRulesDiscovery:
 
     def check_columns(self, antecedents: list, consequent: str):
         """
-        Check if valid
+        Check if valid.
         """
         if len(self.decisions.data) == 0:
             raise Exception("No data entered.")
@@ -46,13 +46,13 @@ class ActionRulesDiscovery:
 
     def read_csv(self, file: str, **kwargs):
         """
-        Create data frame from csv
+        Create data frame from csv.
         """
         self.decisions.read_csv(file, **kwargs)
 
     def load_pandas(self, data_frame: pd.DataFrame):
         """
-        Load data frame
+        Load data frame.
         """
         self.decisions.load_pandas(data_frame)
 
@@ -92,11 +92,11 @@ class ActionRulesDiscovery:
                    DEFAULT: FALSE
         Should the reduction table be used?
         - is_reduction - Is the reduction table used? DEFAULT: TRUE
-        Minimal number of stable and flexible couples
-        - min_stable_antecedents - Minimal number of stable antecedents. DEFAULT: 1
-        - min_flexible_antecedents - Minimal number of flexible couples. DEFAULT: 1
-        - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
-        - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
+        Minimal number of stable and flexible pairs in antecedent.
+        - min_stable_antecedents - Minimal number of stable pairs. DEFAULT: 1
+        - min_flexible_antecedents - Minimal number of flexible pairs. DEFAULT: 1
+        - max_stable_antecedents - Maximal number of stable pairs. DEFAULT: 5
+        - max_flexible_antecedents - Maximal number of flexible pairs. DEFAULT: 5
         """
         if (self.arules):
             raise Exception("Fit was already called")
@@ -171,11 +171,11 @@ class ActionRulesDiscovery:
                    DEFAULT: FALSE
         Should the reduction table be used?
         - is_reduction - Is the reduction table used? DEFAULT: TRUE
-        Minimal number of stable and flexible couples
-        - min_stable_antecedents - Minimal number of stable antecedents. DEFAULT: 1
-        - min_flexible_antecedents - Minimal number of flexible antecedents.  DEFAULT: 1
-        - max_stable_antecedents - Maximal number of stable antecedents. DEFAULT: 5
-        - max_flexible_antecedents - Maximal number of flexible couples. DEFAULT: 5
+        Minimal number of stable and flexible pairs in antecedent.
+        - min_stable_antecedents - Minimal number of stable pairs. DEFAULT: 1
+        - min_flexible_antecedents - Minimal number of flexible pairs. DEFAULT: 1
+        - max_stable_antecedents - Maximal number of stable pairs. DEFAULT: 5
+        - max_flexible_antecedents - Maximal number of flexible pairs. DEFAULT: 5
         """
         if (self.arules):
             raise Exception("Fit was already called")
@@ -260,7 +260,7 @@ class ActionRulesDiscovery:
     @staticmethod
     def _reduce_table_source(decision: pd.Series, source_table: pd.DataFrame) -> pd.DataFrame:
         """
-        Get dataframe by classification rule
+        Get dataframe by classification rule.
         - decision - Classification rule
         """
         new_data = source_table.applymap(str).copy()
@@ -272,7 +272,7 @@ class ActionRulesDiscovery:
 
     def predict(self, source_table: pd.DataFrame):
         """
-        Predict if any values would need to change their state
+        Predict if any values would need to change their state.
         - table for prediction
         """
         i = 0

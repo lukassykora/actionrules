@@ -8,7 +8,7 @@ from ..desiredstate import DesiredState
 
 class ActionRules:
     """
-    Check all classification couples if they can make action rule
+    Check all classification pairs if they can make an action rule.
     """
 
     def __init__(self,
@@ -25,7 +25,7 @@ class ActionRules:
                  max_flexible_antecedents: int = 1,
                  ):
         """
-        Initialise by reduced tables.
+        This class is used for action rules discovery.
         """
         self.stable_tables = stable_tables
         self.flexible_tables = flexible_tables
@@ -51,8 +51,8 @@ class ActionRules:
                           attribute_type: str
                           ) -> tuple:
         """
-        Check if the state before and after make action rule.
-        Return acton rule part and if the supp and conf can be used.
+        Check if the state before and after can make action rule.
+        It returns (bool is_action_pair, (before, after) action_pair, bool break_rule)
         """
         before = str(before)
         after = str(after)
@@ -84,7 +84,7 @@ class ActionRules:
                              rule_after_index: int,
                              attribute_type: str) -> tuple:
         """
-        Create action rules couples
+        It creates action rules pairs.
         """
         action_rule_part = []
         count_antecedents = 0
@@ -111,7 +111,7 @@ class ActionRules:
                          action_rule_supp: list,
                          action_rule_conf: list):
         """
-        Add action rule to list
+        This method adds action rule to a list.
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
         uplift = self.get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
@@ -119,7 +119,7 @@ class ActionRules:
 
     def is_candidate_decision(self, decision_before: str, decision_after: str):
         """
-        Check if it is a candidate
+        It checks if it is a candidate.
         """
         if decision_before == decision_after:
             return False
@@ -132,7 +132,7 @@ class ActionRules:
 
     def fit(self):
         """
-        Find all couples of classification rules and try to create action rules
+        It finds all pairs of classification rules and tries to create action rules.
         """
         for table in range(len(self.stable_tables)):
             stable_columns = self.stable_tables.pop(0)
@@ -190,7 +190,7 @@ class ActionRules:
 
     def pretty_text(self):
         """
-        Generate human language representation of action rules
+        It generates human language representation of action rules.
         """
         for row in self.action_rules:
             action_rule = row[0]
@@ -216,7 +216,7 @@ class ActionRules:
 
     def representation(self):
         """
-        Generate mathematical representation of action rules
+        It generates a mathematical representation of action rules.
         """
         for row in self.action_rules:
             action_rule = row[0]
