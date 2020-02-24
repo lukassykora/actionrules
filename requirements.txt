@@ -198,7 +198,7 @@ twine==3.1.1
 typing==3.7.4.1
 unicodecsv==0.14.1
 urllib3==1.24.1
-validators==0.12.5
+validators==0.12.6
 wcwidth==0.1.7
 webencodings==0.5.1
 Werkzeug==0.14.1
