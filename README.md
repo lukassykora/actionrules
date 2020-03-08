@@ -9,6 +9,10 @@ Action Rules (actionrules) is an implementation of Action Rules from Classificat
 
 https://github.com/lukassykora/actionrules
 
+## Installation
+
+pip install actionrules-lukassykora
+
 ## Jupyter Notebooks
 
 - [Titanic](https://github.com/lukassykora/actionrules/blob/master/notebooks/Titanic%20-%20Action%20Rules.ipynb) It is the best explanation of all possibilities.
