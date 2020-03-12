@@ -127,7 +127,7 @@ pluggy==0.8.0
 ply==3.11
 prometheus-client==0.5.0
 prompt-toolkit==2.0.7
-psutil==5.4.8
+psutil==5.6.6
 py==1.7.0
 py4j==0.10.7
 pyarc==1.0.19
