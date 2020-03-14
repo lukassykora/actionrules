@@ -1,1 +1,1 @@
-from actionRulesDiscovery import actionRulesDiscovery
+from actionRulesDiscovery import ActionRulesDiscovery

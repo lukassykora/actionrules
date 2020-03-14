@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>actionRules.actionRules API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>actionRules.actionRules</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import pandas as pd
+from typing import List
+from typing import Union
+import itertools
+
+from desiredState import DesiredState
+
+
+class ActionRules:
+    &#34;&#34;&#34;
+    The class ActionRules is the one where the algorithm for action rules discovery is settled.
+
+    ...
+
+    Attributes
+    ----------
+    stable_tables : List[pd.DataFrame]
+        Data frames with stable attributes.
+    flexible_tables : List[pd.DataFrame]
+        Data frames with flexible attributes.
+    decision_tables : List[pd.DataFrame]
+        Data frames with consequent.
+    desired_state : DesiredState()
+        DesiredState object.
+    action_rules : list
+        Discovered action rules.
+    action_rules_pretty_text : list
+        Readable discovered action rules.
+    action_rules_representation : list
+        Math representation of action rules.
+    supp : List[pd.Series]
+        List od supports for classification rules.
+    conf : List[pd.Series]
+        List od confidences for classification rules.
+    is_nan : bool
+        True means NaN values are used, False means NaN values are not used.
+    min_stable_antecedents : int
+        Minimal number of stable pairs.
+    min_flexible_antecedents : int
+        Minimal number of flexible pairs.
+    max_stable_antecedents : int
+        Maximal number of stable pairs.
+    max_flexible_antecedents : int
+        Maximal number of flexible pairs.
+    used_indexes : list
+        Already used indexes.
+    classification_before : list
+        List of before parts of action rules.
+    classification_after : list
+        List of after parts of action rules.
+
+    Methods
+    -------
+    fit(self)
+        Train the model.
+    pretty_text(self)
+        Generate pretty representation of action rules.
+    representation(self)
+        Generate mathematical representation of action rules.
+
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 stable_tables: List[pd.DataFrame],
+                 flexible_tables: List[pd.DataFrame],
+                 decision_tables: List[pd.DataFrame],
+                 desired_state: DesiredState,
+                 supp: List[pd.Series],
+                 conf: List[pd.Series],
+                 is_nan: bool = False,
+                 min_stable_antecedents: int = 1,
+                 min_flexible_antecedents: int = 1,
+                 max_stable_antecedents: int = 1,
+                 max_flexible_antecedents: int = 1,
+                 ):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        stable_tables : List[pd.DataFrame]
+            Data frames with stable attributes.
+        flexible_tables : List[pd.DataFrame]
+            Data frames with flexible attributes.
+        decision_tables : List[pd.DataFrame]
+            Data frames with consequent.
+        desired_state : DesiredState()
+            DesiredState object.
+        supp : List[pd.Series]
+            List od supports for classification rules.
+        conf : List[pd.Series]
+            List od confidences for classification rules.
+        is_nan : bool
+            True means NaN values are used, False means NaN values are not used.
+        min_stable_antecedents : int
+            Minimal number of stable pairs.
+        min_flexible_antecedents : int
+            Minimal number of flexible pairs.
+        max_stable_antecedents : int
+            Maximal number of stable pairs.
+        max_flexible_antecedents : int
+            Maximal number of flexible pairs.
+        &#34;&#34;&#34;
+        self.stable_tables = stable_tables
+        self.flexible_tables = flexible_tables
+        self.decision_tables = decision_tables
+        self.desired_state = desired_state
+        self.action_rules = []
+        self.action_rules_pretty_text = []
+        self.action_rules_representation = []
+        self.supp = supp
+        self.conf = conf
+        self.is_nan = is_nan
+        self.min_stable_antecedents = min_stable_antecedents
+        self.min_flexible_antecedents = min_flexible_antecedents
+        self.max_stable_antecedents = max_stable_antecedents
+        self.max_flexible_antecedents = max_flexible_antecedents
+        self.used_indexes = []
+        self.classification_before = []
+        self.classification_after = []
+
+    def _is_action_couple(self,
+                          before: Union[str, int, float],
+                          after: Union[str, int, float],
+                          attribute_type: str
+                          ) -&gt; tuple:
+        &#34;&#34;&#34; Check if the state before and after can make action rule.
+
+        Parameters
+        ----------
+        before : Union[str, int, float]
+            Before part of the candidate.
+        after : Union[str, int, float]
+            After part of the candidate.
+        attribute_type : str
+            Attribute type (stable or flexible).
+
+        Returns
+        -------
+        tuple
+            Returns (bool is_action_pair, (before, after) action_pair, bool break_rule).
+        &#34;&#34;&#34;
+        before = str(before)
+        after = str(after)
+        if attribute_type == &#34;stable&#34;:
+            if before == &#34;nan&#34; and after == &#34;nan&#34;:
+                return False, None, False
+            elif before == after and before != &#34;nan&#34;:
+                return True, (before,), False
+            elif self.is_nan:
+                if before == &#34;nan&#34; and after != &#34;nan&#34;:
+                    return True, (after + &#34;*&#34;,), False
+                elif before != &#34;nan&#34; and after == &#34;nan&#34;:
+                    return False, None, False
+        elif attribute_type == &#34;flexible&#34;:
+            if before == &#34;nan&#34; and after == &#34;nan&#34;:
+                return False, None, False
+            elif before != after and before != &#34;nan&#34; and after != &#34;nan&#34;:
+                return True, (before, after), False
+            elif self.is_nan:
+                if before != after and before == &#34;nan&#34;:
+                    return True, (str(None), after), False
+                if before != after and after == &#34;nan&#34;:
+                    return False, None, False
+        return False, None, True
+
+    def _create_action_rules(self,
+                             df: pd.DataFrame,
+                             rule_before_index: int,
+                             rule_after_index: int,
+                             attribute_type: str) -&gt; tuple:
+        &#34;&#34;&#34;It creates action rules pairs.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Data frame with classification rules.
+        rule_before_index : int
+            Candidate before index.
+        rule_after_index : int
+            Candidate after index.
+        attribute_type : str
+            Type of attributes in the data frame (stable or flexible)
+
+        Returns
+        -------
+        bool
+            Does it break the condition to be an action rule?
+        list
+            Generated part of an action rule.
+        int
+            Number of used attributes in antecedent.
+        &#34;&#34;&#34;
+        action_rule_part = []
+        count_antecedent = 0
+        columns = list(df)
+        for column in columns:
+            is_action_couple, action_couple, break_rule = self._is_action_couple(
+                before=df[column][rule_before_index],
+                after=df[column][rule_after_index],
+                attribute_type=attribute_type)
+            if break_rule:
+                return False, None, None
+            elif is_action_couple:
+                count_antecedent += 1
+                action_rule_part.append([column, action_couple])
+            else:
+                if action_couple is not None:
+                    action_rule_part.append([column, action_couple])
+        return True, action_rule_part, count_antecedent
+
+    def _add_action_rule(self,
+                         action_rule_stable: list,
+                         action_rule_flexible: list,
+                         action_rule_decision: list,
+                         action_rule_supp: list,
+                         action_rule_conf: list):
+        &#34;&#34;&#34;This method joins the parts of an action rule and adds the action rule to a list.
+
+        Parameters
+        ----------
+        action_rule_stable : list
+            List of stable attributes.
+        action_rule_flexible : list
+            List of actions in flexible attributes.
+        action_rule_decision : list
+            List of changes in consequent.
+        action_rule_supp : list
+            List of supports.
+        action_rule_conf : list
+            List of confidences.
+        &#34;&#34;&#34;
+        action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
+        uplift = self._get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
+
+    def fit(self):
+        &#34;&#34;&#34;It finds all pairs of classification rules and tries to create action rules.
+
+        &#34;&#34;&#34;
+        for table in range(len(self.stable_tables)):
+            stable_columns = self.stable_tables.pop(0)
+            flexible_columns = self.flexible_tables.pop(0)
+            decision_column = self.decision_tables.pop(0)
+            supp = self.supp.pop(0)
+            conf = self.conf.pop(0)
+            indexes = list(stable_columns.index.values)
+            for comb in itertools.permutations(indexes, 2):
+                # Check if it is not used twice - just for reduction by nan
+                if self.is_nan:
+                    if comb in self.used_indexes:
+                        continue
+                    self.used_indexes.append(comb)
+                rule_before_index = comb[0]
+                rule_after_index = comb[1]
+                decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
+                decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
+                if self.desired_state.is_candidate_decision(decision_before, decision_after):
+                    is_all_stable, action_rule_stable, counted_stable = self._create_action_rules(
+                        stable_columns,
+                        rule_before_index,
+                        rule_after_index,
+                        &#34;stable&#34;)
+                    if not is_all_stable:
+                        continue
+                    is_all_flexible, action_rule_flexible, counted_flexible = self._create_action_rules(
+                        flexible_columns,
+                        rule_before_index,
+                        rule_after_index,
+                        &#34;flexible&#34;)
+                    if not is_all_flexible:
+                        continue
+                    action_rule_decision = [
+                        decision_column.columns[0], [decision_before, decision_after]]
+                    if counted_flexible &gt;= self.min_flexible_antecedents and \
+                       counted_stable &gt;= self.min_stable_antecedents and \
+                       counted_flexible &lt;= self.max_flexible_antecedents and \
+                       counted_stable &lt;= self.max_stable_antecedents:
+                        action_rule_supp = [supp[rule_before_index],
+                                            supp[rule_after_index],
+                                            min(supp[rule_before_index], supp[rule_after_index])
+                                            ]
+                        action_rule_conf = [conf[rule_before_index],
+                                            conf[rule_after_index],
+                                            conf[rule_before_index] * conf[rule_after_index]
+                                            ]
+                        self._add_action_rule(action_rule_stable,
+                                              action_rule_flexible,
+                                              action_rule_decision,
+                                              action_rule_supp,
+                                              action_rule_conf)
+                        self.classification_before.append(rule_before_index)
+                        self.classification_after.append(rule_after_index)
+
+    def pretty_text(self):
+        &#34;&#34;&#34;It generates human language representation of action rules.
+
+        &#34;&#34;&#34;
+        for row in self.action_rules:
+            action_rule = row[0]
+            supp = row[1]
+            conf = row[2]
+            uplift = row[3]
+            text = &#34;If &#34;
+            # Stable part
+            stable_part = action_rule[0]
+            for stable_couple in stable_part:
+                text += &#34;attribute &#39;&#34; + str(stable_couple[0]) + &#34;&#39; is &#39;&#34; + str(stable_couple[1][0]) + &#34;&#39;, &#34;
+            # Flexible part
+            flexible_part = action_rule[1]
+            for flexible_couple in flexible_part:
+                text += &#34;attribute &#39;&#34; + str(flexible_couple[0]) + &#34;&#39; value &#39;&#34; + str(flexible_couple[1][0]) + \
+                        &#34;&#39; is changed to &#39;&#34; + str(flexible_couple[1][1]) + &#34;&#39;, &#34;
+            # Decision
+            decision = action_rule[2]
+            text += &#34;then &#39;&#34; + str(decision[0]) + &#34;&#39; value &#39;&#34; + str(decision[1][0]) + &#34;&#39; is changed to &#39;&#34; + \
+                    str(decision[1][1]) + &#34;&#39; with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(conf[2]) + \
+            &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+            self.action_rules_pretty_text.append(text)
+
+    def representation(self):
+        &#34;&#34;&#34;It generates a mathematical representation of action rules.
+
+        &#34;&#34;&#34;
+        for row in self.action_rules:
+            action_rule = row[0]
+            supp = row[1]
+            conf = row[2]
+            uplift = row[3]
+            text = &#34;r = [   &#34;
+            # Stable part
+            stable_part = action_rule[0]
+            text = text[:-3]
+            for stable_couple in stable_part:
+                text += &#34;(&#34; + str(stable_couple[0]) + &#34;: &#34; + str(stable_couple[1][0]) + &#34;) ∧ &#34;
+            # Flexible part
+            flexible_part = action_rule[1]
+            text = text[:-3]
+            for flexible_couple in flexible_part:
+                text += &#34; ∧ (&#34; + str(flexible_couple[0]) + &#34;: &#34; + str(flexible_couple[1][0]) + \
+                        &#34; → &#34; + str(flexible_couple[1][1]) + &#34;) &#34;
+            # Decision
+            decision = action_rule[2]
+            text += &#34;] ⇒ [&#34; + str(decision[0]) + &#34;: &#34; + str(decision[1][0]) + &#34; → &#34; + \
+                    str(decision[1][1]) + &#34;] with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(
+                conf[2]) + &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+            self.action_rules_representation.append(text)
+
+    @staticmethod
+    def _get_uplift(supp_before: float, conf_before: float, conf_after: float) -&gt; float:
+        &#34;&#34;&#34;Get uplift for action rule.
+
+        Uplift = P(target|treatment) -  P(target|no treatment)
+
+        Parameters
+        ----------
+        supp_before: float
+            Support before.
+        conf_before: float
+            Confidence before.
+        conf_after: float
+            Confidence after.
+
+        Returns
+        -------
+        float
+            An uplift value.
+        &#34;&#34;&#34;
+        return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="actionRules.actionRules.ActionRules"><code class="flex name class">
+<span>class <span class="ident">ActionRules</span></span>
+<span>(</span><span>stable_tables, flexible_tables, decision_tables, desired_state, supp, conf, is_nan=False, min_stable_antecedents=1, min_flexible_antecedents=1, max_stable_antecedents=1, max_flexible_antecedents=1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>The class ActionRules is the one where the algorithm for action rules discovery is settled.</p>
+<p>&hellip;</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>stable_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with stable attributes.</dd>
+<dt><strong><code>flexible_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with flexible attributes.</dd>
+<dt><strong><code>decision_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with consequent.</dd>
+<dt><strong><code>desired_state</code></strong> :&ensp;<code>DesiredState</code>()</dt>
+<dd>DesiredState object.</dd>
+<dt><strong><code>action_rules</code></strong> :&ensp;<code>list</code></dt>
+<dd>Discovered action rules.</dd>
+<dt><strong><code>action_rules_pretty_text</code></strong> :&ensp;<code>list</code></dt>
+<dd>Readable discovered action rules.</dd>
+<dt><strong><code>action_rules_representation</code></strong> :&ensp;<code>list</code></dt>
+<dd>Math representation of action rules.</dd>
+<dt><strong><code>supp</code></strong> :&ensp;<code>List</code>[<code>pd.Series</code>]</dt>
+<dd>List od supports for classification rules.</dd>
+<dt><strong><code>conf</code></strong> :&ensp;<code>List</code>[<code>pd.Series</code>]</dt>
+<dd>List od confidences for classification rules.</dd>
+<dt><strong><code>is_nan</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True means NaN values are used, False means NaN values are not used.</dd>
+<dt><strong><code>min_stable_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimal number of stable pairs.</dd>
+<dt><strong><code>min_flexible_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimal number of flexible pairs.</dd>
+<dt><strong><code>max_stable_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximal number of stable pairs.</dd>
+<dt><strong><code>max_flexible_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximal number of flexible pairs.</dd>
+<dt><strong><code>used_indexes</code></strong> :&ensp;<code>list</code></dt>
+<dd>Already used indexes.</dd>
+<dt><strong><code>classification_before</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of before parts of action rules.</dd>
+<dt><strong><code>classification_after</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of after parts of action rules.</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p>fit(self)
+Train the model.
+pretty_text(self)
+Generate pretty representation of action rules.
+representation(self)
+Generate mathematical representation of action rules.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>stable_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with stable attributes.</dd>
+<dt><strong><code>flexible_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with flexible attributes.</dd>
+<dt><strong><code>decision_tables</code></strong> :&ensp;<code>List</code>[<code>pd.DataFrame</code>]</dt>
+<dd>Data frames with consequent.</dd>
+<dt><strong><code>desired_state</code></strong> :&ensp;<code>DesiredState</code>()</dt>
+<dd>DesiredState object.</dd>
+<dt><strong><code>supp</code></strong> :&ensp;<code>List</code>[<code>pd.Series</code>]</dt>
+<dd>List od supports for classification rules.</dd>
+<dt><strong><code>conf</code></strong> :&ensp;<code>List</code>[<code>pd.Series</code>]</dt>
+<dd>List od confidences for classification rules.</dd>
+<dt><strong><code>is_nan</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True means NaN values are used, False means NaN values are not used.</dd>
+<dt><strong><code>min_stable_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimal number of stable pairs.</dd>
+<dt><strong><code>min_flexible_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Minimal number of flexible pairs.</dd>
+<dt><strong><code>max_stable_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximal number of stable pairs.</dd>
+<dt><strong><code>max_flexible_antecedents</code></strong> :&ensp;<code>int</code></dt>
+<dd>Maximal number of flexible pairs.</dd>
+</dl></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ActionRules:
+    &#34;&#34;&#34;
+    The class ActionRules is the one where the algorithm for action rules discovery is settled.
+
+    ...
+
+    Attributes
+    ----------
+    stable_tables : List[pd.DataFrame]
+        Data frames with stable attributes.
+    flexible_tables : List[pd.DataFrame]
+        Data frames with flexible attributes.
+    decision_tables : List[pd.DataFrame]
+        Data frames with consequent.
+    desired_state : DesiredState()
+        DesiredState object.
+    action_rules : list
+        Discovered action rules.
+    action_rules_pretty_text : list
+        Readable discovered action rules.
+    action_rules_representation : list
+        Math representation of action rules.
+    supp : List[pd.Series]
+        List od supports for classification rules.
+    conf : List[pd.Series]
+        List od confidences for classification rules.
+    is_nan : bool
+        True means NaN values are used, False means NaN values are not used.
+    min_stable_antecedents : int
+        Minimal number of stable pairs.
+    min_flexible_antecedents : int
+        Minimal number of flexible pairs.
+    max_stable_antecedents : int
+        Maximal number of stable pairs.
+    max_flexible_antecedents : int
+        Maximal number of flexible pairs.
+    used_indexes : list
+        Already used indexes.
+    classification_before : list
+        List of before parts of action rules.
+    classification_after : list
+        List of after parts of action rules.
+
+    Methods
+    -------
+    fit(self)
+        Train the model.
+    pretty_text(self)
+        Generate pretty representation of action rules.
+    representation(self)
+        Generate mathematical representation of action rules.
+
+    &#34;&#34;&#34;
+
+    def __init__(self,
+                 stable_tables: List[pd.DataFrame],
+                 flexible_tables: List[pd.DataFrame],
+                 decision_tables: List[pd.DataFrame],
+                 desired_state: DesiredState,
+                 supp: List[pd.Series],
+                 conf: List[pd.Series],
+                 is_nan: bool = False,
+                 min_stable_antecedents: int = 1,
+                 min_flexible_antecedents: int = 1,
+                 max_stable_antecedents: int = 1,
+                 max_flexible_antecedents: int = 1,
+                 ):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        stable_tables : List[pd.DataFrame]
+            Data frames with stable attributes.
+        flexible_tables : List[pd.DataFrame]
+            Data frames with flexible attributes.
+        decision_tables : List[pd.DataFrame]
+            Data frames with consequent.
+        desired_state : DesiredState()
+            DesiredState object.
+        supp : List[pd.Series]
+            List od supports for classification rules.
+        conf : List[pd.Series]
+            List od confidences for classification rules.
+        is_nan : bool
+            True means NaN values are used, False means NaN values are not used.
+        min_stable_antecedents : int
+            Minimal number of stable pairs.
+        min_flexible_antecedents : int
+            Minimal number of flexible pairs.
+        max_stable_antecedents : int
+            Maximal number of stable pairs.
+        max_flexible_antecedents : int
+            Maximal number of flexible pairs.
+        &#34;&#34;&#34;
+        self.stable_tables = stable_tables
+        self.flexible_tables = flexible_tables
+        self.decision_tables = decision_tables
+        self.desired_state = desired_state
+        self.action_rules = []
+        self.action_rules_pretty_text = []
+        self.action_rules_representation = []
+        self.supp = supp
+        self.conf = conf
+        self.is_nan = is_nan
+        self.min_stable_antecedents = min_stable_antecedents
+        self.min_flexible_antecedents = min_flexible_antecedents
+        self.max_stable_antecedents = max_stable_antecedents
+        self.max_flexible_antecedents = max_flexible_antecedents
+        self.used_indexes = []
+        self.classification_before = []
+        self.classification_after = []
+
+    def _is_action_couple(self,
+                          before: Union[str, int, float],
+                          after: Union[str, int, float],
+                          attribute_type: str
+                          ) -&gt; tuple:
+        &#34;&#34;&#34; Check if the state before and after can make action rule.
+
+        Parameters
+        ----------
+        before : Union[str, int, float]
+            Before part of the candidate.
+        after : Union[str, int, float]
+            After part of the candidate.
+        attribute_type : str
+            Attribute type (stable or flexible).
+
+        Returns
+        -------
+        tuple
+            Returns (bool is_action_pair, (before, after) action_pair, bool break_rule).
+        &#34;&#34;&#34;
+        before = str(before)
+        after = str(after)
+        if attribute_type == &#34;stable&#34;:
+            if before == &#34;nan&#34; and after == &#34;nan&#34;:
+                return False, None, False
+            elif before == after and before != &#34;nan&#34;:
+                return True, (before,), False
+            elif self.is_nan:
+                if before == &#34;nan&#34; and after != &#34;nan&#34;:
+                    return True, (after + &#34;*&#34;,), False
+                elif before != &#34;nan&#34; and after == &#34;nan&#34;:
+                    return False, None, False
+        elif attribute_type == &#34;flexible&#34;:
+            if before == &#34;nan&#34; and after == &#34;nan&#34;:
+                return False, None, False
+            elif before != after and before != &#34;nan&#34; and after != &#34;nan&#34;:
+                return True, (before, after), False
+            elif self.is_nan:
+                if before != after and before == &#34;nan&#34;:
+                    return True, (str(None), after), False
+                if before != after and after == &#34;nan&#34;:
+                    return False, None, False
+        return False, None, True
+
+    def _create_action_rules(self,
+                             df: pd.DataFrame,
+                             rule_before_index: int,
+                             rule_after_index: int,
+                             attribute_type: str) -&gt; tuple:
+        &#34;&#34;&#34;It creates action rules pairs.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Data frame with classification rules.
+        rule_before_index : int
+            Candidate before index.
+        rule_after_index : int
+            Candidate after index.
+        attribute_type : str
+            Type of attributes in the data frame (stable or flexible)
+
+        Returns
+        -------
+        bool
+            Does it break the condition to be an action rule?
+        list
+            Generated part of an action rule.
+        int
+            Number of used attributes in antecedent.
+        &#34;&#34;&#34;
+        action_rule_part = []
+        count_antecedent = 0
+        columns = list(df)
+        for column in columns:
+            is_action_couple, action_couple, break_rule = self._is_action_couple(
+                before=df[column][rule_before_index],
+                after=df[column][rule_after_index],
+                attribute_type=attribute_type)
+            if break_rule:
+                return False, None, None
+            elif is_action_couple:
+                count_antecedent += 1
+                action_rule_part.append([column, action_couple])
+            else:
+                if action_couple is not None:
+                    action_rule_part.append([column, action_couple])
+        return True, action_rule_part, count_antecedent
+
+    def _add_action_rule(self,
+                         action_rule_stable: list,
+                         action_rule_flexible: list,
+                         action_rule_decision: list,
+                         action_rule_supp: list,
+                         action_rule_conf: list):
+        &#34;&#34;&#34;This method joins the parts of an action rule and adds the action rule to a list.
+
+        Parameters
+        ----------
+        action_rule_stable : list
+            List of stable attributes.
+        action_rule_flexible : list
+            List of actions in flexible attributes.
+        action_rule_decision : list
+            List of changes in consequent.
+        action_rule_supp : list
+            List of supports.
+        action_rule_conf : list
+            List of confidences.
+        &#34;&#34;&#34;
+        action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
+        uplift = self._get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
+
+    def fit(self):
+        &#34;&#34;&#34;It finds all pairs of classification rules and tries to create action rules.
+
+        &#34;&#34;&#34;
+        for table in range(len(self.stable_tables)):
+            stable_columns = self.stable_tables.pop(0)
+            flexible_columns = self.flexible_tables.pop(0)
+            decision_column = self.decision_tables.pop(0)
+            supp = self.supp.pop(0)
+            conf = self.conf.pop(0)
+            indexes = list(stable_columns.index.values)
+            for comb in itertools.permutations(indexes, 2):
+                # Check if it is not used twice - just for reduction by nan
+                if self.is_nan:
+                    if comb in self.used_indexes:
+                        continue
+                    self.used_indexes.append(comb)
+                rule_before_index = comb[0]
+                rule_after_index = comb[1]
+                decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
+                decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
+                if self.desired_state.is_candidate_decision(decision_before, decision_after):
+                    is_all_stable, action_rule_stable, counted_stable = self._create_action_rules(
+                        stable_columns,
+                        rule_before_index,
+                        rule_after_index,
+                        &#34;stable&#34;)
+                    if not is_all_stable:
+                        continue
+                    is_all_flexible, action_rule_flexible, counted_flexible = self._create_action_rules(
+                        flexible_columns,
+                        rule_before_index,
+                        rule_after_index,
+                        &#34;flexible&#34;)
+                    if not is_all_flexible:
+                        continue
+                    action_rule_decision = [
+                        decision_column.columns[0], [decision_before, decision_after]]
+                    if counted_flexible &gt;= self.min_flexible_antecedents and \
+                       counted_stable &gt;= self.min_stable_antecedents and \
+                       counted_flexible &lt;= self.max_flexible_antecedents and \
+                       counted_stable &lt;= self.max_stable_antecedents:
+                        action_rule_supp = [supp[rule_before_index],
+                                            supp[rule_after_index],
+                                            min(supp[rule_before_index], supp[rule_after_index])
+                                            ]
+                        action_rule_conf = [conf[rule_before_index],
+                                            conf[rule_after_index],
+                                            conf[rule_before_index] * conf[rule_after_index]
+                                            ]
+                        self._add_action_rule(action_rule_stable,
+                                              action_rule_flexible,
+                                              action_rule_decision,
+                                              action_rule_supp,
+                                              action_rule_conf)
+                        self.classification_before.append(rule_before_index)
+                        self.classification_after.append(rule_after_index)
+
+    def pretty_text(self):
+        &#34;&#34;&#34;It generates human language representation of action rules.
+
+        &#34;&#34;&#34;
+        for row in self.action_rules:
+            action_rule = row[0]
+            supp = row[1]
+            conf = row[2]
+            uplift = row[3]
+            text = &#34;If &#34;
+            # Stable part
+            stable_part = action_rule[0]
+            for stable_couple in stable_part:
+                text += &#34;attribute &#39;&#34; + str(stable_couple[0]) + &#34;&#39; is &#39;&#34; + str(stable_couple[1][0]) + &#34;&#39;, &#34;
+            # Flexible part
+            flexible_part = action_rule[1]
+            for flexible_couple in flexible_part:
+                text += &#34;attribute &#39;&#34; + str(flexible_couple[0]) + &#34;&#39; value &#39;&#34; + str(flexible_couple[1][0]) + \
+                        &#34;&#39; is changed to &#39;&#34; + str(flexible_couple[1][1]) + &#34;&#39;, &#34;
+            # Decision
+            decision = action_rule[2]
+            text += &#34;then &#39;&#34; + str(decision[0]) + &#34;&#39; value &#39;&#34; + str(decision[1][0]) + &#34;&#39; is changed to &#39;&#34; + \
+                    str(decision[1][1]) + &#34;&#39; with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(conf[2]) + \
+            &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+            self.action_rules_pretty_text.append(text)
+
+    def representation(self):
+        &#34;&#34;&#34;It generates a mathematical representation of action rules.
+
+        &#34;&#34;&#34;
+        for row in self.action_rules:
+            action_rule = row[0]
+            supp = row[1]
+            conf = row[2]
+            uplift = row[3]
+            text = &#34;r = [   &#34;
+            # Stable part
+            stable_part = action_rule[0]
+            text = text[:-3]
+            for stable_couple in stable_part:
+                text += &#34;(&#34; + str(stable_couple[0]) + &#34;: &#34; + str(stable_couple[1][0]) + &#34;) ∧ &#34;
+            # Flexible part
+            flexible_part = action_rule[1]
+            text = text[:-3]
+            for flexible_couple in flexible_part:
+                text += &#34; ∧ (&#34; + str(flexible_couple[0]) + &#34;: &#34; + str(flexible_couple[1][0]) + \
+                        &#34; → &#34; + str(flexible_couple[1][1]) + &#34;) &#34;
+            # Decision
+            decision = action_rule[2]
+            text += &#34;] ⇒ [&#34; + str(decision[0]) + &#34;: &#34; + str(decision[1][0]) + &#34; → &#34; + \
+                    str(decision[1][1]) + &#34;] with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(
+                conf[2]) + &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+            self.action_rules_representation.append(text)
+
+    @staticmethod
+    def _get_uplift(supp_before: float, conf_before: float, conf_after: float) -&gt; float:
+        &#34;&#34;&#34;Get uplift for action rule.
+
+        Uplift = P(target|treatment) -  P(target|no treatment)
+
+        Parameters
+        ----------
+        supp_before: float
+            Support before.
+        conf_before: float
+            Confidence before.
+        conf_after: float
+            Confidence after.
+
+        Returns
+        -------
+        float
+            An uplift value.
+        &#34;&#34;&#34;
+        return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="actionRules.actionRules.ActionRules.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>It finds all pairs of classification rules and tries to create action rules.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self):
+    &#34;&#34;&#34;It finds all pairs of classification rules and tries to create action rules.
+
+    &#34;&#34;&#34;
+    for table in range(len(self.stable_tables)):
+        stable_columns = self.stable_tables.pop(0)
+        flexible_columns = self.flexible_tables.pop(0)
+        decision_column = self.decision_tables.pop(0)
+        supp = self.supp.pop(0)
+        conf = self.conf.pop(0)
+        indexes = list(stable_columns.index.values)
+        for comb in itertools.permutations(indexes, 2):
+            # Check if it is not used twice - just for reduction by nan
+            if self.is_nan:
+                if comb in self.used_indexes:
+                    continue
+                self.used_indexes.append(comb)
+            rule_before_index = comb[0]
+            rule_after_index = comb[1]
+            decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
+            decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
+            if self.desired_state.is_candidate_decision(decision_before, decision_after):
+                is_all_stable, action_rule_stable, counted_stable = self._create_action_rules(
+                    stable_columns,
+                    rule_before_index,
+                    rule_after_index,
+                    &#34;stable&#34;)
+                if not is_all_stable:
+                    continue
+                is_all_flexible, action_rule_flexible, counted_flexible = self._create_action_rules(
+                    flexible_columns,
+                    rule_before_index,
+                    rule_after_index,
+                    &#34;flexible&#34;)
+                if not is_all_flexible:
+                    continue
+                action_rule_decision = [
+                    decision_column.columns[0], [decision_before, decision_after]]
+                if counted_flexible &gt;= self.min_flexible_antecedents and \
+                   counted_stable &gt;= self.min_stable_antecedents and \
+                   counted_flexible &lt;= self.max_flexible_antecedents and \
+                   counted_stable &lt;= self.max_stable_antecedents:
+                    action_rule_supp = [supp[rule_before_index],
+                                        supp[rule_after_index],
+                                        min(supp[rule_before_index], supp[rule_after_index])
+                                        ]
+                    action_rule_conf = [conf[rule_before_index],
+                                        conf[rule_after_index],
+                                        conf[rule_before_index] * conf[rule_after_index]
+                                        ]
+                    self._add_action_rule(action_rule_stable,
+                                          action_rule_flexible,
+                                          action_rule_decision,
+                                          action_rule_supp,
+                                          action_rule_conf)
+                    self.classification_before.append(rule_before_index)
+                    self.classification_after.append(rule_after_index)</code></pre>
+</details>
+</dd>
+<dt id="actionRules.actionRules.ActionRules.pretty_text"><code class="name flex">
+<span>def <span class="ident">pretty_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>It generates human language representation of action rules.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pretty_text(self):
+    &#34;&#34;&#34;It generates human language representation of action rules.
+
+    &#34;&#34;&#34;
+    for row in self.action_rules:
+        action_rule = row[0]
+        supp = row[1]
+        conf = row[2]
+        uplift = row[3]
+        text = &#34;If &#34;
+        # Stable part
+        stable_part = action_rule[0]
+        for stable_couple in stable_part:
+            text += &#34;attribute &#39;&#34; + str(stable_couple[0]) + &#34;&#39; is &#39;&#34; + str(stable_couple[1][0]) + &#34;&#39;, &#34;
+        # Flexible part
+        flexible_part = action_rule[1]
+        for flexible_couple in flexible_part:
+            text += &#34;attribute &#39;&#34; + str(flexible_couple[0]) + &#34;&#39; value &#39;&#34; + str(flexible_couple[1][0]) + \
+                    &#34;&#39; is changed to &#39;&#34; + str(flexible_couple[1][1]) + &#34;&#39;, &#34;
+        # Decision
+        decision = action_rule[2]
+        text += &#34;then &#39;&#34; + str(decision[0]) + &#34;&#39; value &#39;&#34; + str(decision[1][0]) + &#34;&#39; is changed to &#39;&#34; + \
+                str(decision[1][1]) + &#34;&#39; with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(conf[2]) + \
+        &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+        self.action_rules_pretty_text.append(text)</code></pre>
+</details>
+</dd>
+<dt id="actionRules.actionRules.ActionRules.representation"><code class="name flex">
+<span>def <span class="ident">representation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>It generates a mathematical representation of action rules.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def representation(self):
+    &#34;&#34;&#34;It generates a mathematical representation of action rules.
+
+    &#34;&#34;&#34;
+    for row in self.action_rules:
+        action_rule = row[0]
+        supp = row[1]
+        conf = row[2]
+        uplift = row[3]
+        text = &#34;r = [   &#34;
+        # Stable part
+        stable_part = action_rule[0]
+        text = text[:-3]
+        for stable_couple in stable_part:
+            text += &#34;(&#34; + str(stable_couple[0]) + &#34;: &#34; + str(stable_couple[1][0]) + &#34;) ∧ &#34;
+        # Flexible part
+        flexible_part = action_rule[1]
+        text = text[:-3]
+        for flexible_couple in flexible_part:
+            text += &#34; ∧ (&#34; + str(flexible_couple[0]) + &#34;: &#34; + str(flexible_couple[1][0]) + \
+                    &#34; → &#34; + str(flexible_couple[1][1]) + &#34;) &#34;
+        # Decision
+        decision = action_rule[2]
+        text += &#34;] ⇒ [&#34; + str(decision[0]) + &#34;: &#34; + str(decision[1][0]) + &#34; → &#34; + \
+                str(decision[1][1]) + &#34;] with support: &#34; + str(supp[2]) + &#34;, confidence: &#34; + str(
+            conf[2]) + &#34; and uplift: &#34; + str(uplift) + &#34;.&#34;
+        self.action_rules_representation.append(text)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="actionRules" href="index.html">actionRules</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="actionRules.actionRules.ActionRules" href="#actionRules.actionRules.ActionRules">ActionRules</a></code></h4>
+<ul class="">
+<li><code><a title="actionRules.actionRules.ActionRules.fit" href="#actionRules.actionRules.ActionRules.fit">fit</a></code></li>
+<li><code><a title="actionRules.actionRules.ActionRules.pretty_text" href="#actionRules.actionRules.ActionRules.pretty_text">pretty_text</a></code></li>
+<li><code><a title="actionRules.actionRules.ActionRules.representation" href="#actionRules.actionRules.ActionRules.representation">representation</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

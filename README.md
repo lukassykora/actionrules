@@ -33,22 +33,22 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionrules.actionRulesDiscovery import ActionRulesDiscovery
+from actionRulesDiscovery import ActionRulesDiscovery
 
 actionRulesDiscovery = ActionRulesDiscovery()
 actionRulesDiscovery.read_csv("data/titanic.csv", sep="\t")
-actionRulesDiscovery.fit(stable_antecedents = ["Age"],
-                         flexible_antecedents = ["Embarked", "Fare", "Pclass"],
+actionRulesDiscovery.fit(stable_attributes = ["Age"],
+                         flexible_attributes = ["Embarked", "Fare", "Pclass"],
                          consequent = "Survived",
                          conf=55,
                          supp=3,
                          desired_classes = ["1.0"],
                          is_nan=False,
                          is_reduction=True,
-                         min_stable_antecedents=1,
-                         min_flexible_antecedents=1,
-                         max_stable_antecedents=5,
-                         max_flexible_antecedents=5)
+                         min_stable_attributes=1,
+                         min_flexible_attributes=1,
+                         max_stable_attributes=5,
+                         max_flexible_attributes=5)
 actionRulesDiscovery.get_action_rules()
 ```
 
@@ -67,24 +67,24 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionrules.actionRulesDiscovery import ActionRulesDiscovery
+from actionRulesDiscovery import ActionRulesDiscovery
 import pandas as pd
 
 dataFrame = pd.read_csv("data/titanic.csv", sep="\t")
 actionRulesDiscovery = ActionRulesDiscovery()
 actionRulesDiscovery.load_pandas(dataFrame)
-actionRulesDiscovery.fit(stable_antecedents = ["Age", "Sex"],
-                         flexible_antecedents = ["Embarked", "Fare", "Pclass"],
+actionRulesDiscovery.fit(stable_attributes = ["Age", "Sex"],
+                         flexible_attributes = ["Embarked", "Fare", "Pclass"],
                          consequent = "Survived",
                          conf=50,
                          supp=3,
                          desired_changes = [["0.0", "1.0"]],
                          is_nan=False,
                          is_reduction=True,
-                         min_stable_antecedents=1,
-                         min_flexible_antecedents=1,
-                         max_stable_antecedents=5,
-                         max_flexible_antecedents=5)
+                         min_stable_attributes=1,
+                         min_flexible_attributes=1,
+                         max_stable_attributes=5,
+                         max_flexible_attributes=5)
 actionRulesDiscovery.get_pretty_action_rules()
 ```
 
