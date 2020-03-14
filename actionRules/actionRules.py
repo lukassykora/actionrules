@@ -3,19 +3,68 @@ from typing import List
 from typing import Union
 import itertools
 
-from ..desiredstate import DesiredState
+from desiredState import DesiredState
 
 
 class ActionRules:
     """
-    Check all classification pairs if they can make an action rule.
+    The class ActionRules is the one where the algorithm for action rules discovery is settled.
+
+    ...
+
+    Attributes
+    ----------
+    stable_tables : List[pd.DataFrame]
+        Data frames with stable attributes.
+    flexible_tables : List[pd.DataFrame]
+        Data frames with flexible attributes.
+    decision_tables : List[pd.DataFrame]
+        Data frames with consequent.
+    desired_state : DesiredState()
+        DesiredState object.
+    action_rules : list
+        Discovered action rules.
+    action_rules_pretty_text : list
+        Readable discovered action rules.
+    action_rules_representation : list
+        Math representation of action rules.
+    supp : List[pd.Series]
+        List od supports for classification rules.
+    conf : List[pd.Series]
+        List od confidences for classification rules.
+    is_nan : bool
+        True means NaN values are used, False means NaN values are not used.
+    min_stable_antecedents : int
+        Minimal number of stable pairs.
+    min_flexible_antecedents : int
+        Minimal number of flexible pairs.
+    max_stable_antecedents : int
+        Maximal number of stable pairs.
+    max_flexible_antecedents : int
+        Maximal number of flexible pairs.
+    used_indexes : list
+        Already used indexes.
+    classification_before : list
+        List of before parts of action rules.
+    classification_after : list
+        List of after parts of action rules.
+
+    Methods
+    -------
+    fit(self)
+        Train the model.
+    pretty_text(self)
+        Generate pretty representation of action rules.
+    representation(self)
+        Generate mathematical representation of action rules.
+
     """
 
     def __init__(self,
                  stable_tables: List[pd.DataFrame],
                  flexible_tables: List[pd.DataFrame],
                  decision_tables: List[pd.DataFrame],
-                 desired_state: DesiredState(),
+                 desired_state: DesiredState,
                  supp: List[pd.Series],
                  conf: List[pd.Series],
                  is_nan: bool = False,
@@ -25,7 +74,30 @@ class ActionRules:
                  max_flexible_antecedents: int = 1,
                  ):
         """
-        This class is used for action rules discovery.
+        Parameters
+        ----------
+        stable_tables : List[pd.DataFrame]
+            Data frames with stable attributes.
+        flexible_tables : List[pd.DataFrame]
+            Data frames with flexible attributes.
+        decision_tables : List[pd.DataFrame]
+            Data frames with consequent.
+        desired_state : DesiredState()
+            DesiredState object.
+        supp : List[pd.Series]
+            List od supports for classification rules.
+        conf : List[pd.Series]
+            List od confidences for classification rules.
+        is_nan : bool
+            True means NaN values are used, False means NaN values are not used.
+        min_stable_antecedents : int
+            Minimal number of stable pairs.
+        min_flexible_antecedents : int
+            Minimal number of flexible pairs.
+        max_stable_antecedents : int
+            Maximal number of stable pairs.
+        max_flexible_antecedents : int
+            Maximal number of flexible pairs.
         """
         self.stable_tables = stable_tables
         self.flexible_tables = flexible_tables
@@ -50,9 +122,21 @@ class ActionRules:
                           after: Union[str, int, float],
                           attribute_type: str
                           ) -> tuple:
-        """
-        Check if the state before and after can make action rule.
-        It returns (bool is_action_pair, (before, after) action_pair, bool break_rule)
+        """ Check if the state before and after can make action rule.
+
+        Parameters
+        ----------
+        before : Union[str, int, float]
+            Before part of the candidate.
+        after : Union[str, int, float]
+            After part of the candidate.
+        attribute_type : str
+            Attribute type (stable or flexible).
+
+        Returns
+        -------
+        tuple
+            Returns (bool is_action_pair, (before, after) action_pair, bool break_rule).
         """
         before = str(before)
         after = str(after)
@@ -83,11 +167,30 @@ class ActionRules:
                              rule_before_index: int,
                              rule_after_index: int,
                              attribute_type: str) -> tuple:
-        """
-        It creates action rules pairs.
+        """It creates action rules pairs.
+
+        Parameters
+        ----------
+        df : pd.DataFrame
+            Data frame with classification rules.
+        rule_before_index : int
+            Candidate before index.
+        rule_after_index : int
+            Candidate after index.
+        attribute_type : str
+            Type of attributes in the data frame (stable or flexible)
+
+        Returns
+        -------
+        bool
+            Does it break the condition to be an action rule?
+        list
+            Generated part of an action rule.
+        int
+            Number of used attributes in antecedent.
         """
         action_rule_part = []
-        count_antecedents = 0
+        count_antecedent = 0
         columns = list(df)
         for column in columns:
             is_action_couple, action_couple, break_rule = self._is_action_couple(
@@ -97,12 +200,12 @@ class ActionRules:
             if break_rule:
                 return False, None, None
             elif is_action_couple:
-                count_antecedents += 1
+                count_antecedent += 1
                 action_rule_part.append([column, action_couple])
             else:
                 if action_couple is not None:
                     action_rule_part.append([column, action_couple])
-        return True, action_rule_part, count_antecedents
+        return True, action_rule_part, count_antecedent
 
     def _add_action_rule(self,
                          action_rule_stable: list,
@@ -110,29 +213,28 @@ class ActionRules:
                          action_rule_decision: list,
                          action_rule_supp: list,
                          action_rule_conf: list):
-        """
-        This method adds action rule to a list.
+        """This method joins the parts of an action rule and adds the action rule to a list.
+
+        Parameters
+        ----------
+        action_rule_stable : list
+            List of stable attributes.
+        action_rule_flexible : list
+            List of actions in flexible attributes.
+        action_rule_decision : list
+            List of changes in consequent.
+        action_rule_supp : list
+            List of supports.
+        action_rule_conf : list
+            List of confidences.
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
-        uplift = self.get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
+        uplift = self._get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
         self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
 
-    def is_candidate_decision(self, decision_before: str, decision_after: str):
-        """
-        It checks if it is a candidate.
-        """
-        if decision_before == decision_after:
-            return False
-        if self.desired_state.desired_classes and decision_after not in self.desired_state.desired_classes:
-            return False
-        if self.desired_state.desired_changes and \
-                [decision_before, decision_after] not in self.desired_state.desired_changes:
-            return False
-        return True
-
     def fit(self):
-        """
-        It finds all pairs of classification rules and tries to create action rules.
+        """It finds all pairs of classification rules and tries to create action rules.
+
         """
         for table in range(len(self.stable_tables)):
             stable_columns = self.stable_tables.pop(0)
@@ -151,7 +253,7 @@ class ActionRules:
                 rule_after_index = comb[1]
                 decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
                 decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
-                if self.is_candidate_decision(decision_before, decision_after):
+                if self.desired_state.is_candidate_decision(decision_before, decision_after):
                     is_all_stable, action_rule_stable, counted_stable = self._create_action_rules(
                         stable_columns,
                         rule_before_index,
@@ -189,8 +291,8 @@ class ActionRules:
                         self.classification_after.append(rule_after_index)
 
     def pretty_text(self):
-        """
-        It generates human language representation of action rules.
+        """It generates human language representation of action rules.
+
         """
         for row in self.action_rules:
             action_rule = row[0]
@@ -215,8 +317,8 @@ class ActionRules:
             self.action_rules_pretty_text.append(text)
 
     def representation(self):
-        """
-        It generates a mathematical representation of action rules.
+        """It generates a mathematical representation of action rules.
+
         """
         for row in self.action_rules:
             action_rule = row[0]
@@ -243,9 +345,23 @@ class ActionRules:
             self.action_rules_representation.append(text)
 
     @staticmethod
-    def get_uplift(supp_before: float, conf_before: float, conf_after: float) -> float:
-        """
-        Get uplift for action rule.
+    def _get_uplift(supp_before: float, conf_before: float, conf_after: float) -> float:
+        """Get uplift for action rule.
+
         Uplift = P(target|treatment) -  P(target|no treatment)
+
+        Parameters
+        ----------
+        supp_before: float
+            Support before.
+        conf_before: float
+            Confidence before.
+        conf_after: float
+            Confidence after.
+
+        Returns
+        -------
+        float
+            An uplift value.
         """
         return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)
