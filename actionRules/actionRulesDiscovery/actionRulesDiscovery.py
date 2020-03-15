@@ -1,10 +1,10 @@
 from typing import List
 import pandas as pd
 
-from desiredState import DesiredState
-from decisions import Decisions
-from reduction import Reduction
-from actionRules import ActionRules
+from actionrules.desiredState import DesiredState
+from actionrules.decisions import Decisions
+from actionrules.reduction import Reduction
+from actionrules.actionRules import ActionRules
 
 
 class ActionRulesDiscovery:

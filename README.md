@@ -33,7 +33,7 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionRulesDiscovery import ActionRulesDiscovery
+from actionrules.actionRulesDiscovery import ActionRulesDiscovery
 
 actionRulesDiscovery = ActionRulesDiscovery()
 actionRulesDiscovery.read_csv("data/titanic.csv", sep="\t")
@@ -67,7 +67,7 @@ Minimal 1 flexible antecedent
 
 
 ```python
-from actionRulesDiscovery import ActionRulesDiscovery
+from actionrules.actionRulesDiscovery import ActionRulesDiscovery
 import pandas as pd
 
 dataFrame = pd.read_csv("data/titanic.csv", sep="\t")

@@ -3,7 +3,7 @@ from typing import List
 from typing import Union
 import itertools
 
-from desiredState import DesiredState
+from actionrules.desiredState import DesiredState
 
 
 class ActionRules:

@@ -1,6 +1,6 @@
 import unittest
 
-from desiredState import DesiredState
+from actionrules.desiredState import DesiredState
 
 
 class TestDesiredState(unittest.TestCase):

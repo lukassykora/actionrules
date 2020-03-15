@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-from desiredState import DesiredState
+from actionrules.desiredState import DesiredState
 
 
 class Reduction:

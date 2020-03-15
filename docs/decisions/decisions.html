@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>decisions.decisions API documentation</title>
+<title>actionrules.decisions.decisions API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>decisions.decisions</code></h1>
+<h1 class="title">Module <code>actionrules.decisions.decisions</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -187,7 +187,7 @@ class Decisions:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="decisions.decisions.Decisions"><code class="flex name class">
+<dt id="actionrules.decisions.decisions.Decisions"><code class="flex name class">
 <span>class <span class="ident">Decisions</span></span>
 </code></dt>
 <dd>
@@ -379,7 +379,7 @@ Generate classification rules from the model.</p>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="decisions.decisions.Decisions.fit_fim_apriori"><code class="name flex">
+<dt id="actionrules.decisions.decisions.Decisions.fit_fim_apriori"><code class="name flex">
 <span>def <span class="ident">fit_fim_apriori</span></span>(<span>self, conf=70, support=10)</span>
 </code></dt>
 <dd>
@@ -419,7 +419,7 @@ DEFAULT: 10%</dd>
                             zmax=self.max_length)</code></pre>
 </details>
 </dd>
-<dt id="decisions.decisions.Decisions.generate_decision_table"><code class="name flex">
+<dt id="actionrules.decisions.decisions.Decisions.generate_decision_table"><code class="name flex">
 <span>def <span class="ident">generate_decision_table</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -457,7 +457,7 @@ DEFAULT: 10%</dd>
         self.confidence.append(rule[3])</code></pre>
 </details>
 </dd>
-<dt id="decisions.decisions.Decisions.load_pandas"><code class="name flex">
+<dt id="actionrules.decisions.decisions.Decisions.load_pandas"><code class="name flex">
 <span>def <span class="ident">load_pandas</span></span>(<span>self, data_frame)</span>
 </code></dt>
 <dd>
@@ -482,7 +482,7 @@ DEFAULT: 10%</dd>
     self.data = data_frame</code></pre>
 </details>
 </dd>
-<dt id="decisions.decisions.Decisions.prepare_data_fim"><code class="name flex">
+<dt id="actionrules.decisions.decisions.Decisions.prepare_data_fim"><code class="name flex">
 <span>def <span class="ident">prepare_data_fim</span></span>(<span>self, antecedent_attributes, consequent)</span>
 </code></dt>
 <dd>
@@ -523,7 +523,7 @@ DEFAULT: 10%</dd>
         self.transactions.append(transaction_row)</code></pre>
 </details>
 </dd>
-<dt id="decisions.decisions.Decisions.read_csv"><code class="name flex">
+<dt id="actionrules.decisions.decisions.Decisions.read_csv"><code class="name flex">
 <span>def <span class="ident">read_csv</span></span>(<span>self, file, **kwargs)</span>
 </code></dt>
 <dd>
@@ -565,19 +565,19 @@ Arbitrary keyword arguments (the same as in Pandas).</p></section>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="decisions" href="index.html">decisions</a></code></li>
+<li><code><a title="actionrules.decisions" href="index.html">actionrules.decisions</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="decisions.decisions.Decisions" href="#decisions.decisions.Decisions">Decisions</a></code></h4>
+<h4><code><a title="actionrules.decisions.decisions.Decisions" href="#actionrules.decisions.decisions.Decisions">Decisions</a></code></h4>
 <ul class="">
-<li><code><a title="decisions.decisions.Decisions.fit_fim_apriori" href="#decisions.decisions.Decisions.fit_fim_apriori">fit_fim_apriori</a></code></li>
-<li><code><a title="decisions.decisions.Decisions.generate_decision_table" href="#decisions.decisions.Decisions.generate_decision_table">generate_decision_table</a></code></li>
-<li><code><a title="decisions.decisions.Decisions.load_pandas" href="#decisions.decisions.Decisions.load_pandas">load_pandas</a></code></li>
-<li><code><a title="decisions.decisions.Decisions.prepare_data_fim" href="#decisions.decisions.Decisions.prepare_data_fim">prepare_data_fim</a></code></li>
-<li><code><a title="decisions.decisions.Decisions.read_csv" href="#decisions.decisions.Decisions.read_csv">read_csv</a></code></li>
+<li><code><a title="actionrules.decisions.decisions.Decisions.fit_fim_apriori" href="#actionrules.decisions.decisions.Decisions.fit_fim_apriori">fit_fim_apriori</a></code></li>
+<li><code><a title="actionrules.decisions.decisions.Decisions.generate_decision_table" href="#actionrules.decisions.decisions.Decisions.generate_decision_table">generate_decision_table</a></code></li>
+<li><code><a title="actionrules.decisions.decisions.Decisions.load_pandas" href="#actionrules.decisions.decisions.Decisions.load_pandas">load_pandas</a></code></li>
+<li><code><a title="actionrules.decisions.decisions.Decisions.prepare_data_fim" href="#actionrules.decisions.decisions.Decisions.prepare_data_fim">prepare_data_fim</a></code></li>
+<li><code><a title="actionrules.decisions.decisions.Decisions.read_csv" href="#actionrules.decisions.decisions.Decisions.read_csv">read_csv</a></code></li>
 </ul>
 </li>
 </ul>

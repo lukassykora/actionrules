@@ -1,8 +1,8 @@
 import unittest
 import pandas as pd
 
-from actionRules import ActionRules
-from desiredState import DesiredState
+from actionrules.actionRules import ActionRules
+from actionrules.desiredState import DesiredState
 
 
 class TestActionRules(unittest.TestCase):

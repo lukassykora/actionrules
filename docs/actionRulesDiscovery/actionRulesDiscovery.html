@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>actionRulesDiscovery.actionRulesDiscovery API documentation</title>
+<title>actionrules.actionRulesDiscovery.actionRulesDiscovery API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>actionRulesDiscovery.actionRulesDiscovery</code></h1>
+<h1 class="title">Module <code>actionrules.actionRulesDiscovery.actionRulesDiscovery</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -27,10 +27,10 @@
 <pre><code class="python">from typing import List
 import pandas as pd
 
-from desiredState import DesiredState
-from decisions import Decisions
-from reduction import Reduction
-from actionRules import ActionRules
+from actionrules.desiredState import DesiredState
+from actionrules.decisions import Decisions
+from actionrules.reduction import Reduction
+from actionrules.actionRules import ActionRules
 
 
 class ActionRulesDiscovery:
@@ -573,7 +573,7 @@ class ActionRulesDiscovery:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery"><code class="flex name class">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery"><code class="flex name class">
 <span>class <span class="ident">ActionRulesDiscovery</span></span>
 </code></dt>
 <dd>
@@ -1183,50 +1183,50 @@ Predicts if new occurrence would need any change.</p>
 </details>
 <h3>Class variables</h3>
 <dl>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE"><code class="name">var <span class="ident">ACTION_RULE</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE"><code class="name">var <span class="ident">ACTION_RULE</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE"><code class="name">var <span class="ident">ACTION_RULE_CONFIDENCE</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE"><code class="name">var <span class="ident">ACTION_RULE_CONFIDENCE</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT"><code class="name">var <span class="ident">ACTION_RULE_SUPPORT</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT"><code class="name">var <span class="ident">ACTION_RULE_SUPPORT</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET"><code class="name">var <span class="ident">ACTION_RULE_TARGET</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET"><code class="name">var <span class="ident">ACTION_RULE_TARGET</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT"><code class="name">var <span class="ident">ACTION_RULE_UPLIFT</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT"><code class="name">var <span class="ident">ACTION_RULE_UPLIFT</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER"><code class="name">var <span class="ident">CONFIDENCE_AFTER</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER"><code class="name">var <span class="ident">CONFIDENCE_AFTER</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE"><code class="name">var <span class="ident">CONFIDENCE_BEFORE</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE"><code class="name">var <span class="ident">CONFIDENCE_BEFORE</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED"><code class="name">var <span class="ident">RECOMMENDED</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED"><code class="name">var <span class="ident">RECOMMENDED</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER"><code class="name">var <span class="ident">SUPPORT_AFTER</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER"><code class="name">var <span class="ident">SUPPORT_AFTER</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE"><code class="name">var <span class="ident">SUPPORT_BEFORE</span></code></dt>
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE"><code class="name">var <span class="ident">SUPPORT_BEFORE</span></code></dt>
 <dd>
 <section class="desc"></section>
 </dd>
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit"><code class="name flex">
 <span>def <span class="ident">fit</span></span>(<span>self, stable_attributes, flexible_attributes, consequent, conf, supp, desired_classes=None, desired_changes=None, is_nan=False, is_reduction=True, min_stable_attributes=1, min_flexible_attributes=1, max_stable_attributes=5, max_flexible_attributes=5)</span>
 </code></dt>
 <dd>
@@ -1409,7 +1409,7 @@ DEFAULT: 5</dd>
     self.action_rules.fit()</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules"><code class="name flex">
 <span>def <span class="ident">fit_classification_rules</span></span>(<span>self, stable_attributes, flexible_attributes, consequent, conf_col, supp_col, desired_classes=None, desired_changes=None, is_nan=False, is_reduction=True, min_stable_attributes=1, min_flexible_attributes=1, max_stable_attributes=5, max_flexible_attributes=5)</span>
 </code></dt>
 <dd>
@@ -1591,7 +1591,7 @@ DEFAULT: 5</dd>
     self.action_rules.fit()</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules"><code class="name flex">
 <span>def <span class="ident">get_action_rules</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -1625,7 +1625,7 @@ rule confidence) and uplift.</p>
     return self.action_rules.action_rules</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation"><code class="name flex">
 <span>def <span class="ident">get_action_rules_representation</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -1652,7 +1652,7 @@ rule confidence) and uplift.</p>
     return self.action_rules.action_rules_representation</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules"><code class="name flex">
 <span>def <span class="ident">get_pretty_action_rules</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -1679,7 +1679,7 @@ rule confidence) and uplift.</p>
     return self.action_rules.action_rules_pretty_text</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar"><code class="name flex">
 <span>def <span class="ident">get_source_data_for_ar</span></span>(<span>self, action_r_number, is_before)</span>
 </code></dt>
 <dd>
@@ -1741,7 +1741,7 @@ False show instances in data that match the conditions of the "after" part of th
                   subset=[self.consequent])</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas"><code class="name flex">
 <span>def <span class="ident">load_pandas</span></span>(<span>self, data_frame)</span>
 </code></dt>
 <dd>
@@ -1769,7 +1769,7 @@ False show instances in data that match the conditions of the "after" part of th
     self.decisions.load_pandas(data_frame)</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict"><code class="name flex">
 <span>def <span class="ident">predict</span></span>(<span>self, source_table)</span>
 </code></dt>
 <dd>
@@ -1851,7 +1851,7 @@ False show instances in data that match the conditions of the "after" part of th
     return full_predicted_table</code></pre>
 </details>
 </dd>
-<dt id="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv"><code class="name flex">
+<dt id="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv"><code class="name flex">
 <span>def <span class="ident">read_csv</span></span>(<span>self, file, **kwargs)</span>
 </code></dt>
 <dd>
@@ -1896,33 +1896,33 @@ Arbitrary keyword arguments (the same as in Pandas).</p></section>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="actionRulesDiscovery" href="index.html">actionRulesDiscovery</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery" href="index.html">actionrules.actionRulesDiscovery</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery">ActionRulesDiscovery</a></code></h4>
+<h4><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery">ActionRulesDiscovery</a></code></h4>
 <ul class="">
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE">ACTION_RULE</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE">ACTION_RULE_CONFIDENCE</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT">ACTION_RULE_SUPPORT</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET">ACTION_RULE_TARGET</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT">ACTION_RULE_UPLIFT</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER">CONFIDENCE_AFTER</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE">CONFIDENCE_BEFORE</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED">RECOMMENDED</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER">SUPPORT_AFTER</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE">SUPPORT_BEFORE</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit">fit</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules">fit_classification_rules</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules">get_action_rules</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation">get_action_rules_representation</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules">get_pretty_action_rules</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar">get_source_data_for_ar</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas">load_pandas</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict">predict</a></code></li>
-<li><code><a title="actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv" href="#actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv">read_csv</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE">ACTION_RULE</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_CONFIDENCE">ACTION_RULE_CONFIDENCE</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_SUPPORT">ACTION_RULE_SUPPORT</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_TARGET">ACTION_RULE_TARGET</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.ACTION_RULE_UPLIFT">ACTION_RULE_UPLIFT</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_AFTER">CONFIDENCE_AFTER</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.CONFIDENCE_BEFORE">CONFIDENCE_BEFORE</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.RECOMMENDED">RECOMMENDED</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_AFTER">SUPPORT_AFTER</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.SUPPORT_BEFORE">SUPPORT_BEFORE</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit">fit</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.fit_classification_rules">fit_classification_rules</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules">get_action_rules</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_action_rules_representation">get_action_rules_representation</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_pretty_action_rules">get_pretty_action_rules</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.get_source_data_for_ar">get_source_data_for_ar</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.load_pandas">load_pandas</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.predict">predict</a></code></li>
+<li><code><a title="actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv" href="#actionrules.actionRulesDiscovery.actionRulesDiscovery.ActionRulesDiscovery.read_csv">read_csv</a></code></li>
 </ul>
 </li>
 </ul>
