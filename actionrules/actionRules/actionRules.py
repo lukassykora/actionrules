@@ -49,7 +49,7 @@ class ActionRules:
     classification_after : list
         List of after parts of action rules.
     desired_target_classes : List[str]
-        All desired classes
+        All desired classes.
     not_default_target_classes : List[str]
         The target values that are not in the before part.
 

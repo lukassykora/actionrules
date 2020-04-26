@@ -23,9 +23,9 @@ class ActionRulesDiscovery:
         Object that runs action rules discovery.
     desired_state: DesiredState
         Object that is responsible for handling of desired state.
-    stable_attributes: list
+    stable_attributes: List[str]
         List of stable attributes.
-    flexible_attributes: list
+    flexible_attributes: List[str]
         List of flexible attributes.
     consequent: str
         Name of consequent columns.
