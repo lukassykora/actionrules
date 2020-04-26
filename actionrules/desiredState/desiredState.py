@@ -24,6 +24,8 @@ class DesiredState:
         Is it possible to get any action rules (variability, desired classes)?
     get_destination_classes(self) -> List[str]
         Get list of possible desired classes.
+    get_not_in_default_classes
+        Get the possible before part of consequent.
     """
 
     def __init__(self, desired_classes: List[str] = None, desired_changes: List[list] = None):
@@ -163,6 +165,21 @@ class DesiredState:
         if self.desired_changes:
             for desired_change in self.desired_changes:
                 destination_classes.append(desired_change[1])
+        return destination_classes
+
+    def get_not_in_default_classes(self) -> List[str]:
+        """Get the possible before part of consequent.
+
+        Returns
+        -------
+        List[str]
+            All desired classes that are not in before part.
+        """
+        destination_classes = self.get_destination_classes()
+        if self.desired_changes:
+            for desired_change in self.desired_changes:
+                if desired_change[0] in destination_classes:
+                    destination_classes.remove(desired_change[0])
         return destination_classes
 
     @staticmethod

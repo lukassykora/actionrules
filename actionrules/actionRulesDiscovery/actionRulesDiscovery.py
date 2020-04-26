@@ -177,7 +177,7 @@ class ActionRulesDiscovery:
         Desired classes or desired changes must be entered.
         - desired_classes
         - desired_changes
-        Should NaN values be used?
+        Should uncertainty be used?
         - is_nan
         Should the reduction table be used?
         - is_reduction
@@ -210,6 +210,7 @@ class ActionRulesDiscovery:
         is_nan : bool = False
             True means NaN values are used, False means NaN values are not used.
             It means NaN values from classification rules.
+            If is_nan is true, the uncertainty is used.
             DEFAULT: FALSE
         is_reduction : bool = True
             Is the reduction table used?
@@ -291,7 +292,7 @@ class ActionRulesDiscovery:
         Desired classes or desired changes must be entered.
         - desired_classes
         - desired_changes
-        Should NaN values be used?
+        Should uncertainty be used?
         - is_nan
         Should the reduction table be used?
         - is_reduction
@@ -323,6 +324,7 @@ class ActionRulesDiscovery:
             DEFAULT: None
         is_nan: bool = False
             True means NaN values are used, False means nan values are not used.
+            If is_nan is true, the uncertainty is used.
             DEFAULT: FALSE
         is_reduction: bool = True
             Is the reduction table used?

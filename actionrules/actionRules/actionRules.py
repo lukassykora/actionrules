@@ -48,6 +48,10 @@ class ActionRules:
         List of before parts of action rules.
     classification_after : list
         List of after parts of action rules.
+    desired_target_classes : List[str]
+        All desired classes
+    not_default_target_classes : List[str]
+        The target values that are not in the before part.
 
     Methods
     -------
@@ -116,6 +120,8 @@ class ActionRules:
         self.used_indexes = []
         self.classification_before = []
         self.classification_after = []
+        self.desired_target_classes = self.desired_state.get_destination_classes()
+        self.not_default_target_classes = self.desired_state.get_not_in_default_classes()
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -232,6 +238,23 @@ class ActionRules:
         uplift = self._get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
         self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
 
+    def _split_to_before_after_consequent(self, decision_column: pd.DataFrame) -> tuple:
+        """This method split the table based on consequent.
+
+        Parameters
+        ----------
+        decision_column : pd.DataFrame
+            Target values.
+
+        Returns
+        -------
+        tuple
+            Indexes that can be used in the before part and indexes that can be used in the after part.
+        """
+        before_indexes = decision_column[decision_column.iloc[:, 0] not in self.not_default_target_classes]
+        after_indexes = decision_column[decision_column.iloc[:, 0] in self.desired_target_classes]
+        return (before_indexes.index.values, after_indexes.index.values)
+
     def fit(self):
         """It finds all pairs of classification rules and tries to create action rules.
 
@@ -242,8 +265,8 @@ class ActionRules:
             decision_column = self.decision_tables.pop(0)
             supp = self.supp.pop(0)
             conf = self.conf.pop(0)
-            indexes = list(stable_columns.index.values)
-            for comb in itertools.permutations(indexes, 2):
+            (before_indexes, after_indexes) = self._split_to_before_after_consequent(decision_column)
+            for comb in itertools.product(before_indexes, after_indexes):
                 # Check if it is not used twice - just for reduction by nan
                 if self.is_nan:
                     if comb in self.used_indexes:
