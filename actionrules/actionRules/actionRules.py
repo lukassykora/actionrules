@@ -259,9 +259,15 @@ class ActionRules:
         tuple
             Indexes that can be used in the before part and indexes that can be used in the after part.
         """
-        before_indexes = decision_column[decision_column.iloc[:, 0] not in self.not_default_target_classes]
-        after_indexes = decision_column[decision_column.iloc[:, 0] in self.desired_target_classes]
-        return (before_indexes.index.values, after_indexes.index.values)
+        target = decision_column.columns[0]
+
+        before_mask = ~decision_column[target].isin(self.not_default_target_classes)
+        before_frame = decision_column[before_mask]
+
+        after_mask = decision_column[target].isin(self.desired_target_classes)
+        after_frame = decision_column[after_mask]
+
+        return before_frame.index.values, after_frame.index.values
 
     def fit(self):
         """It finds all pairs of classification rules and tries to create action rules.
