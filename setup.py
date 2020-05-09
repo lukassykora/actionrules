@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="actionrules-lukassykora",
-    version="1.1.8",
+    version="1.1.9",
     author="Lukas Sykora",
     author_email="lukassykora@seznam.cz",
     description="Action rules mining package",
@@ -22,5 +22,6 @@ setuptools.setup(
     install_requires=[
         'pandas',
         'numpy',
+        'pyfim'
     ],
 )
