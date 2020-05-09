@@ -4,6 +4,7 @@ from typing import Union
 import itertools
 
 from actionrules.desiredState import DesiredState
+from actionrules.decisions import Decisions
 
 
 class ActionRules:
@@ -52,6 +53,8 @@ class ActionRules:
         All desired classes.
     not_default_target_classes : List[str]
         The target values that are not in the before part.
+    decisions: Decisions()
+        Decisions object.
 
     Methods
     -------
@@ -69,6 +72,7 @@ class ActionRules:
                  flexible_tables: List[pd.DataFrame],
                  decision_tables: List[pd.DataFrame],
                  desired_state: DesiredState,
+                 decisions: Decisions,
                  supp: List[pd.Series],
                  conf: List[pd.Series],
                  is_nan: bool = False,
@@ -88,6 +92,8 @@ class ActionRules:
             Data frames with consequent.
         desired_state : DesiredState()
             DesiredState object.
+        decisions : Decisions()
+            Decisions object.
         supp : List[pd.Series]
             List od supports for classification rules.
         conf : List[pd.Series]
@@ -102,6 +108,7 @@ class ActionRules:
             Maximal number of stable pairs.
         max_flexible_antecedents : int
             Maximal number of flexible pairs.
+
         """
         self.stable_tables = stable_tables
         self.flexible_tables = flexible_tables
@@ -122,6 +129,7 @@ class ActionRules:
         self.classification_after = []
         self.desired_target_classes = self.desired_state.get_destination_classes()
         self.not_default_target_classes = self.desired_state.get_not_in_default_classes()
+        self.decisions = decisions
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -297,13 +305,34 @@ class ActionRules:
                        counted_stable >= self.min_stable_antecedents and \
                        counted_flexible <= self.max_flexible_antecedents and \
                        counted_stable <= self.max_stable_antecedents:
+                        if not self.is_nan:
+                            support = min(supp[rule_before_index], supp[rule_after_index])
+                            confidence = conf[rule_before_index] * conf[rule_after_index]
+                        else:
+                            total = len(self.decisions.data)
+                            if total == 0:
+                                support = None
+                                confidence = None
+                            else:
+                                (left_support_before, support_before) = self._get_frequency_from_mask(action_rule_stable,
+                                                                                                      action_rule_flexible,
+                                                                                                      action_rule_decision,
+                                                                                                      0
+                                                                                                      )
+                                (left_support_after, support_after) = self._get_frequency_from_mask(action_rule_stable,
+                                                                                                    action_rule_flexible,
+                                                                                                    action_rule_decision,
+                                                                                                    1
+                                                                                                    )
+                                support = support_before / total
+                                confidence = (support_before / left_support_before) * (support_after / left_support_after)
                         action_rule_supp = [supp[rule_before_index],
                                             supp[rule_after_index],
-                                            min(supp[rule_before_index], supp[rule_after_index])
+                                            support
                                             ]
                         action_rule_conf = [conf[rule_before_index],
                                             conf[rule_after_index],
-                                            conf[rule_before_index] * conf[rule_after_index]
+                                            confidence
                                             ]
                         self._add_action_rule(action_rule_stable,
                                               action_rule_flexible,
@@ -388,3 +417,54 @@ class ActionRules:
             An uplift value.
         """
         return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)
+
+    def _get_frequency_from_mask(self, action_rule_stable: list, action_rule_flexible: list, action_rule_decision: list, part: int) -> tuple:
+        """Get frequency from source data.
+
+        Parameters
+        ----------
+        action_rule_stable: list
+            Extended action rule - stable part.
+        action_rule_flexible: list
+            Extended action rule - flexible part.
+        action_rule_decision: list
+            Extended action rule - target.
+        part: int
+            Part of rule: before or after
+
+        Returns
+        -------
+        tuple
+            An action rule's left support and support (with target)
+        """
+        new_data = self.decisions.data.applymap(str).copy()
+        columns_values = []
+
+        for condition in action_rule_stable:
+            column = condition[0]
+            value = condition[1][0]
+            value = value.replace("*", "")
+            columns_values.append([column, value])
+
+        for condition in action_rule_flexible:
+            column = condition[0]
+            value = condition[1][part]
+            columns_values.append([column, value])
+
+        for column_value in columns_values:
+            col = column_value[0]
+            val = column_value[1]
+            if val is not None:
+                mask = new_data[col] == val
+                new_data = new_data[mask]
+
+        left_support = len(new_data)
+
+        col = action_rule_decision[0]
+        val = action_rule_decision[1][part]
+        mask = new_data[col] == val
+        new_data = new_data[mask]
+
+        support = len(new_data)
+
+        return left_support, support
