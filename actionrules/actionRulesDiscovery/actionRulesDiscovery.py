@@ -476,7 +476,7 @@ class ActionRulesDiscovery:
         """
         new_data = source_table.applymap(str).copy()
         for key, value in decision.items():
-            if str(value) != "nan":
+            if str(value).lower() != "nan":
                 mask = new_data[key] == value
                 new_data = new_data[mask]
         return new_data
@@ -505,7 +505,7 @@ class ActionRulesDiscovery:
             predicted_table = self._reduce_table_source(decision_before, source_table)
             if len(predicted_table.index) > 0:
                 for key, value in decision_after.items():
-                    if str(value) != "nan" and key in self.flexible_attributes:
+                    if str(value).lower() != "nan" and key in self.flexible_attributes:
                         column = key + self.RECOMMENDED
                         predicted_table[column] = [value] * len(predicted_table.index)
                         predicted_table[self.ACTION_RULE] = [i] * len(predicted_table.index)

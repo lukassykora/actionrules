@@ -152,8 +152,8 @@ class ActionRules:
         tuple
             Returns (bool is_action_pair, (before, after) action_pair, bool break_rule).
         """
-        before = str(before)
-        after = str(after)
+        before = str(before).lower()
+        after = str(after).lower()
         if attribute_type == "stable":
             if before == "nan" and after == "nan":
                 return False, None, False

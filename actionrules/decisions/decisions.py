@@ -136,14 +136,14 @@ class Decisions:
             for cedent in rule[1]:
                 cols.append(cedent.split("<:> ")[0])
                 value = cedent.split("<:> ")[1]
-                if value == "nan":
+                if value.lower() == "nan":
                     values.append(np.NaN)
                 else:
                     values.append(value)
             # Subsequent
             cols.append(rule[0].split("<:> ")[0])
             value = rule[0].split("<:> ")[1]
-            if value == "nan":
+            if value.lower() == "nan":
                 values.append(np.NaN)
             else:
                 values.append(value)
