@@ -226,7 +226,8 @@ class ActionRules:
                          action_rule_flexible: list,
                          action_rule_decision: list,
                          action_rule_supp: list,
-                         action_rule_conf: list):
+                         action_rule_conf: list,
+                         uplift: float):
         """This method joins the parts of an action rule and adds the action rule to a list.
 
         Parameters
@@ -241,9 +242,10 @@ class ActionRules:
             List of supports.
         action_rule_conf : list
             List of confidences.
+        uplift: float
+            Uplift
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
-        uplift = self._get_uplift(action_rule_supp[0], action_rule_conf[0], action_rule_conf[1])
         self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
 
     def _split_to_before_after_consequent(self, decision_column: pd.DataFrame) -> tuple:
@@ -316,11 +318,17 @@ class ActionRules:
                         if not self.is_nan:
                             support = min(supp[rule_before_index], supp[rule_after_index])
                             confidence = conf[rule_before_index] * conf[rule_after_index]
+                            uplift = self._get_uplift(
+                                supp[rule_before_index],
+                                conf[rule_before_index],
+                                conf[rule_after_index]
+                            )
                         else:
                             total = len(self.decisions.transactions)
                             if total == 0:
                                 support = None
                                 confidence = None
+                                uplift = None
                             else:
                                 (left_support_before, support_before) = self._get_frequency_from_mask(action_rule_stable,
                                                                                                       action_rule_flexible,
@@ -333,7 +341,16 @@ class ActionRules:
                                                                                                     1
                                                                                                     )
                                 support = support_before / total
-                                confidence = (support_before / left_support_before) * (support_after / left_support_after)
+                                if left_support_before != 0 and left_support_after != 0:
+                                    confidence = (support_before / left_support_before) * (support_after / left_support_after)
+                                    uplift = self._get_uplift(
+                                        support_before,
+                                        (support_before / left_support_before),
+                                        (support_after / left_support_after)
+                                    )
+                                else:
+                                    confidence = 0
+                                    uplift = 0
                         action_rule_supp = [supp[rule_before_index],
                                             supp[rule_after_index],
                                             support
@@ -346,7 +363,8 @@ class ActionRules:
                                               action_rule_flexible,
                                               action_rule_decision,
                                               action_rule_supp,
-                                              action_rule_conf)
+                                              action_rule_conf,
+                                              uplift)
                         self.classification_before.append(rule_before_index)
                         self.classification_after.append(rule_after_index)
 
@@ -424,7 +442,10 @@ class ActionRules:
         float
             An uplift value.
         """
-        return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)
+        if conf_before != 0:
+            return ((supp_before / conf_before) * conf_after) - ((supp_before / conf_before) - supp_before)
+        else:
+            return 0
 
     def _get_frequency_from_mask(self, action_rule_stable: list, action_rule_flexible: list, action_rule_decision: list, part: int) -> tuple:
         """Get frequency from source data.
