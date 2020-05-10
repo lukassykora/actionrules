@@ -127,7 +127,9 @@ class Reduction:
         for unique_value in unique_values:
             if self.is_nan:
                 mask = np.logical_or(stable_columns.iloc[:, split_position] == unique_value,
-                                     stable_columns.iloc[:, split_position].isnull()
+                                     np.logical_or(stable_columns.iloc[:, split_position].isnull(),
+                                                   stable_columns.iloc[:, split_position] == 'nan'
+                                                   )
                                      )
             else:
                 if str(unique_value).lower() == "nan":
