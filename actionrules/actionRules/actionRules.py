@@ -278,7 +278,9 @@ class ActionRules:
             flexible_columns = self.flexible_tables.pop(0)
             decision_column = self.decision_tables.pop(0)
             supp = self.supp.pop(0)
+            supp = supp.astype(float)
             conf = self.conf.pop(0)
+            conf = conf.astype(float)
             (before_indexes, after_indexes) = self._split_to_before_after_consequent(decision_column)
             for comb in itertools.product(before_indexes, after_indexes):
                 # Check if it is not used twice - just for reduction by nan
@@ -315,7 +317,7 @@ class ActionRules:
                             support = min(supp[rule_before_index], supp[rule_after_index])
                             confidence = conf[rule_before_index] * conf[rule_after_index]
                         else:
-                            total = len(self.decisions.data)
+                            total = len(self.decisions.transactions)
                             if total == 0:
                                 support = None
                                 confidence = None

@@ -41,8 +41,33 @@ class DesiredState:
         desired_changes : List[list]
             Concrete desired changes. For example: [['death', 'survived'], ['death', 'survived with injury']]
         """
-        self.desired_classes = desired_classes
-        self.desired_changes = desired_changes
+        self.desired_classes = self._candidates_to_string(desired_classes)
+        self.desired_changes = self._candidates_to_string(desired_changes)
+
+    @staticmethod
+    def _candidates_to_string(desired_data: list) -> list:
+        """It converts all values to strings.
+
+        Parameters
+        ----------
+        desired_data : list
+            Desired classes or changes.
+
+        Returns
+        -------
+        list
+            The same list with string values.
+        """
+        converted_data = []
+        if isinstance(desired_data, list):
+            for val in desired_data:
+                if isinstance(val, list):
+                    converted = [str(v) for v in val]
+                else:
+                    converted = str(val)
+                converted_data.append(converted)
+        return converted_data
+
 
     def is_candidate_decision(self, decision_before: str, decision_after: str) -> bool:
         """It checks if a pair of consequent is a candidate.

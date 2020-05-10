@@ -366,7 +366,6 @@ class ActionRulesDiscovery:
         reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
-        self.decisions.data = pd.DataFrame()
         self.action_rules = ActionRules(
             reduced_tables.stable_tables,
             reduced_tables.flexible_tables,
@@ -443,8 +442,7 @@ class ActionRulesDiscovery:
         pd.DataFrame
             Returns data frame with transactions data.
         """
-        if len(self.decisions.data) == 0:
-            print('No source data')
+        if len(self.decisions.transactions) == 0:
             return pd.DataFrame()
         if is_before:
             classification = self.action_rules.classification_before[action_r_number]
