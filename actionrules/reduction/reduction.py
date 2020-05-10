@@ -131,7 +131,9 @@ class Reduction:
                                      )
             else:
                 if str(unique_value).lower() == "nan":
-                    mask = stable_columns.iloc[:, split_position].isnull()
+                    mask = np.logical_or(stable_columns.iloc[:, split_position].isnull(),
+                                         stable_columns.iloc[:, split_position] == 'nan'
+                                         )
                 else:
                     mask = stable_columns.iloc[:, split_position] == unique_value
             new_stable_table = stable_columns[mask]
