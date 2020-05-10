@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="actionrules-lukassykora",
-    version="1.1.16",
+    version="1.1.17",
     author="Lukas Sykora",
     author_email="lukassykora@seznam.cz",
     description="Action rules mining package",
