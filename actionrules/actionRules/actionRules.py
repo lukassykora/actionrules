@@ -55,6 +55,8 @@ class ActionRules:
         The target values that are not in the before part.
     decisions: Decisions()
         Decisions object.
+    is_strict_flexible : bool
+        If true flexible attributes must be always actionable, if false they can also behave as stable attributes
 
     Methods
     -------
@@ -80,6 +82,7 @@ class ActionRules:
                  min_flexible_antecedents: int = 1,
                  max_stable_antecedents: int = 1,
                  max_flexible_antecedents: int = 1,
+                 is_strict_flexible: bool = True
                  ):
         """
         Parameters
@@ -108,7 +111,8 @@ class ActionRules:
             Maximal number of stable pairs.
         max_flexible_antecedents : int
             Maximal number of flexible pairs.
-
+        is_strict_flexible : bool
+            If true flexible attributes must be always actionable, if false they can also behave as stable attributes
         """
         self.stable_tables = stable_tables
         self.flexible_tables = flexible_tables
@@ -130,6 +134,7 @@ class ActionRules:
         self.desired_target_classes = self.desired_state.get_destination_classes()
         self.not_default_target_classes = self.desired_state.get_not_in_default_classes()
         self.decisions = decisions
+        self.is_strict_flexible = is_strict_flexible
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -169,6 +174,9 @@ class ActionRules:
                 return False, None, False
             elif before != after and before != "nan" and after != "nan":
                 return True, (before, after), False
+            elif not self.is_strict_flexible:
+                if before == after and before != "nan":
+                    return False, (before,), False
             elif self.is_nan:
                 if before != after and before == "nan":
                     return True, (str(None), after), False
@@ -216,8 +224,7 @@ class ActionRules:
             elif is_action_couple:
                 count_antecedent += 1
                 action_rule_part.append([column, action_couple])
-            else:
-                if action_couple is not None:
+            elif action_couple is not None:
                     action_rule_part.append([column, action_couple])
         return True, action_rule_part, count_antecedent
 
@@ -385,8 +392,12 @@ class ActionRules:
             # Flexible part
             flexible_part = action_rule[1]
             for flexible_couple in flexible_part:
-                text += "attribute '" + str(flexible_couple[0]) + "' value '" + str(flexible_couple[1][0]) + \
-                        "' is changed to '" + str(flexible_couple[1][1]) + "', "
+                if len(flexible_couple[1]) == 2:
+                    text += "attribute '" + str(flexible_couple[0]) + "' value '" + str(flexible_couple[1][0]) + \
+                            "' is changed to '" + str(flexible_couple[1][1]) + "', "
+                else:
+                    text += "attribute '" + str(flexible_couple[0]) + "' value '" + str(flexible_couple[1][0]) + \
+                            "' remains the same, "
             # Decision
             decision = action_rule[2]
             text += "then '" + str(decision[0]) + "' value '" + str(decision[1][0]) + "' is changed to '" + \
@@ -413,8 +424,11 @@ class ActionRules:
             flexible_part = action_rule[1]
             text = text[:-3]
             for flexible_couple in flexible_part:
-                text += " ∧ (" + str(flexible_couple[0]) + ": " + str(flexible_couple[1][0]) + \
-                        " → " + str(flexible_couple[1][1]) + ") "
+                if len(flexible_couple[1]) == 2:
+                    text += " ∧ (" + str(flexible_couple[0]) + ": " + str(flexible_couple[1][0]) + \
+                            " → " + str(flexible_couple[1][1]) + ") "
+                else:
+                    text += " ∧  (" + str(flexible_couple[0]) + ": " + str(flexible_couple[1][0]) + ") "
             # Decision
             decision = action_rule[2]
             text += "] ⇒ [" + str(decision[0]) + ": " + str(decision[1][0]) + " → " + \

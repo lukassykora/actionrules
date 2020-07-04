@@ -164,6 +164,7 @@ class ActionRulesDiscovery:
             min_flexible_attributes: int = 1,
             max_stable_attributes: int = 5,
             max_flexible_attributes: int = 5,
+            is_strict_flexible: bool = True
             ):
         """Train the model from transaction data.
 
@@ -186,6 +187,8 @@ class ActionRulesDiscovery:
         - min_flexible_attributes
         - max_stable_attributes
         - max_flexible_attributes
+        The way how the flexible attribute behave
+        - is_strict_flexible
 
         Parameters
         ----------
@@ -227,6 +230,9 @@ class ActionRulesDiscovery:
         max_flexible_attributes : int = 5
             Maximal number of flexible pairs.
             DEFAULT: 5
+        is_strict_flexible : bool = True
+            If true flexible attributes must be always actionable, if false they can also behave as stable attributes
+            DEFAULT: True
         """
         if (self.action_rules):
             raise Exception("Fit was already called")
@@ -262,7 +268,8 @@ class ActionRulesDiscovery:
             min_stable_attributes,
             min_flexible_attributes,
             max_stable_attributes,
-            max_flexible_attributes
+            max_flexible_attributes,
+            is_strict_flexible
         )
         self.action_rules.fit()
 
@@ -280,6 +287,7 @@ class ActionRulesDiscovery:
                                  min_flexible_attributes: int = 1,
                                  max_stable_attributes: int = 5,
                                  max_flexible_attributes: int = 5,
+                                 is_strict_flexible: bool = True
                                  ):
         """Train the model from classification rules.
 
@@ -302,6 +310,8 @@ class ActionRulesDiscovery:
         - min_flexible_attributes
         - max_stable_attributes
         - max_flexible_attributes
+        The way how the flexible attribute behave
+        - is_strict_flexible
 
         Parameters
         ----------
@@ -342,6 +352,9 @@ class ActionRulesDiscovery:
         max_flexible_attributes: int = 5
             Maximal number of flexible pairs.
             DEFAULT: 5
+        is_strict_flexible : bool = True
+            If true flexible attributes must be always actionable, if false they can also behave as stable attributes
+            DEFAULT: True
         """
         if (self.action_rules):
             raise Exception("Fit was already called")
@@ -378,7 +391,8 @@ class ActionRulesDiscovery:
             min_stable_attributes,
             min_flexible_attributes,
             max_stable_attributes,
-            max_flexible_attributes
+            max_flexible_attributes,
+            is_strict_flexible
         )
         self.action_rules.fit()
 
