@@ -5,6 +5,11 @@ Action Rules (actionrules) is an implementation of Action Rules from Classificat
 
 ```Dardzinska, A. (2013). Action rules mining. Berlin: Springer.```
 
+If you use this package, please cite:
+
+```Sýkora, Lukáš, and Tomáš Kliegr. "Action Rules: Counterfactual Explanations in Python." RuleML Challenge 2020. CEUR-WS. ``` http://ceur-ws.org/Vol-2644/paper36.pdf
+
+
 ## GIT repository
 
 https://github.com/lukassykora/actionrules
