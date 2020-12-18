@@ -236,8 +236,6 @@ class ActionRulesDiscovery:
         """
         if (self.action_rules):
             raise Exception("Fit was already called")
-        self.stable_attributes = stable_attributes
-        self.flexible_attributes = flexible_attributes
         self.consequent = consequent
         if bool(desired_classes) != bool(desired_changes):
             self.desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
@@ -248,8 +246,12 @@ class ActionRulesDiscovery:
         self.decisions.prepare_data_fim(attributes, consequent)
         self.decisions.fit_fim_apriori(conf=conf, support=supp)
         self.decisions.generate_decision_table()
-        stable = self.decisions.decision_table[stable_attributes]
-        flex = self.decisions.decision_table[flexible_attributes]
+        # Not all columns are in the generated classification rules
+        self.stable_attributes = list(set(stable_attributes).intersection(set(self.decisions.decision_table.columns)))
+        self.flexible_attributes = list(set(flexible_attributes).intersection(set(self.decisions.decision_table.columns)))
+        # Data
+        stable = self.decisions.decision_table[self.stable_attributes]
+        flex = self.decisions.decision_table[self.flexible_attributes]
         target = self.decisions.decision_table[[consequent]]
         supp = self.decisions.support
         conf = self.decisions.confidence
