@@ -97,7 +97,7 @@ class Decisions:
                 side_type = None
                 if i == consequent:
                     side_type = "c"
-                elif i in antecedent_attributes:
+                elif i in antecedent_attributes and str(v) != 'nan':
                     side_type = "a"
                 if side_type:
                     self.appearance.add((str(i) + "<:> " + str(v), side_type))
