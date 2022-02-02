@@ -5,6 +5,7 @@ from actionrules.desiredState import DesiredState
 from actionrules.decisions import Decisions
 from actionrules.reduction import Reduction
 from actionrules.actionRules import ActionRules
+from actionrules.utilityMining import UtilityMining
 
 
 class ActionRulesDiscovery:
@@ -164,7 +165,10 @@ class ActionRulesDiscovery:
             min_flexible_attributes: int = 1,
             max_stable_attributes: int = 5,
             max_flexible_attributes: int = 5,
-            is_strict_flexible: bool = True
+            is_strict_flexible: bool = True,
+            # added utility parameters
+            min_util: float = None,
+            utility_source = None
             ):
         """Train the model from transaction data.
 
@@ -245,6 +249,13 @@ class ActionRulesDiscovery:
         self._check_columns(attributes, consequent)
         self.decisions.prepare_data_fim(attributes, consequent)
         self.decisions.fit_fim_apriori(conf=conf, support=supp)
+        # filtering by utility
+        if min_util and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+            utility_mining = UtilityMining(self.decisions.rules, min_util, utility_source)
+            self.decisions.rules = utility_mining.fit()
+            if len(self.decisions.rules) == 0:
+                raise Exception("No rules after utility mining")
+
         self.decisions.generate_decision_table()
         # Not all columns are in the generated classification rules
         self.stable_attributes = list(set(stable_attributes).intersection(set(self.decisions.decision_table.columns)))
