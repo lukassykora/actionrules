@@ -251,8 +251,8 @@ class ActionRulesDiscovery:
         self.decisions.fit_fim_apriori(conf=conf, support=supp)
         # filtering by utility
         if min_util and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(self.decisions.rules, min_util, utility_source)
-            self.decisions.rules = utility_mining.fit()
+            utility_mining = UtilityMining(min_util, utility_source)
+            self.decisions.rules = utility_mining.fit(self.decisions.rules)
             if len(self.decisions.rules) == 0:
                 raise Exception("No rules after utility mining")
 
@@ -285,6 +285,11 @@ class ActionRulesDiscovery:
             is_strict_flexible
         )
         self.action_rules.fit()
+
+        # calculate change in utility and sorts the rules by the utility change
+        if isinstance(utility_source, pd.DataFrame) or callable(utility_source):
+            utility_mining.utility_difference(self.action_rules.action_rules)
+            utility_mining.sort_by_utility(self.action_rules.action_rules)
 
     def fit_classification_rules(self,
                                  stable_attributes: List[str],

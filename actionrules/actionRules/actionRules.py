@@ -434,6 +434,9 @@ class ActionRules:
             text += "] ⇒ [" + str(decision[0]) + ": " + str(decision[1][0]) + " → " + \
                     str(decision[1][1]) + "] with support: " + str(supp[2]) + ", confidence: " + str(
                 conf[2]) + " and uplift: " + str(uplift) + "."
+            if len(row) > 4:  # action rule contains utility
+                text += " Utility change is " + str(row[4][0]) + ". Utility before is " + str(row[4][1]) + \
+                        " and Utility after is " + str(row[4][2]) + "."
             self.action_rules_representation.append(text)
 
     @staticmethod
