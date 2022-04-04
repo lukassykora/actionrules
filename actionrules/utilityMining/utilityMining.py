@@ -8,7 +8,6 @@ class UtilityMining:
     """
 
     def __init__(self,
-                 min_util: float,
                  utility_source
                  ):
 
@@ -18,9 +17,8 @@ class UtilityMining:
             self.utility_table = utility_source
         elif callable(utility_source):
             self.utility_function = utility_source
-        self.min_util = min_util
 
-    def _get_utility(self, **kwargs):
+    def get_utility(self, **kwargs):
         if callable(self.utility_function):
             return self.utility_function(**kwargs)
         if isinstance(self.utility_table, pd.DataFrame):
@@ -49,9 +47,9 @@ class UtilityMining:
                 if name and value:
                     params[name] = str(value).lower()  # výsledné action rules mají hodnoty v lower case
 
-            utility = self._get_utility(**params)
-            if utility >= self.min_util:
-                new_rules.append(rule)
+            utility = self.get_utility(**params)
+            # if utility >= self.min_util:
+                # new_rules.append(rule)
         return new_rules
 
     def utility_difference(self, rules: List):
@@ -74,8 +72,8 @@ class UtilityMining:
             params1[name] = values[0]
             params2[name] = values[1]
 
-            utility_before = self._get_utility(**params1)
-            utility_after = self._get_utility(**params2)
+            utility_before = self.get_utility(**params1)
+            utility_after = self.get_utility(**params2)
 
             utility_dif = utility_after - utility_before
             rule.append((utility_dif, utility_before, utility_after))

@@ -82,7 +82,9 @@ class ActionRules:
                  min_flexible_antecedents: int = 1,
                  max_stable_antecedents: int = 1,
                  max_flexible_antecedents: int = 1,
-                 is_strict_flexible: bool = True
+                 is_strict_flexible: bool = True,
+                 util: List[pd.Series] = None,
+                 min_util_dif: float = None
                  ):
         """
         Parameters
@@ -135,6 +137,8 @@ class ActionRules:
         self.not_default_target_classes = self.desired_state.get_not_in_default_classes()
         self.decisions = decisions
         self.is_strict_flexible = is_strict_flexible
+        self.util = util
+        self.min_util_dif = min_util_dif
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -290,6 +294,10 @@ class ActionRules:
             supp = supp.astype(float)
             conf = self.conf.pop(0)
             conf = conf.astype(float)
+            util = None
+            if self.util and self.min_util_dif:
+                util = self.util.pop(0)
+                util = util.astype(float)
             (before_indexes, after_indexes) = self._split_to_before_after_consequent(decision_column)
             for comb in itertools.product(before_indexes, after_indexes):
                 # Check if it is not used twice - just for reduction by nan
@@ -299,6 +307,14 @@ class ActionRules:
                     self.used_indexes.append(comb)
                 rule_before_index = comb[0]
                 rule_after_index = comb[1]
+
+                # utility difference check
+                if util is not None:
+                    utility_before = util[rule_before_index]
+                    utility_after = util[rule_after_index]
+                    if self.min_util_dif > (utility_after - utility_before):
+                        continue
+
                 decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
                 decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
                 if self.desired_state.is_candidate_decision(decision_before, decision_after):

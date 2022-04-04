@@ -167,7 +167,7 @@ class ActionRulesDiscovery:
             max_flexible_attributes: int = 5,
             is_strict_flexible: bool = True,
             # added utility parameters
-            min_util: float = None,
+            min_util_dif: float = None,
             utility_source = None
             ):
         """Train the model from transaction data.
@@ -249,13 +249,6 @@ class ActionRulesDiscovery:
         self._check_columns(attributes, consequent)
         self.decisions.prepare_data_fim(attributes, consequent)
         self.decisions.fit_fim_apriori(conf=conf, support=supp)
-        # filtering by utility
-        if min_util and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(min_util, utility_source)
-            self.decisions.rules = utility_mining.fit(self.decisions.rules)
-            if len(self.decisions.rules) == 0:
-                raise Exception("No rules after utility mining")
-
         self.decisions.generate_decision_table()
         # Not all columns are in the generated classification rules
         self.stable_attributes = list(set(stable_attributes).intersection(set(self.decisions.decision_table.columns)))
@@ -266,7 +259,22 @@ class ActionRulesDiscovery:
         target = self.decisions.decision_table[[consequent]]
         supp = self.decisions.support
         conf = self.decisions.confidence
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
+
+        # calculating utilities
+        utilities = None
+        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+            utilities = []
+            utility_mining = UtilityMining(utility_source)
+            for i in range(len(flex)):
+                params = {}
+                for col in flex.columns:
+                    val = str(flex.at[i, col]).lower()
+                    if val != 'nan':
+                        params[col] = val
+                util = utility_mining.get_utility(**params)
+                utilities.append(float(util))
+
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -282,14 +290,16 @@ class ActionRulesDiscovery:
             min_flexible_attributes,
             max_stable_attributes,
             max_flexible_attributes,
-            is_strict_flexible
+            is_strict_flexible,
+            reduced_tables.util,
+            min_util_dif
         )
         self.action_rules.fit()
 
         # calculate change in utility and sorts the rules by the utility change
-        if isinstance(utility_source, pd.DataFrame) or callable(utility_source):
-            utility_mining.utility_difference(self.action_rules.action_rules)
-            utility_mining.sort_by_utility(self.action_rules.action_rules)
+        # if isinstance(utility_source, pd.DataFrame) or callable(utility_source):
+        #    utility_mining.utility_difference(self.action_rules.action_rules)
+        #    utility_mining.sort_by_utility(self.action_rules.action_rules)
 
     def fit_classification_rules(self,
                                  stable_attributes: List[str],
