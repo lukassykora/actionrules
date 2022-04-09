@@ -8,7 +8,8 @@ class UtilityMining:
     """
 
     def __init__(self,
-                 utility_source
+                 utility_source,
+                 min_util_dif: float
                  ):
 
         self.utility_function = None
@@ -17,6 +18,7 @@ class UtilityMining:
             self.utility_table = utility_source
         elif callable(utility_source):
             self.utility_function = utility_source
+        self.min_util_dif = min_util_dif
 
     def get_utility(self, **kwargs):
         if callable(self.utility_function):
@@ -32,62 +34,19 @@ class UtilityMining:
             return utility
         return 0
 
-    def fit(self, rules: List):
-        """
-
-        Returns
-        -------
-
-        """
-        new_rules = []
-        for rule in rules:
+    def calculate_utilities(self, flex: List[pd.DataFrame], target: List[pd.DataFrame]):
+        # calculating utilities
+        utilities = []
+        for i in range(len(flex)):
             params = {}
-            for attr in (rule[0],) + rule[1]:
-                name, value = attr.split('<:> ')
-                if name and value:
-                    params[name] = str(value).lower()  # výsledné action rules mají hodnoty v lower case
+            for col in flex.columns:
+                val = str(flex.at[i, col]).lower()
+                if val != 'nan':
+                    params[col] = val
+            col = target.columns[0]
+            val = target.at[i, col].lower()
+            params[col] = val
 
-            utility = self.get_utility(**params)
-            # if utility >= self.min_util:
-                # new_rules.append(rule)
-        return new_rules
-
-    def utility_difference(self, rules: List):
-        """
-        To final action rules adds change in utility.
-        -------
-
-        """
-        for rule in rules:
-            params1 = {}
-            params2 = {}
-
-            for attr in rule[0][1]:
-                name = attr[0]
-                values = attr[1]
-                params1[name] = values[0]
-                params2[name] = values[1]
-
-            name, values = rule[0][2]
-            params1[name] = values[0]
-            params2[name] = values[1]
-
-            utility_before = self.get_utility(**params1)
-            utility_after = self.get_utility(**params2)
-
-            utility_dif = utility_after - utility_before
-            rule.append((utility_dif, utility_before, utility_after))
-
-    def sort_by_utility(self, rules: List):
-        """
-        Sorts action rules by difference in utility.
-
-        Parameters
-        ----------
-        rules
-
-        Returns
-        -------
-
-        """
-        rules.sort(key=lambda rule: rule[4][0], reverse=True)
+            util = self.get_utility(**params)
+            utilities.append(float(util))
+        return utilities

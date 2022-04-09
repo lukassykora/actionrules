@@ -84,7 +84,8 @@ class ActionRules:
                  max_flexible_antecedents: int = 1,
                  is_strict_flexible: bool = True,
                  util: List[pd.Series] = None,
-                 min_util_dif: float = None
+                 min_util_dif: float = None,
+                 sort_by_util_dif: bool = False
                  ):
         """
         Parameters
@@ -139,6 +140,7 @@ class ActionRules:
         self.is_strict_flexible = is_strict_flexible
         self.util = util
         self.min_util_dif = min_util_dif
+        self.sort_by_util_dif = sort_by_util_dif
 
     def _is_action_couple(self,
                           before: Union[str, int, float],
@@ -229,7 +231,7 @@ class ActionRules:
                 count_antecedent += 1
                 action_rule_part.append([column, action_couple])
             elif action_couple is not None:
-                    action_rule_part.append([column, action_couple])
+                action_rule_part.append([column, action_couple])
         return True, action_rule_part, count_antecedent
 
     def _add_action_rule(self,
@@ -238,7 +240,8 @@ class ActionRules:
                          action_rule_decision: list,
                          action_rule_supp: list,
                          action_rule_conf: list,
-                         uplift: float):
+                         uplift: float,
+                         util_dif: float = None):
         """This method joins the parts of an action rule and adds the action rule to a list.
 
         Parameters
@@ -257,7 +260,7 @@ class ActionRules:
             Uplift
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
-        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift])
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift, util_dif])
 
     def _split_to_before_after_consequent(self, decision_column: pd.DataFrame) -> tuple:
         """This method split the table based on consequent.
@@ -309,10 +312,12 @@ class ActionRules:
                 rule_after_index = comb[1]
 
                 # utility difference check
+                util_dif = None
                 if util is not None:
                     utility_before = util[rule_before_index]
                     utility_after = util[rule_after_index]
-                    if self.min_util_dif > (utility_after - utility_before):
+                    util_dif = utility_after - utility_before
+                    if self.min_util_dif > util_dif:
                         continue
 
                 decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
@@ -335,9 +340,9 @@ class ActionRules:
                     action_rule_decision = [
                         decision_column.columns[0], [decision_before, decision_after]]
                     if counted_flexible >= self.min_flexible_antecedents and \
-                       counted_stable >= self.min_stable_antecedents and \
-                       counted_flexible <= self.max_flexible_antecedents and \
-                       counted_stable <= self.max_stable_antecedents:
+                            counted_stable >= self.min_stable_antecedents and \
+                            counted_flexible <= self.max_flexible_antecedents and \
+                            counted_stable <= self.max_stable_antecedents:
                         if not self.is_nan:
                             support = min(supp[rule_before_index], supp[rule_after_index])
                             confidence = conf[rule_before_index] * conf[rule_after_index]
@@ -353,11 +358,12 @@ class ActionRules:
                                 confidence = None
                                 uplift = None
                             else:
-                                (left_support_before, support_before) = self._get_frequency_from_mask(action_rule_stable,
-                                                                                                      action_rule_flexible,
-                                                                                                      action_rule_decision,
-                                                                                                      0
-                                                                                                      )
+                                (left_support_before, support_before) = self._get_frequency_from_mask(
+                                    action_rule_stable,
+                                    action_rule_flexible,
+                                    action_rule_decision,
+                                    0
+                                    )
                                 (left_support_after, support_after) = self._get_frequency_from_mask(action_rule_stable,
                                                                                                     action_rule_flexible,
                                                                                                     action_rule_decision,
@@ -365,7 +371,8 @@ class ActionRules:
                                                                                                     )
                                 support = support_before / total
                                 if left_support_before != 0 and left_support_after != 0:
-                                    confidence = (support_before / left_support_before) * (support_after / left_support_after)
+                                    confidence = (support_before / left_support_before) * (
+                                                support_after / left_support_after)
                                     uplift = self._get_uplift(
                                         support_before,
                                         (support_before / left_support_before),
@@ -387,9 +394,14 @@ class ActionRules:
                                               action_rule_decision,
                                               action_rule_supp,
                                               action_rule_conf,
-                                              uplift)
+                                              uplift,
+                                              util_dif)
                         self.classification_before.append(rule_before_index)
                         self.classification_after.append(rule_after_index)
+
+        # sort by utility difference
+        if util is not None and self.sort_by_util_dif:
+            self.action_rules.sort(key=lambda rule: rule[4], reverse=True)
 
     def pretty_text(self):
         """It generates human language representation of action rules.
@@ -418,7 +430,9 @@ class ActionRules:
             decision = action_rule[2]
             text += "then '" + str(decision[0]) + "' value '" + str(decision[1][0]) + "' is changed to '" + \
                     str(decision[1][1]) + "' with support: " + str(supp[2]) + ", confidence: " + str(conf[2]) + \
-            " and uplift: " + str(uplift) + "."
+                    " and uplift: " + str(uplift) + "."
+            if row[-1] is not None:  # action rule contains utility
+                text += " Change in utility caused by action is " + str(row[-1]) + "."
             self.action_rules_pretty_text.append(text)
 
     def representation(self):
@@ -449,10 +463,9 @@ class ActionRules:
             decision = action_rule[2]
             text += "] ⇒ [" + str(decision[0]) + ": " + str(decision[1][0]) + " → " + \
                     str(decision[1][1]) + "] with support: " + str(supp[2]) + ", confidence: " + str(
-                conf[2]) + " and uplift: " + str(uplift) + "."
-            if len(row) > 4:  # action rule contains utility
-                text += " Utility change is " + str(row[4][0]) + ". Utility before is " + str(row[4][1]) + \
-                        " and Utility after is " + str(row[4][2]) + "."
+                conf[2]) + ", uplift: " + str(uplift)
+            if row[-1] is not None:  # action rule contains utility
+                text += " and change in utility: " + str(row[-1]) + "."
             self.action_rules_representation.append(text)
 
     @staticmethod
@@ -480,7 +493,8 @@ class ActionRules:
         else:
             return 0
 
-    def _get_frequency_from_mask(self, action_rule_stable: list, action_rule_flexible: list, action_rule_decision: list, part: int) -> tuple:
+    def _get_frequency_from_mask(self, action_rule_stable: list, action_rule_flexible: list, action_rule_decision: list,
+                                 part: int) -> tuple:
         """Get frequency from source data.
 
         Parameters

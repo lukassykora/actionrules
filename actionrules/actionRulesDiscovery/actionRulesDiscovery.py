@@ -168,7 +168,8 @@ class ActionRulesDiscovery:
             is_strict_flexible: bool = True,
             # added utility parameters
             min_util_dif: float = None,
-            utility_source = None
+            utility_source = None,
+            sort_by_util_dif: bool = False
             ):
         """Train the model from transaction data.
 
@@ -263,16 +264,8 @@ class ActionRulesDiscovery:
         # calculating utilities
         utilities = None
         if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utilities = []
-            utility_mining = UtilityMining(utility_source)
-            for i in range(len(flex)):
-                params = {}
-                for col in flex.columns:
-                    val = str(flex.at[i, col]).lower()
-                    if val != 'nan':
-                        params[col] = val
-                util = utility_mining.get_utility(**params)
-                utilities.append(float(util))
+            utility_mining = UtilityMining(utility_source, min_util_dif)
+            utilities = utility_mining.calculate_utilities(flex, target)
 
         reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities)
         if is_reduction:
@@ -292,14 +285,10 @@ class ActionRulesDiscovery:
             max_flexible_attributes,
             is_strict_flexible,
             reduced_tables.util,
-            min_util_dif
+            min_util_dif,
+            sort_by_util_dif
         )
         self.action_rules.fit()
-
-        # calculate change in utility and sorts the rules by the utility change
-        # if isinstance(utility_source, pd.DataFrame) or callable(utility_source):
-        #    utility_mining.utility_difference(self.action_rules.action_rules)
-        #    utility_mining.sort_by_utility(self.action_rules.action_rules)
 
     def fit_classification_rules(self,
                                  stable_attributes: List[str],
@@ -315,7 +304,11 @@ class ActionRulesDiscovery:
                                  min_flexible_attributes: int = 1,
                                  max_stable_attributes: int = 5,
                                  max_flexible_attributes: int = 5,
-                                 is_strict_flexible: bool = True
+                                 is_strict_flexible: bool = True,
+                                 # utility parameters
+                                 min_util_dif: float = None,
+                                 utility_source=None,
+                                 sort_by_util_dif: bool = False
                                  ):
         """Train the model from classification rules.
 
@@ -404,6 +397,13 @@ class ActionRulesDiscovery:
         conf_df = self.decisions.data[[conf_col]]
         conf_series = conf_df.iloc[:, 0]
         conf = conf_series.tolist()
+
+        # calculating utilities - method in utility mining class
+        utilities = None
+        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+            utility_mining = UtilityMining(utility_source, min_util_dif)
+            utilities = utility_mining.calculate_utilities(flex, target)
+
         reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
@@ -420,7 +420,9 @@ class ActionRulesDiscovery:
             min_flexible_attributes,
             max_stable_attributes,
             max_flexible_attributes,
-            is_strict_flexible
+            is_strict_flexible,
+            min_util_dif,
+            sort_by_util_dif
         )
         self.action_rules.fit()
 
