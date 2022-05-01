@@ -298,7 +298,7 @@ class ActionRules:
             conf = self.conf.pop(0)
             conf = conf.astype(float)
             util = None
-            if self.util and self.min_util_dif:
+            if self.util and self.min_util_dif is not None:
                 util = self.util.pop(0)
                 util = util.astype(float)
             (before_indexes, after_indexes) = self._split_to_before_after_consequent(decision_column)

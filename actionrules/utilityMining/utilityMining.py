@@ -20,17 +20,28 @@ class UtilityMining:
             self.utility_function = utility_source
         self.min_util_dif = min_util_dif
 
-    def get_utility(self, **kwargs):
+    def _check_utility(self, utility):
+        if utility >= 0:
+            return utility
+        print('Warning - utility cannot be negative - negative value have been replaced by 0.')
+        return 0
+
+    def _get_utility(self, **kwargs):
         if callable(self.utility_function):
-            return self.utility_function(**kwargs)
+            utility = 0
+            for key, value in kwargs.items():
+                param = {}
+                param[key] = value
+                utility += self._check_utility(self.utility_function(**param))
+            return utility
         if isinstance(self.utility_table, pd.DataFrame):
             utility = 0
             for key, value in kwargs.items():
                 index = key + '_' + value
                 try:
-                    utility += self.utility_table.at[index, 1]
+                    utility += self._check_utility(self.utility_table.at[index, 1])
                 except KeyError:
-                    pass
+                    print('Warning - key error at index ', index)
             return utility
         return 0
 
@@ -47,6 +58,6 @@ class UtilityMining:
             val = target.at[i, col].lower()
             params[col] = val
 
-            util = self.get_utility(**params)
+            util = self._get_utility(**params)
             utilities.append(float(util))
         return utilities

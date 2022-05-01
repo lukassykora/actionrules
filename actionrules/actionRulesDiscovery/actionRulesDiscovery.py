@@ -263,7 +263,7 @@ class ActionRulesDiscovery:
 
         # calculating utilities
         utilities = None
-        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+        if min_util_dif is not None and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
             utility_mining = UtilityMining(utility_source, min_util_dif)
             utilities = utility_mining.calculate_utilities(flex, target)
 

@@ -13,7 +13,7 @@ Fare_lower,0
 Fare_very low,0
 Pclass_1.0,30
 Pclass_2.0,20
-Pclass_3.0,10
+Pclass_3.0,-10
 Sex_male,10
 Sex_female,20
 Survived_0.0,10

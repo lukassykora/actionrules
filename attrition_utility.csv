@@ -1,0 +1,13 @@
+BusinessTravel_no,90
+BusinessTravel_rare,500
+BusinessTravel_frequent,200
+Department_sales,10000
+Department_r&d,5000
+EducationField_engineering,500
+EducationField_other,500
+EducationField_medical,500
+Salary_low,500
+Salary_medium,200
+Salary_high,100
+Attrition_yes,0
+Attrition_no,550
