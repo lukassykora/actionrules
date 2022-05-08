@@ -57,6 +57,12 @@ class ActionRules:
         Decisions object.
     is_strict_flexible : bool
         If true flexible attributes must be always actionable, if false they can also behave as stable attributes
+    util : List[pd.Series] = None
+        List of utilities for classification rules.
+    min_util_dif : float = None
+        Number representing minimal desired change in utility caused by action.
+    sort_by_util_dif : bool = False
+        Should the output action rules be sorted by utility difference?
 
     Methods
     -------
@@ -116,6 +122,12 @@ class ActionRules:
             Maximal number of flexible pairs.
         is_strict_flexible : bool
             If true flexible attributes must be always actionable, if false they can also behave as stable attributes
+        util : List[pd.Series] = None
+            List of utilities for classification rules.
+        min_util_dif : float = None
+            Number representing minimal desired change in utility caused by action.
+        sort_by_util_dif : bool = False
+            Should the output action rules be sorted by utility difference?
         """
         self.stable_tables = stable_tables
         self.flexible_tables = flexible_tables
@@ -258,6 +270,8 @@ class ActionRules:
             List of confidences.
         uplift: float
             Uplift
+        util_dif : float
+            Utility difference
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
         self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift, util_dif])
