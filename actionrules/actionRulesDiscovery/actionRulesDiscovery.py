@@ -5,6 +5,7 @@ from actionrules.desiredState import DesiredState
 from actionrules.decisions import Decisions
 from actionrules.reduction import Reduction
 from actionrules.actionRules import ActionRules
+from actionrules.utilityMining import UtilityMining
 
 
 class ActionRulesDiscovery:
@@ -50,6 +51,9 @@ class ActionRulesDiscovery:
         min_flexible_attributes: int = 1,
         max_stable_attributes: int = 5,
         max_flexible_attributes: int = 5,
+        min_util_dif: float = None,
+        utility source = None,
+        sort_by_util_dif: bool = False
         )
         Train the model from transaction data.
     fit_classification_rules(self,
@@ -66,6 +70,9 @@ class ActionRulesDiscovery:
                              min_flexible_attributes: int = 1,
                              max_stable_attributes: int = 5,
                              max_flexible_attributes: int = 5,
+                             min_util_dif: float = None,
+                             utility source = None,
+                             sort_by_util_dif: bool = False
                              )
         Train the model from classification rules.
     get_action_rules(self) -> list
@@ -164,7 +171,11 @@ class ActionRulesDiscovery:
             min_flexible_attributes: int = 1,
             max_stable_attributes: int = 5,
             max_flexible_attributes: int = 5,
-            is_strict_flexible: bool = True
+            is_strict_flexible: bool = True,
+            # added utility parameters
+            min_util_dif: float = None,
+            utility_source = None,
+            sort_by_util_dif: bool = False
             ):
         """Train the model from transaction data.
 
@@ -189,6 +200,12 @@ class ActionRulesDiscovery:
         - max_flexible_attributes
         The way how the flexible attribute behave
         - is_strict_flexible
+        Minimal difference in utility caused by action.
+        - min_util_dif
+        Utility source, from which utility values are derived.
+        - utility_source
+        Should the output rules be sorted by difference in utility?
+        - sort_by_util_dif
 
         Parameters
         ----------
@@ -233,6 +250,15 @@ class ActionRulesDiscovery:
         is_strict_flexible : bool = True
             If true flexible attributes must be always actionable, if false they can also behave as stable attributes
             DEFAULT: True
+        min_util_dif : float = None
+            Number representing minimal desired change in utility caused by action.
+            DEFAULT: None
+        utility_source : utility_source = None
+            Source data to derive utility values - function or DataFrame.
+            DEFAULT: None
+        sort_by_util_dif : bool = False
+            Are the output action rules sorted by utility difference?
+            DEFAULT: FALSE
         """
         if (self.action_rules):
             raise Exception("Fit was already called")
@@ -255,7 +281,14 @@ class ActionRulesDiscovery:
         target = self.decisions.decision_table[[consequent]]
         supp = self.decisions.support
         conf = self.decisions.confidence
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
+
+        # calculating utilities
+        utilities = None
+        if min_util_dif is not None and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+            utility_mining = UtilityMining(utility_source, min_util_dif)
+            utilities = utility_mining.calculate_utilities(flex, target)
+
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -271,7 +304,10 @@ class ActionRulesDiscovery:
             min_flexible_attributes,
             max_stable_attributes,
             max_flexible_attributes,
-            is_strict_flexible
+            is_strict_flexible,
+            reduced_tables.util,
+            min_util_dif,
+            sort_by_util_dif
         )
         self.action_rules.fit()
 
@@ -289,7 +325,11 @@ class ActionRulesDiscovery:
                                  min_flexible_attributes: int = 1,
                                  max_stable_attributes: int = 5,
                                  max_flexible_attributes: int = 5,
-                                 is_strict_flexible: bool = True
+                                 is_strict_flexible: bool = True,
+                                 # utility parameters
+                                 min_util_dif: float = None,
+                                 utility_source=None,
+                                 sort_by_util_dif: bool = False
                                  ):
         """Train the model from classification rules.
 
@@ -314,6 +354,12 @@ class ActionRulesDiscovery:
         - max_flexible_attributes
         The way how the flexible attribute behave
         - is_strict_flexible
+        Minimal difference in utility caused by action.
+        - min_util_dif
+        Utility source, from which utility values are derived.
+        - utility_source
+        Should the output rules be sorted by difference in utility?
+        - sort_by_util_dif
 
         Parameters
         ----------
@@ -357,6 +403,15 @@ class ActionRulesDiscovery:
         is_strict_flexible : bool = True
             If true flexible attributes must be always actionable, if false they can also behave as stable attributes
             DEFAULT: True
+        min_util_dif : float = None
+            Number representing minimal desired change in utility caused by action.
+            DEFAULT: None
+        utility_source : utility_source = None
+            Source data to derive utility values - function or DataFrame.
+            DEFAULT: None
+        sort_by_util_dif : bool = False
+            Are the output action rules sorted by utility difference?
+            DEFAULT: FALSE
         """
         if (self.action_rules):
             raise Exception("Fit was already called")
@@ -378,6 +433,13 @@ class ActionRulesDiscovery:
         conf_df = self.decisions.data[[conf_col]]
         conf_series = conf_df.iloc[:, 0]
         conf = conf_series.tolist()
+
+        # calculating utilities - method in utility mining class
+        utilities = None
+        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
+            utility_mining = UtilityMining(utility_source, min_util_dif)
+            utilities = utility_mining.calculate_utilities(flex, target)
+
         reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
         if is_reduction:
             reduced_tables.reduce()
@@ -394,7 +456,9 @@ class ActionRulesDiscovery:
             min_flexible_attributes,
             max_stable_attributes,
             max_flexible_attributes,
-            is_strict_flexible
+            is_strict_flexible,
+            min_util_dif,
+            sort_by_util_dif
         )
         self.action_rules.fit()
 
@@ -404,7 +468,7 @@ class ActionRulesDiscovery:
         The output is a list of action
         rules. Each action rule is a list where the first part is an action rule itself, and the second part is
         a tuple of (support before, support after, action rule support), (confidence before, confidence after, action
-        rule confidence) and uplift.
+        rule confidence), uplift and change in utility, if utility was used.
 
         Returns
         -------
