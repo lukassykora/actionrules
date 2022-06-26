@@ -442,13 +442,14 @@ class ActionRulesDiscovery:
         conf_series = conf_df.iloc[:, 0]
         conf = conf_series.tolist()
 
-        # calculating utilities - method in utility mining class
+        # calculating utilities
         utility_mining = UtilityMining(utility_source, min_util_dif, min_profit)
-        utilities = None
+        utilities_flex = None
+        utilities_target = None
         if utility_mining.use_utility_mining():
-            utilities = utility_mining.calculate_utilities(flex, target)
+            utilities_flex, utilities_target = utility_mining.calculate_utilities(flex, target)
 
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities_flex, utilities_target)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -466,6 +467,7 @@ class ActionRulesDiscovery:
             max_flexible_attributes,
             is_strict_flexible,
             min_util_dif,
+            min_profit,
             sort_by_util_dif
         )
         self.action_rules.fit()
