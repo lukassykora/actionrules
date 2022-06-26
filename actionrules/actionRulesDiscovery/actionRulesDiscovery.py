@@ -174,6 +174,7 @@ class ActionRulesDiscovery:
             is_strict_flexible: bool = True,
             # added utility parameters
             min_util_dif: float = None,
+            min_profit: float = None,
             utility_source = None,
             sort_by_util_dif: bool = False
             ):
@@ -253,6 +254,9 @@ class ActionRulesDiscovery:
         min_util_dif : float = None
             Number representing minimal desired change in utility caused by action.
             DEFAULT: None
+        min_profit : float = None
+            Number representing minimal profit.
+            DEFAULT: None
         utility_source : utility_source = None
             Source data to derive utility values - function or DataFrame.
             DEFAULT: None
@@ -283,12 +287,13 @@ class ActionRulesDiscovery:
         conf = self.decisions.confidence
 
         # calculating utilities
-        utilities = None
-        if min_util_dif is not None and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(utility_source, min_util_dif)
-            utilities = utility_mining.calculate_utilities(flex, target)
+        utility_mining = UtilityMining(utility_source, min_util_dif, min_profit)
+        utilities_flex = None
+        utilities_target = None
+        if utility_mining.use_utility_mining():
+            utilities_flex, utilities_target = utility_mining.calculate_utilities(flex, target)
 
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities)
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities_flex, utilities_target)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -305,8 +310,10 @@ class ActionRulesDiscovery:
             max_stable_attributes,
             max_flexible_attributes,
             is_strict_flexible,
-            reduced_tables.util,
+            reduced_tables.util_flex,
+            reduced_tables.util_target,
             min_util_dif,
+            min_profit,
             sort_by_util_dif
         )
         self.action_rules.fit()
@@ -328,6 +335,7 @@ class ActionRulesDiscovery:
                                  is_strict_flexible: bool = True,
                                  # utility parameters
                                  min_util_dif: float = None,
+                                 min_profit: float = None,
                                  utility_source=None,
                                  sort_by_util_dif: bool = False
                                  ):
@@ -435,9 +443,9 @@ class ActionRulesDiscovery:
         conf = conf_series.tolist()
 
         # calculating utilities - method in utility mining class
+        utility_mining = UtilityMining(utility_source, min_util_dif, min_profit)
         utilities = None
-        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(utility_source, min_util_dif)
+        if utility_mining.use_utility_mining():
             utilities = utility_mining.calculate_utilities(flex, target)
 
         reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)

@@ -28,7 +28,8 @@ class UtilityMining:
 
     def __init__(self,
                  utility_source,
-                 min_util_dif: float
+                 min_util_dif: float,
+                 min_profit: float
                  ):
         """Initialise.
 
@@ -38,6 +39,8 @@ class UtilityMining:
             Function or DataFrame providing utility values.
         min_util_dif: float
             Number representing minimal desired change in utility caused by action.
+        min_profit: float
+            Number representing minimal profit.
         """
 
         self.utility_function = None
@@ -47,6 +50,19 @@ class UtilityMining:
         elif callable(utility_source):
             self.utility_function = utility_source
         self.min_util_dif = min_util_dif
+        self.min_profit = min_profit
+
+    def _is_source_defined(self):
+        return isinstance(self.utility_table, pd.DataFrame) or callable(self.utility_function)
+
+    def use_utility_mining(self):
+        return self.use_min_dif() or self.use_min_profit()
+
+    def use_min_dif(self):
+        return self.min_util_dif is not None and self._is_source_defined()
+
+    def use_min_profit(self):
+        return self.min_profit is not None and self._is_source_defined()
 
     def _check_utility(self, utility):
         """ Checks if the utility values are nonnegative. If they are, they are returned,
@@ -114,18 +130,28 @@ class UtilityMining:
         List
             Returns list of utilities.
         """
-        utilities = []
+        if not self._is_source_defined():
+            raise Exception('No utility source defined')
+        utilities_flex = []
+        utilities_target = []
         for i in range(len(flex)):
+            # utility of flexible attributes
             params = {}
             for col in flex.columns:
                 val = str(flex.at[i, col]).lower()
                 if val != 'nan':
                     params[col] = val
+            util_flex = self._get_utility(**params)
+
+            # utility of target attribute
+            params = {}
             col = target.columns[0]
             val = target.at[i, col].lower()
             params[col] = val
+            util_target = self._get_utility(**params)
 
-            util = self._get_utility(**params)
-            utilities.append(float(util))
-        return utilities
+            # adds tuple of flexible and target utilities to the return lists
+            utilities_flex.append(float(util_flex))
+            utilities_target.append(float(util_target))
+        return utilities_flex, utilities_target
 
