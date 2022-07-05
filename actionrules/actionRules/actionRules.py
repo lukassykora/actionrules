@@ -358,7 +358,9 @@ class ActionRules:
                         conf_before = conf[rule_before_index]
                         conf_after = conf[rule_after_index]
                         benefit = (util_target_after - util_target_before) * (conf_after + conf_before - 1)
-                        profit = benefit - cost
+                        # utility values for cost part can be either negative o positive - use of absolute values
+                        # makes it handles it the same
+                        profit = benefit - abs(cost)
                         if self.min_profit > profit:
                             continue
 

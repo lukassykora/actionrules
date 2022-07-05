@@ -64,24 +64,24 @@ class UtilityMining:
     def use_min_profit(self):
         return self.min_profit is not None and self._is_source_defined()
 
-    def _check_utility(self, utility):
-        """ Checks if the utility values are nonnegative. If they are, they are returned,
-            if they are not, 0 is returned and warning is printed out.
-
-        Parameters
-        ----------
-        utility : float
-            Utility value that is currently being checked.
-
-        Returns
-        -------
-        float
-            Returns particular utility value or 0.
-        """
-        if utility >= 0:
-            return utility
-        print('Warning - utility cannot be negative - negative value have been replaced by 0.')
-        return 0
+    # def _check_utility(self, utility):
+    #     """ Checks if the utility values are nonnegative. If they are, they are returned,
+    #         if they are not, 0 is returned and warning is printed out.
+    #
+    #     Parameters
+    #     ----------
+    #     utility : float
+    #         Utility value that is currently being checked.
+    #
+    #     Returns
+    #     -------
+    #     float
+    #         Returns particular utility value or 0.
+    #     """
+    #     if utility >= 0:
+    #         return utility
+    #     print('Warning - utility cannot be negative - negative value have been replaced by 0.')
+    #     return 0
 
     def _get_utility(self, **kwargs):
         """Returns sum of utilities of input parameters, checks utility values and takes
@@ -102,14 +102,14 @@ class UtilityMining:
             for key, value in kwargs.items():
                 param = {}
                 param[key] = value
-                utility += self._check_utility(self.utility_function(**param))
+                utility += self.utility_function(**param)
             return utility
         if isinstance(self.utility_table, pd.DataFrame):
             utility = 0
             for key, value in kwargs.items():
                 index = key + '_' + value
                 try:
-                    utility += self._check_utility(self.utility_table.at[index, 1])
+                    utility += self.utility_table.at[index, 1]
                 except KeyError:
                     print('Warning - key error at index ', index)
             return utility
