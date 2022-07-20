@@ -157,6 +157,9 @@ class ActionRulesDiscovery:
         """
         self.decisions.load_pandas(data_frame)
 
+    def _is_binary_target(self, target):
+        return target.nunique()[0] == 2
+
     def fit(self,
             stable_attributes: List[str],
             flexible_attributes: List[str],
@@ -174,6 +177,7 @@ class ActionRulesDiscovery:
             is_strict_flexible: bool = True,
             # added utility parameters
             min_util_dif: float = None,
+            min_profit: float = None,
             utility_source = None,
             sort_by_util_dif: bool = False
             ):
@@ -253,6 +257,9 @@ class ActionRulesDiscovery:
         min_util_dif : float = None
             Number representing minimal desired change in utility caused by action.
             DEFAULT: None
+        min_profit : float = None
+            Number representing minimal profit.
+            DEFAULT: None
         utility_source : utility_source = None
             Source data to derive utility values - function or DataFrame.
             DEFAULT: None
@@ -267,6 +274,9 @@ class ActionRulesDiscovery:
             self.desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
             raise Exception("Desired classes or desired changes must be entered")
+        if min_util_dif is not None and min_profit is not None:
+            raise Exception("Utility difference and profit cannot be used together")
+
         attributes = stable_attributes + flexible_attributes
         self._check_columns(attributes, consequent)
         self.decisions.prepare_data_fim(attributes, consequent)
@@ -282,13 +292,18 @@ class ActionRulesDiscovery:
         supp = self.decisions.support
         conf = self.decisions.confidence
 
-        # calculating utilities
-        utilities = None
-        if min_util_dif is not None and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(utility_source, min_util_dif)
-            utilities = utility_mining.calculate_utilities(flex, target)
+        # when mining using min_profit target attribute must be binary
+        utility_mining = UtilityMining(utility_source, min_util_dif, min_profit)
+        if utility_mining.use_min_profit() and not self._is_binary_target(target):
+            raise Exception("To calculate profit of action target attribute must be binary")
 
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities)
+        # calculating utilities
+        utilities_flex = None
+        utilities_target = None
+        if utility_mining.use_utility_mining():
+            utilities_flex, utilities_target = utility_mining.calculate_utilities(flex, target)
+
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities_flex, utilities_target)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -305,8 +320,10 @@ class ActionRulesDiscovery:
             max_stable_attributes,
             max_flexible_attributes,
             is_strict_flexible,
-            reduced_tables.util,
+            reduced_tables.util_flex,
+            reduced_tables.util_target,
             min_util_dif,
+            min_profit,
             sort_by_util_dif
         )
         self.action_rules.fit()
@@ -328,6 +345,7 @@ class ActionRulesDiscovery:
                                  is_strict_flexible: bool = True,
                                  # utility parameters
                                  min_util_dif: float = None,
+                                 min_profit: float = None,
                                  utility_source=None,
                                  sort_by_util_dif: bool = False
                                  ):
@@ -422,6 +440,9 @@ class ActionRulesDiscovery:
             self.desired_state = DesiredState(desired_classes=desired_classes, desired_changes=desired_changes)
         else:
             raise Exception("Desired classes or desired changes must be entered")
+        if min_util_dif is not None and min_profit is not None:
+            raise Exception("Utility difference and profit cannot be used together")
+
         attributes = stable_attributes + flexible_attributes
         self._check_columns(attributes, consequent)
         stable = self.decisions.data[stable_attributes]
@@ -434,13 +455,18 @@ class ActionRulesDiscovery:
         conf_series = conf_df.iloc[:, 0]
         conf = conf_series.tolist()
 
-        # calculating utilities - method in utility mining class
-        utilities = None
-        if min_util_dif and (isinstance(utility_source, pd.DataFrame) or callable(utility_source)):
-            utility_mining = UtilityMining(utility_source, min_util_dif)
-            utilities = utility_mining.calculate_utilities(flex, target)
+        # when mining using min_profit target attribute must be binary
+        utility_mining = UtilityMining(utility_source, min_util_dif, min_profit)
+        if utility_mining.use_min_profit() and not self._is_binary_target(target):
+            raise Exception("To calculate profit of action target attribute must be binary")
 
-        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan)
+        # calculating utilities
+        utilities_flex = None
+        utilities_target = None
+        if utility_mining.use_utility_mining():
+            utilities_flex, utilities_target = utility_mining.calculate_utilities(flex, target)
+
+        reduced_tables = Reduction(stable, flex, target, self.desired_state, supp, conf, is_nan, utilities_flex, utilities_target)
         if is_reduction:
             reduced_tables.reduce()
         self.action_rules = ActionRules(
@@ -458,6 +484,7 @@ class ActionRulesDiscovery:
             max_flexible_attributes,
             is_strict_flexible,
             min_util_dif,
+            min_profit,
             sort_by_util_dif
         )
         self.action_rules.fit()

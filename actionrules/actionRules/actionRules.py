@@ -89,8 +89,10 @@ class ActionRules:
                  max_stable_antecedents: int = 1,
                  max_flexible_antecedents: int = 1,
                  is_strict_flexible: bool = True,
-                 util: List[pd.Series] = None,
+                 util_flex: List[pd.Series] = None,
+                 util_target: List[pd.Series] = None,
                  min_util_dif: float = None,
+                 min_profit: float = None,
                  sort_by_util_dif: bool = False
                  ):
         """
@@ -126,6 +128,8 @@ class ActionRules:
             List of utilities for classification rules.
         min_util_dif : float = None
             Number representing minimal desired change in utility caused by action.
+        min_profit : float = None
+            Number representing minimal profit.
         sort_by_util_dif : bool = False
             Should the output action rules be sorted by utility difference?
         """
@@ -150,8 +154,10 @@ class ActionRules:
         self.not_default_target_classes = self.desired_state.get_not_in_default_classes()
         self.decisions = decisions
         self.is_strict_flexible = is_strict_flexible
-        self.util = util
+        self.util_flex = util_flex
+        self.util_target = util_target
         self.min_util_dif = min_util_dif
+        self.min_profit = min_profit
         self.sort_by_util_dif = sort_by_util_dif
 
     def _is_action_couple(self,
@@ -253,7 +259,8 @@ class ActionRules:
                          action_rule_supp: list,
                          action_rule_conf: list,
                          uplift: float,
-                         util_dif: float = None):
+                         util_dif: float = None,
+                         profit: float = None):
         """This method joins the parts of an action rule and adds the action rule to a list.
 
         Parameters
@@ -272,9 +279,11 @@ class ActionRules:
             Uplift
         util_dif : float
             Utility difference
+        profit : float
+            Profit
         """
         action_rule = [action_rule_stable, action_rule_flexible, action_rule_decision]
-        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift, util_dif])
+        self.action_rules.append([action_rule, action_rule_supp, action_rule_conf, uplift, util_dif, profit])
 
     def _split_to_before_after_consequent(self, decision_column: pd.DataFrame) -> tuple:
         """This method split the table based on consequent.
@@ -311,10 +320,14 @@ class ActionRules:
             supp = supp.astype(float)
             conf = self.conf.pop(0)
             conf = conf.astype(float)
-            util = None
-            if self.util and self.min_util_dif is not None:
-                util = self.util.pop(0)
-                util = util.astype(float)
+            util_flex = None
+            if self.util_flex and (self.min_util_dif is not None or self.min_profit is not None):
+                util_flex = self.util_flex.pop(0)
+                util_flex = util_flex.astype(float)
+            util_target = None
+            if self.util_target and (self.min_util_dif is not None or self.min_profit is not None):
+                util_target = self.util_target.pop(0)
+                util_target = util_target.astype(float)
             (before_indexes, after_indexes) = self._split_to_before_after_consequent(decision_column)
             for comb in itertools.product(before_indexes, after_indexes):
                 # Check if it is not used twice - just for reduction by nan
@@ -325,14 +338,31 @@ class ActionRules:
                 rule_before_index = comb[0]
                 rule_after_index = comb[1]
 
-                # utility difference check
                 util_dif = None
-                if util is not None:
-                    utility_before = util[rule_before_index]
-                    utility_after = util[rule_after_index]
-                    util_dif = utility_after - utility_before
-                    if self.min_util_dif > util_dif:
-                        continue
+                profit = None
+                if util_flex is not None and util_target is not None:
+                    # utility difference check
+                    if self.min_util_dif is not None:
+                        utility_before = util_flex[rule_before_index] + util_target[rule_before_index]
+                        utility_after = util_flex[rule_after_index] + util_target[rule_after_index]
+                        util_dif = utility_after - utility_before
+                        if self.min_util_dif > util_dif:
+                            continue
+                    # utility profit check
+                    if self.min_profit is not None:
+                        util_flex_before = util_flex[rule_before_index]
+                        util_flex_after = util_flex[rule_after_index]
+                        util_target_before = util_target[rule_before_index]
+                        util_target_after = util_target[rule_after_index]
+                        cost = util_flex_after - util_flex_before
+                        conf_before = conf[rule_before_index]
+                        conf_after = conf[rule_after_index]
+                        benefit = (util_target_after - util_target_before) * (conf_after + conf_before - 1)
+                        # utility values for cost part can be either negative o positive - use of absolute values
+                        # makes it handles it the same
+                        profit = benefit - abs(cost)
+                        if self.min_profit > profit:
+                            continue
 
                 decision_before = decision_column.at[rule_before_index, decision_column.columns[0]]
                 decision_after = decision_column.at[rule_after_index, decision_column.columns[0]]
@@ -409,12 +439,13 @@ class ActionRules:
                                               action_rule_supp,
                                               action_rule_conf,
                                               uplift,
-                                              util_dif)
+                                              util_dif,
+                                              profit)
                         self.classification_before.append(rule_before_index)
                         self.classification_after.append(rule_after_index)
 
         # sort by utility difference
-        if util is not None and self.sort_by_util_dif:
+        if util_flex is not None and util_target is not None and self.sort_by_util_dif:
             self.action_rules.sort(key=lambda rule: rule[4], reverse=True)
 
     def pretty_text(self):
@@ -426,6 +457,8 @@ class ActionRules:
             supp = row[1]
             conf = row[2]
             uplift = row[3]
+            util_dif = row[4]
+            profit = row[5]
             text = "If "
             # Stable part
             stable_part = action_rule[0]
@@ -445,8 +478,10 @@ class ActionRules:
             text += "then '" + str(decision[0]) + "' value '" + str(decision[1][0]) + "' is changed to '" + \
                     str(decision[1][1]) + "' with support: " + str(supp[2]) + ", confidence: " + str(conf[2]) + \
                     " and uplift: " + str(uplift) + "."
-            if row[-1] is not None:  # action rule contains utility
-                text += " Change in utility caused by action is " + str(row[-1]) + "."
+            if util_dif is not None:  # action rule contains utility
+                text += " Change in utility caused by action is " + str(util_dif) + "."
+            if profit is not None:  # action rule contains utility
+                text += " Profit of the action is " + str(profit) + "."
             self.action_rules_pretty_text.append(text)
 
     def representation(self):
@@ -458,6 +493,8 @@ class ActionRules:
             supp = row[1]
             conf = row[2]
             uplift = row[3]
+            util_dif = row[4]
+            profit = row[5]
             text = "r = [   "
             # Stable part
             stable_part = action_rule[0]
@@ -478,8 +515,11 @@ class ActionRules:
             text += "] ⇒ [" + str(decision[0]) + ": " + str(decision[1][0]) + " → " + \
                     str(decision[1][1]) + "] with support: " + str(supp[2]) + ", confidence: " + str(
                 conf[2]) + ", uplift: " + str(uplift)
-            if row[-1] is not None:  # action rule contains utility
-                text += " and change in utility: " + str(row[-1]) + "."
+            if util_dif is not None:  # action rule contains utility
+                text += ", change in utility: " + str(util_dif)
+            if profit is not None:
+                text += ", profit is " + str(profit)
+            text += "."
             self.action_rules_representation.append(text)
 
     @staticmethod
