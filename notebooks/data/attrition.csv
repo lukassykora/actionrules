@@ -1,0 +1,9 @@
+TID,Department,Salary,Attrition
+1,Sales,Medium,False
+2,R&D,Medium,False
+3,R&D,Medium,True
+4,R&D,Medium,True
+5,Sales,Low,False
+6,R&D,High,False
+7,R&D,High,False
+8,R&D,High,True

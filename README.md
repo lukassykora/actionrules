@@ -23,7 +23,7 @@ pip install actionrules-lukassykora
 - [Titanic](https://github.com/lukassykora/actionrules/blob/master/notebooks/Titanic%20-%20Action%20Rules.ipynb) It is the best explanation of all possibilities.
 - [Telco](https://github.com/lukassykora/actionrules/blob/master/notebooks/Telco%20-%20Action%20Rules.ipynb) A brief demonstration.
 - [Ras](https://github.com/lukassykora/actionrules/blob/master/notebooks/Ras%20-%20Acton%20Rules.ipynb) Based on the example in (Ras, Zbigniew W and Wyrzykowska, ARAS: Action rules discovery based on agglomerative strategy, 2007). 
-
+- [Attrition](https://github.com/lukassykora/actionrules/blob/master/notebooks/Employee%20Attrition%20-%20High%20Utility%20Action%20Rules.ipynb) High-Utility Action Rules Mining example.
 
 ## Example 1
 Get data from csv.
