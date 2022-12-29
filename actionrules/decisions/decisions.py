@@ -93,7 +93,7 @@ class Decisions:
         self.max_length = len(antecedent_attributes) + 1
         for index, row in self.data.iterrows():
             transaction_row = []
-            for i, v in row.iteritems():
+            for i, v in row.items():
                 side_type = None
                 if i == consequent:
                     side_type = "c"
@@ -129,26 +129,29 @@ class Decisions:
         """Generates table of classification rules.
 
         """
-        for rule in self.rules:
-            values = []
-            cols = []
+        decisions = {}
+        for i, rule in enumerate(self.rules):
+            values = {}
             # Antecedent
             for cedent in rule[1]:
-                cols.append(cedent.split("<:> ")[0])
+                col = cedent.split("<:> ")[0]
                 value = cedent.split("<:> ")[1]
                 if value.lower() == "nan":
-                    values.append(np.NaN)
+                    values[col] = np.NaN
                 else:
-                    values.append(value)
+                    values[col] = value
             # Subsequent
-            cols.append(rule[0].split("<:> ")[0])
+            col = rule[0].split("<:> ")[0]
             value = rule[0].split("<:> ")[1]
             if value.lower() == "nan":
-                values.append(np.NaN)
+                values[col] = np.NaN
             else:
-                values.append(value)
-
-            df2 = pd.DataFrame([values], columns=cols)
-            self.decision_table = self.decision_table.append(df2, sort=False, ignore_index=True)
+                values[col] = value
+            # Add support and confidence
             self.support.append(rule[2])
             self.confidence.append(rule[3])
+            # Add row
+            decisions[i] = values
+        # Dictionary to DataFrame
+        self.decision_table = pd.DataFrame(decisions).T
+
