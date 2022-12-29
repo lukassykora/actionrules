@@ -1,11 +1,16 @@
 import setuptools
+import re
+
+def get_property(prop, project):
+    result = re.search(r'{}\s*=\s*[\'"]([^\'"]*)[\'"]'.format(prop), open(project + '/__init__.py').read())
+    return result.group(1)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="actionrules-lukassykora",
-    version="1.1.26",
+    version=get_property('__version__', "actionrules"),
     author="Lukas Sykora",
     author_email="lukassykora@seznam.cz",
     description="Action rules mining package",
