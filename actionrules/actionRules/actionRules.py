@@ -445,7 +445,7 @@ class ActionRules:
                         self.classification_after.append(rule_after_index)
 
         # sort by utility difference
-        if util_flex is not None and util_target is not None and self.sort_by_util_dif:
+        if self.util_flex is not None and self.util_target is not None and self.sort_by_util_dif:
             self.action_rules.sort(key=lambda rule: rule[4], reverse=True)
 
     def pretty_text(self):
