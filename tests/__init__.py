@@ -1,1 +1,1 @@
-"""Unit test package for action_rules."""
+"""Unit test package for action-rules."""
