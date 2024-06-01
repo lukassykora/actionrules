@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "action_rules"
+version = "0.0.4"
+description = "The package for action rules mining using Action-Apriori (Apriori Modified for Action Rules Mining)."
+readme = "README.rst"
+authors = [
+  {name = "Lukas Sykora", email = "lukas.sykora@vse.cz"}
+]
+maintainers = [
+  {name = "Lukas Sykora", email = "lukas.sykora@vse.cz"}
+]
+classifiers = [
+
+]
+license = {text = "MIT license"}
+dependencies = [
+  "typer"
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage",  # testing
+    "mypy",  # linting
+    "pytest",  # testing
+    "ruff"  # linting
+]
+
+[project.urls]
+
+bugs = "https://github.com/lukassykora/action_rules/issues"
+changelog = "https://github.com/lukassykora/action_rules/blob/master/changelog.md"
+homepage = "https://github.com/lukassykora/action_rules"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
+
+
+
+# Mypy
+# ----
+
+[tool.mypy]
+files = "."
+
+# Use strict defaults
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[[tool.mypy.overrides]]
+# Don't require test functions to include types
+module = "tests.*"
+allow_untyped_defs = true
+disable_error_code = "attr-defined"
+
