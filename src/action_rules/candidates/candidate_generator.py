@@ -1,12 +1,15 @@
 import copy
+import pandas as pd
+from utils import calculate_confidence
+from rules import Rules
 
 
 class CandidateGenerator:
 
-    def __init__(self, frames, min_stable_attributes, min_flexible_attributes,
-                 min_undesired_support, min_desired_support,
-                 min_undesired_confidence, min_desired_confidence,
-                 desired_change_in_target):
+    def __init__(self, frames: dict, min_stable_attributes: int, min_flexible_attributes: int,
+                 min_undesired_support: int, min_desired_support: int,
+                 min_undesired_confidence: float, min_desired_confidence: float,
+                 undesired_state: str, desired_state: str, rules: Rules):
         self.frames = frames
         self.min_stable_attributes = min_stable_attributes
         self.min_flexible_attributes = min_flexible_attributes
@@ -14,36 +17,36 @@ class CandidateGenerator:
         self.min_desired_support = min_desired_support
         self.min_undesired_confidence = min_undesired_confidence
         self.min_desired_confidence = min_desired_confidence
-        self.desired_change_in_target = desired_change_in_target
+        self.undesired_state = undesired_state
+        self.desired_state = desired_state
+        self.rules = rules
 
-    def generate_candidates(self, ar_prefix, itemset_prefix, stable_items_binding, flexible_items_binding,
-                            undesired_mask, desired_mask, actionable_attributes=0, item=0, stop_list=[],
-                            undesired_state=0, desired_state=1, stop_list_itemset=[],
-                            classification_rules=[], verbose=False):
-        K = len(itemset_prefix) + 1
-        reduced_stable_items_binding, reduced_flexible_items_binding = self.reduce_candidates_min_attributes(
-            K, actionable_attributes, stable_items_binding, flexible_items_binding)
+    def generate_candidates(self, ar_prefix: tuple, itemset_prefix: tuple, stable_items_binding: dict,
+                            flexible_items_binding: dict, undesired_mask: pd.Series, desired_mask: pd.Series,
+                            actionable_attributes: int, stop_list: list, stop_list_itemset: list, undesired_state: str,
+                            desired_state: str, verbose: bool = False) -> list:
+        k = len(itemset_prefix) + 1
+        reduced_stable_items_binding, reduced_flexible_items_binding = self.reduce_candidates_by_min_attributes(
+            k, actionable_attributes, stable_items_binding, flexible_items_binding)
 
         undesired_frame, desired_frame = self.get_frames(undesired_mask, desired_mask, undesired_state, desired_state)
         stable_candidates = copy.deepcopy(stable_items_binding)
         flexible_candidates = copy.deepcopy(flexible_items_binding)
 
-        new_branches = self.process_stable_candidates(ar_prefix, itemset_prefix, reduced_stable_items_binding,
-                                                      stop_list,
-                                                      stable_candidates, undesired_frame, desired_frame, verbose)
+        new_branches = []
+
+        self.process_stable_candidates(ar_prefix, itemset_prefix, reduced_stable_items_binding,
+                                       stop_list, stable_candidates, undesired_frame, desired_frame,
+                                       new_branches, verbose)
         self.process_flexible_candidates(ar_prefix, itemset_prefix, reduced_flexible_items_binding, stop_list,
                                          stop_list_itemset, flexible_candidates, undesired_frame, desired_frame,
-                                         actionable_attributes, classification_rules, new_branches, verbose)
+                                         actionable_attributes, new_branches, verbose)
         self.update_new_branches(new_branches, stable_candidates, flexible_candidates)
 
         return new_branches
 
-    def reduce_candidates_min_attributes(self, K, actionable_attributes, stable_items_binding, flexible_items_binding):
-        # Placeholder for reduce_candidates_min_attributes implementation
-        # This should return reduced_stable_items_binding and reduced_flexible_items_binding
-        pass
-
-    def get_frames(self, undesired_mask, desired_mask, undesired_state, desired_state):
+    def get_frames(self, undesired_mask: pd.Series, desired_mask: pd.Series, undesired_state: str,
+                   desired_state: str) -> tuple:
         if undesired_mask is None:
             return self.frames[undesired_state], self.frames[desired_state]
         else:
@@ -51,9 +54,24 @@ class CandidateGenerator:
             desired_frame = self.frames[desired_state].multiply(desired_mask, axis="index")
             return undesired_frame, desired_frame
 
-    def process_stable_candidates(self, ar_prefix, itemset_prefix, reduced_stable_items_binding, stop_list,
-                                  stable_candidates, undesired_frame, desired_frame, verbose):
-        new_branches = []
+    def reduce_candidates_by_min_attributes(self, k: int, actionable_attributes: int, stable_items_binding: dict,
+                                            flexible_items_binding: dict) -> tuple:
+        # Reduce by min stable and flexible
+        number_of_stable_attributes = len(stable_items_binding) - (self.min_stable_attributes - k)
+        if k > self.min_stable_attributes:
+            number_of_flexible_attributes = len(flexible_items_binding) - (
+                self.min_flexible_attributes - actionable_attributes - 1)
+        else:
+            number_of_flexible_attributes = 0
+        reduced_stable_items_binding = {k: stable_items_binding[k] for k in
+                                        list(stable_items_binding.keys())[:number_of_stable_attributes]}
+        reduced_flexible_items_binding = {k: flexible_items_binding[k] for k in
+                                          list(flexible_items_binding.keys())[:number_of_flexible_attributes]}
+        return reduced_stable_items_binding, reduced_flexible_items_binding
+
+    def process_stable_candidates(self, ar_prefix: tuple, itemset_prefix: tuple, reduced_stable_items_binding: dict,
+                                  stop_list: list, stable_candidates: dict, undesired_frame: pd.DataFrame,
+                                  desired_frame: pd.DataFrame, new_branches: list, verbose: bool):
 
         for attribute, items in reduced_stable_items_binding.items():
             for item in items:
@@ -80,18 +98,23 @@ class CandidateGenerator:
                                          'desired_mask': desired_frame[item],
                                          'actionable_attributes': 0,
                                          })
-        return new_branches
 
-    def process_flexible_candidates(self, ar_prefix, itemset_prefix, reduced_flexible_items_binding, stop_list,
-                                    stop_list_itemset, flexible_candidates, undesired_frame, desired_frame,
-                                    actionable_attributes, classification_rules, new_branches, verbose):
+    def process_flexible_candidates(self, ar_prefix: tuple, itemset_prefix: tuple, reduced_flexible_items_binding: dict,
+                                    stop_list: list, stop_list_itemset: list, flexible_candidates: dict,
+                                    undesired_frame: pd.DataFrame, desired_frame: pd.DataFrame,
+                                    actionable_attributes: int, new_branches: list, verbose: bool):
         for attribute, items in reduced_flexible_items_binding.items():
             new_ar_prefix = ar_prefix + (attribute,)
             if self.in_stop_list(new_ar_prefix, stop_list):
                 continue
 
-            undesired_states, desired_states, undesired_count, desired_count = self.process_items(
-                items, itemset_prefix, stop_list_itemset, undesired_frame, desired_frame, flexible_candidates, verbose)
+            undesired_states, desired_states, undesired_count, desired_count = self.process_items(attribute,
+                                                                                                  items, itemset_prefix,
+                                                                                                  stop_list_itemset,
+                                                                                                  undesired_frame,
+                                                                                                  desired_frame,
+                                                                                                  flexible_candidates,
+                                                                                                  verbose)
 
             if actionable_attributes == 0 and (undesired_count == 0 or desired_count == 0):
                 del flexible_candidates[attribute]
@@ -106,11 +129,12 @@ class CandidateGenerator:
                                          'actionable_attributes': actionable_attributes + 1,
                                          })
                 if actionable_attributes + 1 >= self.min_flexible_attributes:
-                    self.add_classification_rules(new_ar_prefix, itemset_prefix, undesired_states, desired_states,
-                                                  classification_rules)
+                    self.rules.add_classification_rules(new_ar_prefix, itemset_prefix, undesired_states,
+                                                        desired_states, )
 
-    def process_items(self, items, itemset_prefix, stop_list_itemset, undesired_frame, desired_frame,
-                      flexible_candidates, verbose):
+    def process_items(self, attribute: str, items: list, itemset_prefix: tuple, stop_list_itemset: list,
+                      undesired_frame: pd.DataFrame, desired_frame: pd.DataFrame, flexible_candidates: dict,
+                      verbose: bool):
         undesired_states = []
         desired_states = []
         undesired_count = 0
@@ -128,13 +152,13 @@ class CandidateGenerator:
                 print(itemset_prefix + (item,))
                 print((undesired_support, desired_support))
 
-            undesired_conf = self.calculate_confidence(undesired_support, desired_support)
+            undesired_conf = calculate_confidence(undesired_support, desired_support)
             if undesired_support >= self.min_undesired_support:
                 undesired_count += 1
                 if undesired_conf >= self.min_undesired_confidence:
                     undesired_states.append({'item': item, 'support': undesired_support, 'confidence': undesired_conf})
 
-            desired_conf = self.calculate_confidence(desired_support, undesired_support)
+            desired_conf = calculate_confidence(desired_support, undesired_support)
             if desired_support >= self.min_desired_support:
                 desired_count += 1
                 if desired_conf >= self.min_desired_confidence:
@@ -146,31 +170,7 @@ class CandidateGenerator:
 
         return undesired_states, desired_states, undesired_count, desired_count
 
-    def calculate_confidence(self, support, opposite_support):
-        if support + opposite_support == 0:
-            return 0
-        return support / (support + opposite_support)
-
-    def add_classification_rules(self, new_ar_prefix, itemset_prefix, undesired_states, desired_states,
-                                 classification_rules):
-        for undesired_item in undesired_states:
-            new_itemset_prefix = itemset_prefix + (undesired_item['item'],)
-            classification_rules[new_ar_prefix]['undesired'].append({
-                'itemset': new_itemset_prefix,
-                'support': undesired_item['support'],
-                'confidence': undesired_item['confidence'],
-                'target': self.desired_change_in_target[0]
-            })
-        for desired_item in desired_states:
-            new_itemset_prefix = itemset_prefix + (desired_item['item'],)
-            classification_rules[new_ar_prefix]['desired'].append({
-                'itemset': new_itemset_prefix,
-                'support': desired_item['support'],
-                'confidence': desired_item['confidence'],
-                'target': self.desired_change_in_target[1]
-            })
-
-    def update_new_branches(self, new_branches, stable_candidates, flexible_candidates):
+    def update_new_branches(self, new_branches: list, stable_candidates: dict, flexible_candidates: dict):
         for new_branch in new_branches:
             adding = False
             new_stable = {}
@@ -197,6 +197,10 @@ class CandidateGenerator:
             new_branch['stable_items_binding'] = new_stable
             new_branch['flexible_items_binding'] = new_flexible
 
-    def in_stop_list(self, item, stop_list):
-        # Placeholder for in_stop_list function
-        pass
+    def in_stop_list(self, ar_prefix, stop_list):
+        if ar_prefix[-2:] in stop_list:
+            return True
+        if ar_prefix[1:] in stop_list:
+            stop_list.append(ar_prefix)
+            return True
+        return False
