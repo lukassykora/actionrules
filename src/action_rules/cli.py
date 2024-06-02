@@ -10,6 +10,20 @@ def main():
     click.echo("=" * len("action-rules"))
     click.echo("The package for action rules mining using Action-Apriori (Apriori Modified for Action Rules Mining).")
 
+    click.option('--min_stable_attributes', prompt='Min stable attributes', help='The person to greet.')
+    click.option('--min_flexible_attributes', prompt='Min flexible attributes', help='The person to greet.')
+    click.option('--min_undesired_support', prompt='Min undesired support', help='The person to greet.')
+    click.option('--min_undesired_confidence', prompt='Min undesired confidence', help='The person to greet.')
+    click.option('--min_desired_support', prompt='Min desired support', help='The person to greet.')
+    click.option('--min_desired_confidence', prompt='Min desired confidence', help='The person to greet.')
+    click.option('--csv_path', prompt='CSV Path', help='The person to greet.')
+    click.option('--stable_attributes', prompt='Stable attributes', help='The person to greet.')
+    click.option('--flexible_attributes', prompt='Flexible attributes', help='The person to greet.')
+    click.option('--target', prompt='Target', help='The person to greet.')
+    click.option('--undesired_state', prompt='Undesired state', help='The person to greet.')
+    click.option('--desired_state', prompt='Desired state', help='The person to greet.')
+    click.option('--output_csv_path', prompt='Output CSV Path', help='The person to greet.')
+
 
 if __name__ == "__main__":
     main()  # pragma: no cover
