@@ -19,7 +19,7 @@ classifiers=[
     'Programming Language :: Python :: 3.9',
 ]
 packages = [
-    { include = "action_rules" },
+    { include = "src" },
     { include = "tests", format = "sdist" },
 ]
 
