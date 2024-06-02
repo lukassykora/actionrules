@@ -70,6 +70,12 @@ Ready to contribute? Here's how to set up `action-rules` for local development.
 
     Now you can make your changes locally.
 
+    The add command adds required packages to your pyproject.toml and installs them:
+
+    ```
+    $ poetry add pendulum@latest
+    ```
+
 6. When you're done making changes, check that your changes pass the
    tests, including testing other Python versions, with tox:
 
