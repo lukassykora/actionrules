@@ -43,41 +43,44 @@ class Output:
         str
             String representation of the action rules.
         """
-        rule = '['
-        for i, item in enumerate(self.action_rules['undesired']['itemset']):
-            if i > 0:
-                rule += ' ∧ '
-            rule += '('
-            if item == self.action_rules['desired']['itemset'][i]:
-                val = item.split('_<item>_')
-                rule += str(val[0]) + ': ' + str(val[1])
-            else:
-                val = item.split('_<item>_')
-                val_desired = self.action_rules['desired']['itemset'][i].split('_<item>_')
-                rule += str(val[0]) + ': ' + str(val[1]) + ' → ' + str(val_desired[1])
-            rule += ')'
-        rule += (
-            '] ⇒ ['
-            + str(self.target)
-            + ': '
-            + str(self.action_rules['undesired']['target'])
-            + ' → '
-            + str(self.action_rules['desired']['target'])
-            + ']'
-        )
-        rule += (
-            ', support of undesired part: '
-            + str(self.action_rules['undesired']['support'])
-            + ', confidence of undesired part: '
-            + str(self.action_rules['undesired']['confidence'])
-        )
-        rule += (
-            ', support of desired part: '
-            + str(self.action_rules['desired']['support'])
-            + ', confidence of desired part: '
-            + str(self.action_rules['desired']['confidence'])
-        )
-        return rule
+        ar_notation = []
+        for action_rule in self.action_rules:
+            rule = '['
+            for i, item in enumerate(action_rule['undesired']['itemset']):
+                if i > 0:
+                    rule += ' ∧ '
+                rule += '('
+                if item == action_rule['desired']['itemset'][i]:
+                    val = item.split('_<item>_')
+                    rule += str(val[0]) + ': ' + str(val[1])
+                else:
+                    val = item.split('_<item>_')
+                    val_desired = action_rule['desired']['itemset'][i].split('_<item>_')
+                    rule += str(val[0]) + ': ' + str(val[1]) + ' → ' + str(val_desired[1])
+                rule += ')'
+            rule += (
+                '] ⇒ ['
+                + str(self.target)
+                + ': '
+                + str(action_rule['undesired']['target'])
+                + ' → '
+                + str(action_rule['desired']['target'])
+                + ']'
+            )
+            rule += (
+                ', support of undesired part: '
+                + str(action_rule['undesired']['support'])
+                + ', confidence of undesired part: '
+                + str(action_rule['undesired']['confidence'])
+            )
+            rule += (
+                ', support of desired part: '
+                + str(action_rule['desired']['support'])
+                + ', confidence of desired part: '
+                + str(action_rule['desired']['confidence'])
+            )
+            ar_notation.append(rule)
+        return ar_notation
 
     def get_export_notation(self):
         """
