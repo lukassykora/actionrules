@@ -26,6 +26,10 @@ class Rules:
         Generate action rules from classification rules.
     prune_classification_rules(k, stop_list)
         Prune classification rules based on their length and update the stop list.
+    calculate_confidence(support, opposite_support)
+        Calculate the confidence of the rule.
+    calculate_uplift(undesired_support, undesired_confidence, desired_support, desired_confidence)
+        Calculate the uplift of an action rule.
     """
 
     def __init__(self, undesired_state: str, desired_state: str):
@@ -85,7 +89,13 @@ class Rules:
         for attribute_prefix, rules in self.classification_rules.items():
             for desired_rule in rules['desired']:
                 for undesired_rule in rules['undesired']:
-                    self.action_rules.append({'undesired': undesired_rule, 'desired': desired_rule})
+                    uplift = self.calculate_uplift(
+                        undesired_rule['support'],
+                        undesired_rule['confidence'],
+                        desired_rule['support'],
+                        desired_rule['confidence'],
+                    )
+                    self.action_rules.append({'undesired': undesired_rule, 'desired': desired_rule, 'uplift': uplift})
 
     def prune_classification_rules(self, k: int, stop_list: list):
         """
@@ -103,3 +113,52 @@ class Rules:
                 if len(rules['desired']) < 0 or len(rules['undesired']) < 0:
                     stop_list.append(attribute_prefix)
                     del self.classification_rules[attribute_prefix]
+
+    def calculate_confidence(self, support, opposite_support):
+        """
+        Calculate the confidence of an action rule.
+
+        Parameters
+        ----------
+        support : int
+            The support value for the desired or undesired state.
+        opposite_support : int
+            The support value for the opposite state.
+
+        Returns
+        -------
+        float
+            The confidence value calculated as support / (support + opposite_support).
+            Returns 0 if the sum of support and opposite_support is 0.
+        """
+        if support + opposite_support == 0:
+            return 0
+        return support / (support + opposite_support)
+
+    def calculate_uplift(
+        self, undesired_support: int, undesired_confidence: float, desired_support: int, desired_confidence: float
+    ) -> float:
+        """
+        Calculate the uplift of an action rule.
+
+        Parameters
+        ----------
+        undesired_support : int
+            The support value for the undesired state.
+        undesired_confidence : float
+            The confidence value for the undesired state.
+        desired_support : int
+            The support value for the desired state.
+        desired_confidence : float
+            The confidence value for the desired state.
+
+        Returns
+        -------
+        float
+            The uplift value calculated as:
+            (undesired_support / undesired_confidence) * desired_confidence -
+            (undesired_support / undesired_confidence - undesired_support).
+        """
+        return (undesired_support / undesired_confidence) * desired_confidence - (
+            undesired_support / undesired_confidence - undesired_support
+        )

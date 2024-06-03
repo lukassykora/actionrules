@@ -18,6 +18,8 @@ class Output:
         Generate a string representation of the action rules in a human-readable format.
     get_export_notation()
         Generate a list of dictionaries representing the action rules for export.
+    get_pretty_ar_notation()
+        Generate a list of text strings representing the action rules.
     """
 
     def __init__(self, action_rules: list, target: str):
@@ -79,6 +81,7 @@ class Output:
                 + ', confidence of desired part: '
                 + str(action_rule['desired']['confidence'])
             )
+            rule += ', uplift: ' + str(action_rule['uplift'])
             ar_notation.append(rule)
         return ar_notation
 
@@ -111,5 +114,40 @@ class Output:
             rule['confidence of undesired part'] = ar_dict['undesired']['confidence']
             rule['support of desired part'] = ar_dict['desired']['support']
             rule['confidence of desired part'] = ar_dict['desired']['confidence']
+            rule['uplift'] = ar_dict['uplift']
             rules.append(rule)
+        return rules
+
+    def get_pretty_ar_notation(self):
+        """
+        Generate a list of text strings representing the action rules.
+
+        Returns
+        -------
+        list
+            List of text strings representing the action rules.
+        """
+        rules = []
+        for ar_dict in self.action_rules:
+            text = "If "
+            for i, item in enumerate(ar_dict['undesired']['itemset']):
+                if item == ar_dict['desired']['itemset'][i]:
+                    val = item.split('_<item>_')
+                    text += "attribute '" + val[0] + "' is '" + val[1] + "', "
+                else:
+                    val = item.split('_<item>_')
+                    val_desired = ar_dict['desired']['itemset'][i].split('_<item>_')
+                    text += "attribute '" + val[0] + "' value '" + val[1] + "' is changed to '" + val_desired[1] + "', "
+            text += (
+                "then '"
+                + self.target
+                + "' value '"
+                + ar_dict['undesired']['target']
+                + "' is changed to '"
+                + ar_dict['desired']['target']
+                + " with uplift: "
+                + str(ar_dict['uplift'])
+                + "."
+            )
+            rules.append(text)
         return rules
