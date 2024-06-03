@@ -3,7 +3,9 @@
 import itertools
 from collections import defaultdict
 from typing import Optional
+
 import pandas as pd
+
 from .candidates.candidate_generator import CandidateGenerator
 from .output.output import Output
 from .rules.rules import Rules
@@ -85,8 +87,8 @@ class ActionRules:
         self.min_undesired_confidence = min_undesired_confidence
         self.min_desired_confidence = min_desired_confidence
         self.verbose = verbose
-        self.rules = Rules('0', '1')
-        self.output = None
+        self.rules = None  # type: Optional[Rules]
+        self.output = None  # type: Optional[Output]
 
     def fit(
         self,
