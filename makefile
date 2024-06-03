@@ -1,4 +1,4 @@
-sources = action_rules
+sources = src/action_rules
 
 .PHONY: test format lint unittest coverage pre-commit clean
 test: format lint unittest

@@ -4,7 +4,7 @@
 import pytest
 from click.testing import CliRunner
 
-from src.action_rules import cli
+from action_rules import cli
 
 
 @pytest.fixture

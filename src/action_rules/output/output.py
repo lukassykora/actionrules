@@ -1,9 +1,48 @@
+"""Class Output."""
+
+
 class Output:
+    """
+    A class used to format and export action rules.
+
+    Attributes
+    ----------
+    action_rules : dict
+        Dictionary containing the action rules.
+    target : str
+        The target attribute for the action rules.
+
+    Methods
+    -------
+    get_ar_notation()
+        Generate a string representation of the action rules in a human-readable format.
+    get_export_notation()
+        Generate a list of dictionaries representing the action rules for export.
+    """
+
     def __init__(self, action_rules: dict, target: str):
+        """
+        Initialize the Output class with the specified action rules and target attribute.
+
+        Parameters
+        ----------
+        action_rules : dict
+            Dictionary containing the action rules.
+        target : str
+            The target attribute for the action rules.
+        """
         self.action_rules = action_rules
         self.target = target
 
     def get_ar_notation(self):
+        """
+        Generate a string representation of the action rules in a human-readable format.
+
+        Returns
+        -------
+        str
+            String representation of the action rules.
+        """
         rule = '['
         for i, item in enumerate(self.action_rules['undesired']['itemset']):
             if i > 0:
@@ -28,6 +67,14 @@ class Output:
         return rule
 
     def get_export_notation(self):
+        """
+        Generate a list of dictionaries representing the action rules for export.
+
+        Returns
+        -------
+        list
+            List of dictionaries representing the action rules.
+        """
         rules = []
         for ar_dict in self.action_rules:
             rule = {'stable': [], 'flexible': []}

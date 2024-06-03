@@ -5,7 +5,7 @@ import click
 
 @click.command()
 def main():
-    """Main entrypoint."""
+    """Entrypoint for console script."""
     click.echo("action-rules")
     click.echo("=" * len("action-rules"))
     click.echo("The package for action rules mining using Action-Apriori (Apriori Modified for Action Rules Mining).")
@@ -22,7 +22,7 @@ def main():
     click.option('--target', prompt='Target', help='The person to greet.')
     click.option('--undesired_state', prompt='Undesired state', help='The person to greet.')
     click.option('--desired_state', prompt='Desired state', help='The person to greet.')
-    click.option('--output_csv_path', prompt='Output CSV Path', help='The person to greet.')
+    click.option('--output_json_path', prompt='Output CSV Path', help='The person to greet.')
 
 
 if __name__ == "__main__":
