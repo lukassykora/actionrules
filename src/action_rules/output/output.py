@@ -56,14 +56,27 @@ class Output:
                 val_desired = self.action_rules['desired']['itemset'][i].split('_<item>_')
                 rule += str(val[0]) + ': ' + str(val[1]) + ' → ' + str(val_desired[1])
             rule += ')'
-        rule += '] ⇒ [' + str(self.target) + ': ' + str(self.action_rules['undesired']['target']) + ' → ' + str(
-            self.action_rules['desired']['target']) + ']'
-        rule += ', support of undesired part: ' + str(
-            self.action_rules['undesired']['support']) + ', confidence of undesired part: ' + str(
-            self.action_rules['undesired']['confidence'])
-        rule += ', support of desired part: ' + str(
-            self.action_rules['desired']['support']) + ', confidence of desired part: ' + str(
-            self.action_rules['desired']['confidence'])
+        rule += (
+            '] ⇒ ['
+            + str(self.target)
+            + ': '
+            + str(self.action_rules['undesired']['target'])
+            + ' → '
+            + str(self.action_rules['desired']['target'])
+            + ']'
+        )
+        rule += (
+            ', support of undesired part: '
+            + str(self.action_rules['undesired']['support'])
+            + ', confidence of undesired part: '
+            + str(self.action_rules['undesired']['confidence'])
+        )
+        rule += (
+            ', support of desired part: '
+            + str(self.action_rules['desired']['support'])
+            + ', confidence of desired part: '
+            + str(self.action_rules['desired']['confidence'])
+        )
         return rule
 
     def get_export_notation(self):
@@ -86,8 +99,11 @@ class Output:
                     val = item.split('_<item>_')
                     val_desired = ar_dict['desired']['itemset'][i].split('_<item>_')
                     rule['flexible'].append({'attribute': val[0], 'undesired': val[1], 'desired': val_desired[1]})
-            rule['target'] = {'attribute': self.target, 'undesired': ar_dict['undesired']['target'],
-                              'desired': ar_dict['desired']['target']}
+            rule['target'] = {
+                'attribute': self.target,
+                'undesired': ar_dict['undesired']['target'],
+                'desired': ar_dict['desired']['target'],
+            }
             rule['support of undesired part'] = ar_dict['undesired']['support']
             rule['confidence of undesired part'] = ar_dict['undesired']['confidence']
             rule['support of desired part'] = ar_dict['desired']['support']

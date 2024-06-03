@@ -1,12 +1,13 @@
 """Main class ActionRules."""
 
-import pandas as pd
 import itertools
 from collections import defaultdict
-from candidates.candidate_generator import CandidateGenerator
-from rules.rules import Rules
-from output.output import Output
 from typing import Optional
+
+import pandas as pd
+from candidates.candidate_generator import CandidateGenerator
+from output.output import Output
+from rules.rules import Rules
 
 
 class ActionRules:

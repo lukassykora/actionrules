@@ -1,9 +1,10 @@
 """Class CandidateGenerator."""
 
 import copy
+
 import pandas as pd
-from utils import calculate_confidence
 from rules import Rules
+from utils import calculate_confidence
 
 
 class CandidateGenerator:
