@@ -28,7 +28,7 @@ class Rules:
         Prune classification rules based on their length and update the stop list.
     calculate_confidence(support, opposite_support)
         Calculate the confidence of the rule.
-    calculate_uplift(undesired_support, undesired_confidence, desired_support, desired_confidence)
+    calculate_uplift(undesired_support, undesired_confidence, desired_confidence)
         Calculate the uplift of an action rule.
     """
 
@@ -92,7 +92,6 @@ class Rules:
                     uplift = self.calculate_uplift(
                         undesired_rule['support'],
                         undesired_rule['confidence'],
-                        desired_rule['support'],
                         desired_rule['confidence'],
                     )
                     self.action_rules.append({'undesired': undesired_rule, 'desired': desired_rule, 'uplift': uplift})
@@ -135,9 +134,7 @@ class Rules:
             return 0
         return support / (support + opposite_support)
 
-    def calculate_uplift(
-        self, undesired_support: int, undesired_confidence: float, desired_support: int, desired_confidence: float
-    ) -> float:
+    def calculate_uplift(self, undesired_support: int, undesired_confidence: float, desired_confidence: float) -> float:
         """
         Calculate the uplift of an action rule.
 
@@ -147,8 +144,6 @@ class Rules:
             The support value for the undesired state.
         undesired_confidence : float
             The confidence value for the undesired state.
-        desired_support : int
-            The support value for the desired state.
         desired_confidence : float
             The confidence value for the desired state.
 
