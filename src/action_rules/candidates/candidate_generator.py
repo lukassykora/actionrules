@@ -3,8 +3,7 @@
 import copy
 
 import pandas as pd
-from rules import Rules
-from utils import calculate_confidence
+from action_rules.rules import Rules
 
 
 class CandidateGenerator:
@@ -56,6 +55,8 @@ class CandidateGenerator:
         Update new branches with stable and flexible candidates.
     in_stop_list(ar_prefix, stop_list)
         Check if the action rule prefix is in the stop list.
+    calculate_confidence(support, opposite_support)
+        Calculate the confidence of the rule.
     """
 
     def __init__(
@@ -464,13 +465,13 @@ class CandidateGenerator:
                 print(itemset_prefix + (item,))
                 print((undesired_support, desired_support))
 
-            undesired_conf = calculate_confidence(undesired_support, desired_support)
+            undesired_conf = self.calculate_confidence(undesired_support, desired_support)
             if undesired_support >= self.min_undesired_support:
                 undesired_count += 1
                 if undesired_conf >= self.min_undesired_confidence:
                     undesired_states.append({'item': item, 'support': undesired_support, 'confidence': undesired_conf})
 
-            desired_conf = calculate_confidence(desired_support, undesired_support)
+            desired_conf = self.calculate_confidence(desired_support, undesired_support)
             if desired_support >= self.min_desired_support:
                 desired_count += 1
                 if desired_conf >= self.min_desired_confidence:
@@ -518,6 +519,7 @@ class CandidateGenerator:
                     if item == new_branch['item']:
                         adding = True
 
+            del new_branch['item']
             new_branch['stable_items_binding'] = new_stable
             new_branch['flexible_items_binding'] = new_flexible
 
@@ -543,3 +545,24 @@ class CandidateGenerator:
             stop_list.append(ar_prefix)
             return True
         return False
+
+    def calculate_confidence(self, support, opposite_support):
+        """
+        Calculate the confidence of an action rule.
+
+        Parameters
+        ----------
+        support : int
+            The support value for the desired or undesired state.
+        opposite_support : int
+            The support value for the opposite state.
+
+        Returns
+        -------
+        float
+            The confidence value calculated as support / (support + opposite_support).
+            Returns 0 if the sum of support and opposite_support is 0.
+        """
+        if support + opposite_support == 0:
+            return 0
+        return support / (support + opposite_support)

@@ -7,8 +7,8 @@ class Output:
 
     Attributes
     ----------
-    action_rules : dict
-        Dictionary containing the action rules.
+    action_rules : list
+        List containing the action rules.
     target : str
         The target attribute for the action rules.
 
@@ -20,14 +20,14 @@ class Output:
         Generate a list of dictionaries representing the action rules for export.
     """
 
-    def __init__(self, action_rules: dict, target: str):
+    def __init__(self, action_rules: list, target: str):
         """
         Initialize the Output class with the specified action rules and target attribute.
 
         Parameters
         ----------
-        action_rules : dict
-            Dictionary containing the action rules.
+        action_rules : list
+            List containing the action rules.
         target : str
             The target attribute for the action rules.
         """

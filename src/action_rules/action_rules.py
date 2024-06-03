@@ -3,11 +3,10 @@
 import itertools
 from collections import defaultdict
 from typing import Optional
-
 import pandas as pd
-from candidates.candidate_generator import CandidateGenerator
-from output.output import Output
-from rules.rules import Rules
+from .candidates.candidate_generator import CandidateGenerator
+from .output.output import Output
+from .rules.rules import Rules
 
 
 class ActionRules:
@@ -167,7 +166,7 @@ class ActionRules:
             )
             candidates_queue += new_candidates
         self.rules.generate_action_rules()
-        self.output = Output(self.rules.action_rules)
+        self.output = Output(self.rules.action_rules, target)
 
     def get_bindings(
         self, data: pd.DataFrame, stable_attributes: list, flexible_attributes: list, target: str
@@ -275,7 +274,7 @@ class ActionRules:
         Optional[Output]
             The generated action rules, or None if no rules have been generated.
         """
-        if self.output is not None:
+        if self.output is None:
             return None
         else:
             return self.output
