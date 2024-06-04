@@ -114,6 +114,7 @@ class CandidateGenerator:
         itemset_prefix: tuple,
         stable_items_binding: dict,
         flexible_items_binding: dict,
+        stable_flexible_items_binding: dict,
         undesired_mask: pd.Series,
         desired_mask: pd.Series,
         actionable_attributes: int,
@@ -136,6 +137,8 @@ class CandidateGenerator:
             Dictionary containing bindings for stable items.
         flexible_items_binding : dict
             Dictionary containing bindings for flexible items.
+        stable_flexible_items_binding : dict
+            Dictionary containing bindings for stable/flexible items.
         undesired_mask : pd.Series
             Mask for the undesired state.
         desired_mask : pd.Series
@@ -159,13 +162,16 @@ class CandidateGenerator:
             List of new branches generated.
         """
         k = len(itemset_prefix) + 1
-        reduced_stable_items_binding, reduced_flexible_items_binding = self.reduce_candidates_by_min_attributes(
-            k, actionable_attributes, stable_items_binding, flexible_items_binding
+        reduced_stable_items_binding, reduced_flexible_items_binding, reduced_stable_flexible_items_binding = (
+            self.reduce_candidates_by_min_attributes(
+                k, actionable_attributes, stable_items_binding, flexible_items_binding, stable_flexible_items_binding
+            )
         )
 
         undesired_frame, desired_frame = self.get_frames(undesired_mask, desired_mask, undesired_state, desired_state)
         stable_candidates = copy.deepcopy(stable_items_binding)
         flexible_candidates = copy.deepcopy(flexible_items_binding)
+        stable_flexible_candidates = copy.deepcopy(stable_flexible_items_binding)
 
         new_branches = []  # type: list
 
@@ -193,7 +199,7 @@ class CandidateGenerator:
             new_branches,
             verbose,
         )
-        self.update_new_branches(new_branches, stable_candidates, flexible_candidates)
+        self.update_new_branches(new_branches, stable_candidates, flexible_candidates, stable_flexible_candidates)
 
         return new_branches
 
@@ -227,7 +233,12 @@ class CandidateGenerator:
             return undesired_frame, desired_frame
 
     def reduce_candidates_by_min_attributes(
-        self, k: int, actionable_attributes: int, stable_items_binding: dict, flexible_items_binding: dict
+        self,
+        k: int,
+        actionable_attributes: int,
+        stable_items_binding: dict,
+        flexible_items_binding: dict,
+        stable_flexible_items_binding: dict,
     ) -> tuple:
         """
         Reduce the candidate sets based on minimum attributes.
@@ -242,16 +253,22 @@ class CandidateGenerator:
             Dictionary containing bindings for stable items.
         flexible_items_binding : dict
             Dictionary containing bindings for flexible items.
+        stable_flexible_items_binding : dict
+            Dictionary containing bindings for stable/flexible items.
 
         Returns
         -------
         tuple
             Tuple containing the reduced stable and flexible items bindings.
         """
-        number_of_stable_attributes = len(stable_items_binding) - (self.min_stable_attributes - k)
+        number_of_stable_attributes = (
+            len(stable_items_binding) + len(stable_flexible_items_binding) - (self.min_stable_attributes - k)
+        )
         if k > self.min_stable_attributes:
-            number_of_flexible_attributes = len(flexible_items_binding) - (
-                self.min_flexible_attributes - actionable_attributes - 1
+            number_of_flexible_attributes = (
+                len(flexible_items_binding)
+                + len(stable_flexible_items_binding)
+                - (self.min_flexible_attributes - actionable_attributes - 1)
             )
         else:
             number_of_flexible_attributes = 0
@@ -261,7 +278,13 @@ class CandidateGenerator:
         reduced_flexible_items_binding = {
             k: flexible_items_binding[k] for k in list(flexible_items_binding.keys())[:number_of_flexible_attributes]
         }
-        return reduced_stable_items_binding, reduced_flexible_items_binding
+        reduced_stable_flexible_items_binding = {
+            k: stable_flexible_items_binding[k]
+            for k in list(stable_flexible_items_binding.keys())[
+                : max(number_of_stable_attributes, number_of_flexible_attributes)
+            ]
+        }
+        return reduced_stable_items_binding, reduced_flexible_items_binding, reduced_stable_flexible_items_binding
 
     def process_stable_candidates(
         self,

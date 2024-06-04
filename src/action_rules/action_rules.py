@@ -95,6 +95,7 @@ class ActionRules:
         data: pd.DataFrame,
         stable_attributes: list,
         flexible_attributes: list,
+        stable_flexible_attributes: list,
         target: str,
         undesired_state: str,
         desired_state: str,
@@ -110,6 +111,8 @@ class ActionRules:
             List of stable attributes.
         flexible_attributes : list
             List of flexible attributes.
+        stable_flexible_attributes : list
+            List of stable/flexible attributes.
         target : str
             The target attribute.
         undesired_state : str
@@ -118,10 +121,10 @@ class ActionRules:
             The desired state of the target attribute.
         """
         data = pd.get_dummies(data, sparse=False, columns=data.columns, prefix_sep='_<item>_')
-        stable_items_binding, flexible_items_binding, target_items_binding = self.get_bindings(
-            data, stable_attributes, flexible_attributes, target
+        stable_items_binding, flexible_items_binding, stable_flexible_items_binding, target_items_binding = (
+            self.get_bindings(data, stable_attributes, flexible_attributes, stable_flexible_attributes, target)
         )
-        stop_list = self.get_stop_list(stable_items_binding, flexible_items_binding)
+        stop_list = self.get_stop_list(stable_items_binding, flexible_items_binding, stable_flexible_items_binding)
         frames = self.get_split_tables(data, target_items_binding, target)
         undesired_state = target + '_<item>_' + str(undesired_state)
         desired_state = target + '_<item>_' + str(desired_state)
@@ -134,6 +137,7 @@ class ActionRules:
                 'itemset_prefix': tuple(),
                 'stable_items_binding': stable_items_binding,
                 'flexible_items_binding': flexible_items_binding,
+                'stable_flexible_items_binding': stable_flexible_items_binding,
                 'undesired_mask': None,
                 'desired_mask': None,
                 'actionable_attributes': 0,
@@ -171,7 +175,12 @@ class ActionRules:
         self.output = Output(self.rules.action_rules, target)
 
     def get_bindings(
-        self, data: pd.DataFrame, stable_attributes: list, flexible_attributes: list, target: str
+        self,
+        data: pd.DataFrame,
+        stable_attributes: list,
+        flexible_attributes: list,
+        stable_flexible_attributes: list,
+        target: str,
     ) -> tuple:
         """
         Bind attributes to corresponding columns in the dataset.
@@ -184,6 +193,8 @@ class ActionRules:
             List of stable attributes.
         flexible_attributes : list
             List of flexible attributes.
+        stable_flexible_attributes : list
+            List of stable/flexible attributes.
         target : str
             The target attribute.
 
@@ -194,6 +205,7 @@ class ActionRules:
         """
         stable_items_binding = defaultdict(lambda: [])
         flexible_items_binding = defaultdict(lambda: [])
+        stable_flexible_items_binding = defaultdict(lambda: [])
         target_items_binding = defaultdict(lambda: [])
 
         for col in data.columns:
@@ -214,12 +226,22 @@ class ActionRules:
                     break
             if is_continue is True:
                 continue
+            # stable-flexible
+            for attribute in stable_flexible_attributes:
+                if col.startswith(attribute + '_<item>_'):
+                    stable_flexible_items_binding[attribute].append(col)
+                    is_continue = True
+                    break
+            if is_continue is True:
+                continue
             # target
             if col.startswith(target + '_<item>_'):
                 target_items_binding[target].append(col)
-        return stable_items_binding, flexible_items_binding, target_items_binding
+        return stable_items_binding, flexible_items_binding, stable_flexible_items_binding, target_items_binding
 
-    def get_stop_list(self, stable_items_binding: dict, flexible_items_binding: dict) -> list:
+    def get_stop_list(
+        self, stable_items_binding: dict, flexible_items_binding: dict, stable_flexible_items_binding: dict
+    ) -> list:
         """
         Generate a stop list to prevent certain combinations of attributes.
 
@@ -229,6 +251,8 @@ class ActionRules:
             Dictionary containing bindings for stable items.
         flexible_items_binding : dict
             Dictionary containing bindings for flexible items.
+        stable_flexible_items_binding : dict
+            Dictionary containing bindings for stable/flexible items.
 
         Returns
         -------
@@ -240,6 +264,8 @@ class ActionRules:
             for stop_couple in itertools.product(items, repeat=2):
                 stop_list.append(tuple(stop_couple))
         for item in flexible_items_binding.keys():
+            stop_list.append(tuple([item, item]))
+        for item in stable_flexible_items_binding.keys():
             stop_list.append(tuple([item, item]))
         return stop_list
 
