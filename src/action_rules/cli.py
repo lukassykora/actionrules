@@ -8,8 +8,6 @@ import pandas as pd
 
 from action_rules import ActionRules
 
-NUMBER_OF_COLUMNS_DISPLAYED = 20
-
 
 @click.command()
 @click.option(
@@ -118,12 +116,6 @@ def main(
         float(min_desired_confidence),
     )
     data = pd.read_csv(os.path.abspath(csv_path.name))
-    cols = list(data.columns)
-    if len(cols) < NUMBER_OF_COLUMNS_DISPLAYED:
-        cols_string = ', '.join(cols) + '.'
-    else:
-        cols_string = ', '.join(cols[:NUMBER_OF_COLUMNS_DISPLAYED]) + ', ...'
-    click.echo("Columns: " + cols_string)
     action_rules.fit(
         data,
         [x.strip() for x in str(stable_attributes).split(",")],
