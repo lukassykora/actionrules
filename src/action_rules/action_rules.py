@@ -117,14 +117,18 @@ class ActionRules:
         desired_state : str
             The desired state of the target attribute.
         """
-        data = pd.get_dummies(data, sparse=False, columns=data.columns, prefix_sep='_<item>_')
+        stable_flexible_attributes = list(set(stable_attributes) & set(flexible_attributes))
+        data_stable = pd.get_dummies(data, sparse=False, prefix_sep='_<item_stable>_', columns=stable_attributes)
+        data_flexible = pd.get_dummies(data, sparse=False, prefix_sep='_<item_flexible>_', columns=flexible_attributes)
+        data_target = pd.get_dummies(data, sparse=False, prefix_sep='_<item_target>_', columns=[target])
+        data = pd.concat([data_stable, data_flexible, data_target], axis=1)
         stable_items_binding, flexible_items_binding, target_items_binding = self.get_bindings(
             data, stable_attributes, flexible_attributes, target
         )
         stop_list = self.get_stop_list(stable_items_binding, flexible_items_binding)
         frames = self.get_split_tables(data, target_items_binding, target)
-        undesired_state = target + '_<item>_' + str(undesired_state)
-        desired_state = target + '_<item>_' + str(desired_state)
+        undesired_state = target + '_<item_target>_' + str(undesired_state)
+        desired_state = target + '_<item_target>_' + str(desired_state)
 
         stop_list_itemset = []  # type: list
 
@@ -200,7 +204,7 @@ class ActionRules:
             is_continue = False
             # stable
             for attribute in stable_attributes:
-                if col.startswith(attribute + '_<item>_'):
+                if col.startswith(attribute + '_<item_stable>_'):
                     stable_items_binding[attribute].append(col)
                     is_continue = True
                     break
@@ -208,14 +212,14 @@ class ActionRules:
                 continue
             # flexible
             for attribute in flexible_attributes:
-                if col.startswith(attribute + '_<item>_'):
+                if col.startswith(attribute + '_<item_flexible>_'):
                     flexible_items_binding[attribute].append(col)
                     is_continue = True
                     break
             if is_continue is True:
                 continue
             # target
-            if col.startswith(target + '_<item>_'):
+            if col.startswith(target + '_<item_target>_'):
                 target_items_binding[target].append(col)
         return stable_items_binding, flexible_items_binding, target_items_binding
 

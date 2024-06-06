@@ -53,11 +53,11 @@ class Output:
                     rule += ' ∧ '
                 rule += '('
                 if item == action_rule['desired']['itemset'][i]:
-                    val = item.split('_<item>_')
+                    val = item.split('_<item_stable>_')
                     rule += str(val[0]) + ': ' + str(val[1])
                 else:
-                    val = item.split('_<item>_')
-                    val_desired = action_rule['desired']['itemset'][i].split('_<item>_')
+                    val = item.split('_<item_flexible>_')
+                    val_desired = action_rule['desired']['itemset'][i].split('_<item_flexible>_')
                     rule += str(val[0]) + ': ' + str(val[1]) + ' → ' + str(val_desired[1])
                 rule += ')'
             rule += (
@@ -99,11 +99,11 @@ class Output:
             rule = {'stable': [], 'flexible': []}
             for i, item in enumerate(ar_dict['undesired']['itemset']):
                 if item == ar_dict['desired']['itemset'][i]:
-                    val = item.split('_<item>_')
+                    val = item.split('_<item_stable>_')
                     rule['stable'].append({'attribute': val[0], 'value': val[1]})
                 else:
-                    val = item.split('_<item>_')
-                    val_desired = ar_dict['desired']['itemset'][i].split('_<item>_')
+                    val = item.split('_<item_flexible>_')
+                    val_desired = ar_dict['desired']['itemset'][i].split('_<item_flexible>_')
                     rule['flexible'].append({'attribute': val[0], 'undesired': val[1], 'desired': val_desired[1]})
             rule['target'] = {
                 'attribute': self.target,
@@ -132,11 +132,11 @@ class Output:
             text = "If "
             for i, item in enumerate(ar_dict['undesired']['itemset']):
                 if item == ar_dict['desired']['itemset'][i]:
-                    val = item.split('_<item>_')
+                    val = item.split('_<item_stable>_')
                     text += "attribute '" + val[0] + "' is '" + val[1] + "', "
                 else:
-                    val = item.split('_<item>_')
-                    val_desired = ar_dict['desired']['itemset'][i].split('_<item>_')
+                    val = item.split('_<item_flexible>_')
+                    val_desired = ar_dict['desired']['itemset'][i].split('_<item_flexible>_')
                     text += "attribute '" + val[0] + "' value '" + val[1] + "' is changed to '" + val_desired[1] + "', "
             text += (
                 "then '"

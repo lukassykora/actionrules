@@ -1,6 +1,7 @@
 """Console script for action_rules."""
 
 import click
+import pandas as pd
 
 
 @click.command()
@@ -9,6 +10,10 @@ def main():
     click.echo("action-rules")
     click.echo("=" * len("action-rules"))
     click.echo("The package for action rules mining using Action-Apriori (Apriori Modified for Action Rules Mining).")
+
+    click.option('--csv_path', prompt='CSV Path', help='Dataset where the first row is the header. A comma is used as a separator.')
+    data = pd.DataFrame.read_csv(csv_path)
+    cols = str(list(data.columns)[:20])
 
     click.option('--min_stable_attributes', prompt='Min stable attributes', help='The person to greet.')
     click.option('--min_flexible_attributes', prompt='Min flexible attributes', help='The person to greet.')
