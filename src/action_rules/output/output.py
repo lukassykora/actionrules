@@ -53,8 +53,12 @@ class Output:
                     rule += ' ∧ '
                 rule += '('
                 if item == action_rule['desired']['itemset'][i]:
-                    val = item.split('_<item_stable>_')
-                    rule += str(val[0]) + ': ' + str(val[1])
+                    if '_<item_stable>_' in item:
+                        val = item.split('_<item_stable>_')
+                        rule += str(val[0]) + ': ' + str(val[1])
+                    else:
+                        val = item.split('_<item_flexible>_')
+                        rule += str(val[0]) + '*: ' + str(val[1])
                 else:
                     val = item.split('_<item_flexible>_')
                     val_desired = action_rule['desired']['itemset'][i].split('_<item_flexible>_')
@@ -99,8 +103,12 @@ class Output:
             rule = {'stable': [], 'flexible': []}
             for i, item in enumerate(ar_dict['undesired']['itemset']):
                 if item == ar_dict['desired']['itemset'][i]:
-                    val = item.split('_<item_stable>_')
-                    rule['stable'].append({'attribute': val[0], 'value': val[1]})
+                    if '_<item_stable>_' in item:
+                        val = item.split('_<item_stable>_')
+                        rule['stable'].append({'attribute': val[0], 'value': val[1]})
+                    else:
+                        val = item.split('_<item_flexible>_')
+                        rule['stable'].append({'attribute': val[0], 'value': val[1], 'flexible_as_stable': True})
                 else:
                     val = item.split('_<item_flexible>_')
                     val_desired = ar_dict['desired']['itemset'][i].split('_<item_flexible>_')
@@ -132,8 +140,12 @@ class Output:
             text = "If "
             for i, item in enumerate(ar_dict['undesired']['itemset']):
                 if item == ar_dict['desired']['itemset'][i]:
-                    val = item.split('_<item_stable>_')
-                    text += "attribute '" + val[0] + "' is '" + val[1] + "', "
+                    if '_<item_stable>_' in item:
+                        val = item.split('_<item_stable>_')
+                        text += "attribute '" + val[0] + "' is '" + val[1] + "', "
+                    else:
+                        val = item.split('_<item_flexible>_')
+                        text += "attribute (flexible is used as stable) '" + val[0] + "' is '" + val[1] + "', "
                 else:
                     val = item.split('_<item_flexible>_')
                     val_desired = ar_dict['desired']['itemset'][i].split('_<item_flexible>_')

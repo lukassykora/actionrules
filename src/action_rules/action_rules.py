@@ -117,10 +117,10 @@ class ActionRules:
         desired_state : str
             The desired state of the target attribute.
         """
-        stable_flexible_attributes = list(set(stable_attributes) & set(flexible_attributes))
-        data_stable = pd.get_dummies(data, sparse=False, prefix_sep='_<item_stable>_', columns=stable_attributes)
-        data_flexible = pd.get_dummies(data, sparse=False, prefix_sep='_<item_flexible>_', columns=flexible_attributes)
-        data_target = pd.get_dummies(data, sparse=False, prefix_sep='_<item_target>_', columns=[target])
+        data = data.astype(str)
+        data_stable = pd.get_dummies(data[stable_attributes], sparse=False, prefix_sep='_<item_stable>_')
+        data_flexible = pd.get_dummies(data[flexible_attributes], sparse=False, prefix_sep='_<item_flexible>_')
+        data_target = pd.get_dummies(data[[target]], sparse=False, prefix_sep='_<item_target>_')
         data = pd.concat([data_stable, data_flexible, data_target], axis=1)
         stable_items_binding, flexible_items_binding, target_items_binding = self.get_bindings(
             data, stable_attributes, flexible_attributes, target
