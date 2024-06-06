@@ -1,5 +1,7 @@
 """Class Output."""
 
+import json
+
 
 class Output:
     """
@@ -115,16 +117,16 @@ class Output:
                     rule['flexible'].append({'attribute': val[0], 'undesired': val[1], 'desired': val_desired[1]})
             rule['target'] = {
                 'attribute': self.target,
-                'undesired': ar_dict['undesired']['target'],
-                'desired': ar_dict['desired']['target'],
+                'undesired': ar_dict['undesired']['target'].split('_<item_target>_')[1],
+                'desired': ar_dict['desired']['target'].split('_<item_target>_')[1],
             }
-            rule['support of undesired part'] = ar_dict['undesired']['support']
-            rule['confidence of undesired part'] = ar_dict['undesired']['confidence']
-            rule['support of desired part'] = ar_dict['desired']['support']
-            rule['confidence of desired part'] = ar_dict['desired']['confidence']
-            rule['uplift'] = ar_dict['uplift']
+            rule['support of undesired part'] = int(ar_dict['undesired']['support'])
+            rule['confidence of undesired part'] = float(ar_dict['undesired']['confidence'])
+            rule['support of desired part'] = int(ar_dict['desired']['support'])
+            rule['confidence of desired part'] = float(ar_dict['desired']['confidence'])
+            rule['uplift'] = float(ar_dict['uplift'])
             rules.append(rule)
-        return rules
+        return json.dumps(rules)
 
     def get_pretty_ar_notation(self):
         """
