@@ -1,7 +1,7 @@
 """Console script for action_rules."""
 
 import os
-from typing import TextIO
+from typing import BinaryIO
 
 import click
 import pandas as pd
@@ -93,13 +93,13 @@ def main(
     min_undesired_confidence: float,
     min_desired_support: int,
     min_desired_confidence: float,
-    csv_path: TextIO,
+    csv_path: BinaryIO,
     stable_attributes: str,
     flexible_attributes: str,
     target: str,
     undesired_state: str,
     desired_state: str,
-    output_json_path: TextIO,
+    output_json_path: BinaryIO,
 ):
     """Entrypoint for console script."""
     click.echo("action-rules")
@@ -133,7 +133,6 @@ def main(
         str(desired_state),
     )
     rules = action_rules.get_rules()
-    click.echo(rules.action_rules)
     if rules is not None:
         output_json_path.write(str.encode(str(rules.get_export_notation())))
     click.echo("Done.")
