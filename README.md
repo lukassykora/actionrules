@@ -19,7 +19,7 @@ The package for action rules mining using Action-Apriori (Apriori Modified for A
 
 ## Features
 
-* TODO
+The example: <https://lukassykora.github.io/action-rules/notebooks/Example.ipynb>
 
 ## Credits
 
