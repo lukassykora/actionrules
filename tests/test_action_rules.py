@@ -82,8 +82,7 @@ def test_get_stop_list(action_rules, sample_data):
     assert ('age_<item_stable>_30', 'age_<item_stable>_30') in stop_list
     assert ('age_<item_stable>_30', 'age_<item_stable>_40') in stop_list
     assert ('age_<item_stable>_40', 'age_<item_stable>_50') in stop_list
-    assert ('income_<item_stable>_low', 'age_<item_stable>_low') in stop_list
-    assert ('income_<item_stable>_low', 'age_<item_stable>_high') not in stop_list
+    assert ('income', 'income') in stop_list
 
 
 def test_get_split_tables(action_rules, sample_data):

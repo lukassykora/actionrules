@@ -39,7 +39,7 @@ def test_prune_classification_rules(rules):
     new_ar_prefix = tuple()
     itemset_prefix = tuple()
     undesired_states = [{'item': 'age_<item_stable>_30', 'support': 10, 'confidence': 0.8}]
-    desired_states = [{'item': 'age_<item_stable>_30', 'support': 5, 'confidence': 0.6}]
+    desired_states = []
     rules.add_classification_rules(new_ar_prefix, itemset_prefix, undesired_states, desired_states)
     stop_list = []
     rules.prune_classification_rules(0, stop_list)

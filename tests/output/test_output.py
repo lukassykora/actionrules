@@ -38,7 +38,7 @@ def test_get_ar_notation(output):
     """Test the get_ar_notation method of Output."""
     ar_notation = output.get_ar_notation()
     assert len(ar_notation) > 0
-    assert 'age_<item_stable>_30' in ar_notation[0]
+    assert 'age: 30' in ar_notation[0]
 
 
 def test_get_export_notation(output):

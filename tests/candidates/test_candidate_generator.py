@@ -98,8 +98,8 @@ def test_get_frames(candidate_generator):
 
 def test_reduce_candidates_by_min_attributes(candidate_generator):
     """Test the reduce_candidates_by_min_attributes method of CandidateGenerator."""
-    stable_items_binding = {'age': ['age_<item_stable>_30']}
-    flexible_items_binding = {'income': ['income_<item_flexible>_low']}
+    stable_items_binding = {'age': ['age_<item_stable>_30', 'age_<item_stable>_40', 'age_<item_stable>_50']}
+    flexible_items_binding = {'income': ['income_<item_flexible>_low', 'income_<item_flexible>_high']}
     k = 1
     actionable_attributes = 0
     reduced_stable_items_binding, reduced_flexible_items_binding = (
@@ -107,8 +107,17 @@ def test_reduce_candidates_by_min_attributes(candidate_generator):
             k, actionable_attributes, stable_items_binding, flexible_items_binding
         )
     )
-    assert len(reduced_stable_items_binding) > 0
-    assert len(reduced_flexible_items_binding) > 0
+    assert len(reduced_stable_items_binding) == 1
+    assert len(reduced_flexible_items_binding) == 0
+    k = 2
+    actionable_attributes = 0
+    reduced_stable_items_binding, reduced_flexible_items_binding = (
+        candidate_generator.reduce_candidates_by_min_attributes(
+            k, actionable_attributes, stable_items_binding, flexible_items_binding
+        )
+    )
+    assert len(reduced_stable_items_binding) == 1
+    assert len(reduced_flexible_items_binding) == 1
 
 
 def test_process_stable_candidates(candidate_generator):

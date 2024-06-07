@@ -107,11 +107,14 @@ class Rules:
         stop_list : list
             List of prefixes to stop generating rules for.
         """
+        del_prefixes = []
         for attribute_prefix, rules in self.classification_rules.items():
             if k == len(attribute_prefix):
-                if len(rules['desired']) < 0 or len(rules['undesired']) < 0:
+                if len(rules['desired']) == 0 or len(rules['undesired']) == 0:
                     stop_list.append(attribute_prefix)
-                    del self.classification_rules[attribute_prefix]
+                    del_prefixes.append(attribute_prefix)
+        for attribute_prefix in del_prefixes:
+            del self.classification_rules[attribute_prefix]
 
     def calculate_confidence(self, support, opposite_support):
         """
