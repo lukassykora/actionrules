@@ -50,8 +50,9 @@ plugins:
   - search:
       lang: en
   - mkdocstrings:
-      watch:
-        - action-rules
+      handlers:
+        python:
+          paths: [ src ]
 extra:
   social:
     - icon: fontawesome/brands/twitter
