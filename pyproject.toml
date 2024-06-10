@@ -13,10 +13,6 @@ classifiers=[
     'License :: OSI Approved :: MIT License',
     'Natural Language :: English',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7',
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
 ]
 packages = [
     { include = "action_rules",  from = "src"},
@@ -26,7 +22,6 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
 click = "8.0.1"
-numpy = "^1.26.4"
 pandas = "^2.2.2"
 
 black  = { version = "^24.4.2", optional = true}
@@ -49,7 +44,6 @@ mkdocs-autorefs = {version = "^1.0.1", optional = true}
 pre-commit = {version = "^3.7.1", optional = true}
 toml = {version = "^0.10.2", optional = true}
 bump2version = {version = "^1.0.1", optional = true}
-numba = "^0.59.1"
 
 [tool.poetry.extras]
 test = [
@@ -79,7 +73,7 @@ action-rules = 'action_rules.cli:main'
 [tool.black]
 line-length = 120
 skip-string-normalization = true
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py39', 'py310']
 include = '\.pyi?$'
 exclude = '''
 /(
