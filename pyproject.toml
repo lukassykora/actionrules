@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "action-rules"
-version = "0.0.3"
+version = "0.0.4"
 homepage = "https://github.com/lukassykora/action-rules"
 description = "The package for action rules mining using Action-Apriori (Apriori Modified for Action Rules Mining).."
 authors = ["Lukas Sykora <lukas.sykora@vse.cz>"]
