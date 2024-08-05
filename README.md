@@ -1,3 +1,13 @@
+# 🚨 Repository Moved! 🚨
+
+**Important Notice:** This repository has been moved to a new location. All future updates, issues, and contributions will be handled at our new repository:
+
+🔗 **[https://github.com/lukassykora/action-rules](https://github.com/lukassykora/action-rules)**
+
+Please update your bookmarks and direct any questions, pull requests, or issues to the new repository.
+
+Thank you for your continued support and contributions!
+
 # Action Rules
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
