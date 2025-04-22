@@ -558,11 +558,11 @@ class ActionRulesDiscovery:
         decision = self.decisions.decision_table.loc[
             classification, self.stable_attributes + self.flexible_attributes]
         source_table = self._reduce_table_source(decision, self.decisions.data)
-        return source_table.style.applymap(lambda x: 'background-color: yellow',
+        return source_table.style.map(lambda x: 'background-color: yellow',
                                            subset=self.stable_attributes) \
-            .applymap(lambda x: 'background-color: orange',
+            .map(lambda x: 'background-color: orange',
                       subset=self.flexible_attributes) \
-            .applymap(lambda x: 'color: green' if x in self.desired_state.get_destination_classes() else 'color: red',
+            .map(lambda x: 'color: green' if x in self.desired_state.get_destination_classes() else 'color: red',
                       subset=[self.consequent])
 
     @staticmethod
@@ -581,7 +581,7 @@ class ActionRulesDiscovery:
         pd.DataFrame
             Returns a limited data frame.
         """
-        new_data = source_table.applymap(str).copy()
+        new_data = source_table.map(str).copy()
         for key, value in decision.items():
             if str(value).lower() != "nan":
                 mask = new_data[key] == value
