@@ -67,7 +67,7 @@ class Decisions:
             Arbitrary keyword arguments (the same as in Pandas).
         """
         self.data = pd.read_csv(file, **kwargs)
-        self.data = self.data.applymap(str)
+        self.data = self.data.map(str)
 
     def load_pandas(self, data_frame: pd.DataFrame):
         """Loads a data from a Pandas data frame.
@@ -78,7 +78,7 @@ class Decisions:
             Data frame with transaction data.
         """
         self.data = data_frame
-        self.data = self.data.applymap(str)
+        self.data = self.data.map(str)
 
     def prepare_data_fim(self, antecedent_attributes: List[str], consequent: str):
         """Data preparation for PyFIM.

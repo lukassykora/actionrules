@@ -567,7 +567,7 @@ class ActionRules:
         tuple
             An action rule's left support and support (with target)
         """
-        new_data = self.decisions.data.applymap(str).copy()
+        new_data = self.decisions.data.map(str).copy()
         columns_values = []
 
         for condition in action_rule_stable:
